@@ -1,5 +1,11 @@
 import type { NextConfig } from "next";
 const config: NextConfig = {
+  outputFileTracingIncludes: {
+    "/api/events/**": [
+      "./public/fonts/**",
+      "./public/brand/snapmatch-logo.png",
+    ],
+  },
   experimental: { serverActions: { bodySizeLimit: "3mb" } },
   async headers() {
     return [

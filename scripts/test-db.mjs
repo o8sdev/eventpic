@@ -12,18 +12,19 @@ await db.exec(`
  grant execute on function auth.uid() to authenticated,anon,service_role;
  create schema storage;
  create table storage.buckets(id text primary key,name text,public boolean,file_size_limit bigint,allowed_mime_types text[]);
- create table storage.objects(id uuid default gen_random_uuid(),bucket_id text,name text);
+ create table storage.objects(id uuid default gen_random_uuid(),bucket_id text,name text,metadata jsonb);
  alter table storage.objects enable row level security;
  create function storage.foldername(text) returns text[] language sql immutable as $$ select (string_to_array($1,'/'))[1:array_length(string_to_array($1,'/'),1)-1] $$;
  grant usage on schema storage to authenticated,anon;
  grant select on storage.objects to authenticated,anon;
- grant insert,update on storage.objects to authenticated;
+ grant insert,update,delete on storage.objects to authenticated;
 `);
 for (const name of [
   "202610050001_initial.sql",
   "202610050002_storage.sql",
   "202610050003_profile_logo.sql",
   "202610050004_site_admin.sql",
+  "202610050005_event_uploads.sql",
 ])
   await db.exec(
     await readFile(
@@ -149,41 +150,241 @@ await db.exec(
 assert.equal((await db.query("select * from claim_jobs(1)")).rows.length, 0);
 await denied(`select * from claim_jobs(0)`);
 await denied("delete from consents");
-await db.exec(`reset role; insert into system_admins(user_id) values('${uid}'); set role authenticated; set request.jwt.claim.sub='${other}'`);
-assert.equal((await db.query('select is_system_admin() admin')).rows[0].admin,false);
-assert.equal((await db.query('select * from site_content')).rows.length,0);
+await db.exec(
+  `reset role; insert into system_admins(user_id) values('${uid}'); set role authenticated; set request.jwt.claim.sub='${other}'`,
+);
+assert.equal(
+  (await db.query("select is_system_admin() admin")).rows[0].admin,
+  false,
+);
+assert.equal((await db.query("select * from site_content")).rows.length, 0);
 await denied(`insert into system_admins(user_id) values('${other}')`);
 await denied(`select admin_platform_summary()`);
-await denied(`select admin_content_change('en','save','{"hero":{},"company":{},"legal":{}}',0)`);
+await denied(
+  `select admin_content_change('en','save','{"hero":{},"company":{},"legal":{}}',0)`,
+);
 await denied(`update site_content set draft='{}'`);
 await db.exec(`set request.jwt.claim.sub='${uid}'`);
-assert.equal((await db.query('select is_system_admin() admin')).rows[0].admin,true);
-assert.equal((await db.query('select * from site_content')).rows.length,3);
-const draft='{"hero":{"title":"Draft only"},"company":{},"legal":{}}';
-assert.equal((await db.query(`select admin_content_change('en','save','${draft}',0) version`)).rows[0].version,1);
-await db.exec('reset role; set role anon');
-await denied('select * from site_content');
-await denied('select * from site_content_revisions');
-await denied('select * from admin_audit_log');
-await denied('select is_system_admin()');
-assert.equal((await db.query("select get_site_content('en') content")).rows[0].content,null);
-await db.exec(`reset role; set role authenticated; set request.jwt.claim.sub='${uid}'`);
-assert.equal((await db.query("select admin_content_change('en','publish',null,1) version")).rows[0].version,2);
+assert.equal(
+  (await db.query("select is_system_admin() admin")).rows[0].admin,
+  true,
+);
+assert.equal((await db.query("select * from site_content")).rows.length, 3);
+const draft = '{"hero":{"title":"Draft only"},"company":{},"legal":{}}';
+assert.equal(
+  (
+    await db.query(
+      `select admin_content_change('en','save','${draft}',0) version`,
+    )
+  ).rows[0].version,
+  1,
+);
+await db.exec("reset role; set role anon");
+await denied("select * from site_content");
+await denied("select * from site_content_revisions");
+await denied("select * from admin_audit_log");
+await denied("select is_system_admin()");
+assert.equal(
+  (await db.query("select get_site_content('en') content")).rows[0].content,
+  null,
+);
+await db.exec(
+  `reset role; set role authenticated; set request.jwt.claim.sub='${uid}'`,
+);
+assert.equal(
+  (await db.query("select admin_content_change('en','publish',null,1) version"))
+    .rows[0].version,
+  2,
+);
 await denied(`select admin_content_change('en','save','${draft}',1)`);
-assert.equal((await db.query("select admin_content_change('en','restore',null,2,1) version")).rows[0].version,3);
-await db.exec('reset role; set role anon');
-assert.equal((await db.query("select get_site_content('en') content")).rows[0].content.hero.title,'Draft only');
-assert.equal((await db.query("select get_site_content('ru') content")).rows[0].content,null);
-await db.exec(`reset role; set role authenticated; set request.jwt.claim.sub='${uid}'`);
-const summary=(await db.query('select admin_platform_summary() summary')).rows[0].summary;
-assert.equal(summary.events,2);
-assert.equal(Object.hasOwn(summary,'guests'),false);
-await db.exec(`reset role; update system_admins set enabled=false where user_id='${uid}'; set role authenticated; set request.jwt.claim.sub='${uid}'`);
-assert.equal((await db.query('select is_system_admin() admin')).rows[0].admin,false);
-await denied('select admin_platform_summary()');
+assert.equal(
+  (
+    await db.query(
+      "select admin_content_change('en','restore',null,2,1) version",
+    )
+  ).rows[0].version,
+  3,
+);
+await db.exec("reset role; set role anon");
+assert.equal(
+  (await db.query("select get_site_content('en') content")).rows[0].content.hero
+    .title,
+  "Draft only",
+);
+assert.equal(
+  (await db.query("select get_site_content('ru') content")).rows[0].content,
+  null,
+);
+await db.exec(
+  `reset role; set role authenticated; set request.jwt.claim.sub='${uid}'`,
+);
+const summary = (await db.query("select admin_platform_summary() summary"))
+  .rows[0].summary;
+assert.equal(summary.events, 2);
+assert.equal(Object.hasOwn(summary, "guests"), false);
+await db.exec(
+  `reset role; update system_admins set enabled=false where user_id='${uid}'; set role authenticated; set request.jwt.claim.sub='${uid}'`,
+);
+assert.equal(
+  (await db.query("select is_system_admin() admin")).rows[0].admin,
+  false,
+);
+await denied("select admin_platform_summary()");
 await denied(`select admin_content_change('az','save','${draft}',0)`);
-await db.exec('reset role');
-for(const table of ['site_content_revisions','admin_audit_log']){await denied(`delete from ${table}`);await denied(`truncate ${table}`);}
+await db.exec("reset role");
+for (const table of ["site_content_revisions", "admin_audit_log"]) {
+  await denied(`delete from ${table}`);
+  await denied(`truncate ${table}`);
+}
+
+// Phase 2: the photographer may mutate only through scoped RPCs.
+const e3 = "33333333-3333-4333-8333-333333333333";
+await db.exec(`set role authenticated; set request.jwt.claim.sub='${uid}'`);
+await denied(
+  `insert into events(photographer_id,title,event_date) values('${uid}','Direct','2026-10-05')`,
+);
+await denied(`update events set title='Direct' where id='${e1}'`);
+await denied(
+  `select save_photographer_event('${e2}','Takeover','2026-10-05','',array['az'],'az',false,true,null)`,
+);
+await denied(
+  `select save_photographer_event('${e3}','Bad','2026-10-05','',array['az','az'],'az',false,true,null)`,
+);
+await denied(
+  `select save_photographer_event('${e3}','Bad','2026-10-05','',array['az'],'ru',false,true,null)`,
+);
+const created = (
+  await db.query(
+    `select save_photographer_event('${e3}','Test event','2026-10-05','Baku',array['az','ru'],'az',false,true,null) result`,
+  )
+).rows[0].result;
+assert.equal(created.photographer_id, uid);
+assert.match(created.slug, /^[a-f0-9]{12}$/);
+assert.equal(created.face_expires_at, "2026-11-03T20:00:00+00:00");
+await db.exec(
+  `select save_photographer_event('${e3}','Edited event','2026-10-06','',array['az'],'az',true,true,null)`,
+);
+assert.equal(
+  (
+    await db.query(
+      `select face_expires_at::text value from events where id='${e3}'`,
+    )
+  ).rows[0].value,
+  "2026-11-03 20:00:00+00",
+);
+await denied(
+  `select reserve_photo_upload('${e2}',repeat('c',64),'own.jpg',100)`,
+);
+await denied(`select reserve_photo_upload('${e3}','bad','own.jpg',100)`);
+const reservation = (
+  await db.query(
+    `select reserve_photo_upload('${e3}',repeat('c',64),'original.jpg',100) result`,
+  )
+).rows[0].result;
+const again = (
+  await db.query(
+    `select reserve_photo_upload('${e3}',repeat('c',64),'different-name.jpg',100) result`,
+  )
+).rows[0].result;
+assert.equal(again.id, reservation.id);
+assert.equal(
+  reservation.path,
+  uid + "/" + e3 + "/" + reservation.id + "/original.jpg",
+);
+await denied(
+  `select reserve_photo_upload('${e3}',repeat('c',64),'original.jpg',101)`,
+);
+await denied(
+  `select save_photographer_event('${e3}','Changed','2026-10-06','',array['az'],'az',true,false,null)`,
+);
+await denied(`select complete_photo_upload('${e3}','${reservation.id}')`);
+await denied(
+  `insert into storage.objects(bucket_id,name) values('originals','${uid}/arbitrary.jpg')`,
+);
+await denied(
+  `insert into storage.objects(bucket_id,name) values('originals','${other}/${e2}/new/original.jpg')`,
+);
+await db.exec(
+  `insert into storage.objects(bucket_id,name,metadata) values('originals','${reservation.path}','{"size":99,"mimetype":"image/jpeg"}')`,
+);
+await denied(`select complete_photo_upload('${e3}','${reservation.id}')`);
+await db.exec(
+  `reset role; update storage.objects set metadata='{"size":100,"mimetype":"image/jpeg"}' where name='${reservation.path}'; set role authenticated; set request.jwt.claim.sub='${other}'`,
+);
+await denied(`select complete_photo_upload('${e3}','${reservation.id}')`);
+await db.exec(`set request.jwt.claim.sub='${uid}'`);
+assert.equal(
+  (
+    await db.query(
+      `select complete_photo_upload('${e3}','${reservation.id}') status`,
+    )
+  ).rows[0].status,
+  "uploaded",
+);
+assert.equal(
+  (
+    await db.query(
+      `select complete_photo_upload('${e3}','${reservation.id}') status`,
+    )
+  ).rows[0].status,
+  "uploaded",
+);
+await denied(
+  `insert into storage.objects(bucket_id,name) values('originals','${reservation.path}')`,
+);
+await db.exec("reset role");
+assert.equal(
+  (
+    await db.query(
+      `select count(*)::int n from processing_jobs where photo_id='${reservation.id}'`,
+    )
+  ).rows[0].n,
+  1,
+);
+const coverPath =
+  uid + "/" + e3 + "/cover/44444444-4444-4444-8444-444444444444.jpg";
+await db.exec(
+  `set role authenticated; set request.jwt.claim.sub='${uid}'; insert into storage.objects(bucket_id,name) values('branding','${coverPath}'); select set_event_cover('${e3}','${coverPath}')`,
+);
+await denied(
+  `select set_event_cover('${e3}','${other}/${e2}/cover/44444444-4444-4444-8444-444444444444.jpg')`,
+);
+await denied(
+  `select set_event_cover('${e3}','${uid}/${e3}/cover/55555555-5555-4555-8555-555555555555.jpg')`,
+);
+assert.equal(
+  (
+    await db.query(
+      `delete from storage.objects where name='${coverPath}' returning name`,
+    )
+  ).rows.length,
+  0,
+);
+await db.exec(`select set_event_cover('${e3}',null)`);
+assert.equal(
+  (
+    await db.query(
+      `delete from storage.objects where name='${coverPath}' returning name`,
+    )
+  ).rows.length,
+  1,
+);
+await db.exec(
+  `reset role; update events set status='closed' where id='${e3}'; set role authenticated; set request.jwt.claim.sub='${uid}'`,
+);
+await denied(
+  `select reserve_photo_upload('${e3}',repeat('d',64),'blocked.jpg',100)`,
+);
+await denied(
+  `select save_photographer_event('${e3}','Blocked','2026-10-06','',array['az'],'az',true,true,null)`,
+);
+await db.exec("reset role; set role anon");
+await denied(
+  `select reserve_photo_upload('${e3}',repeat('d',64),'anon.jpg',100)`,
+);
+await denied(`select complete_photo_upload('${e3}','${reservation.id}')`);
+await db.exec("reset role");
+
 await db.exec(`delete from events where id='${e1}'`);
 assert.equal(
   (await db.query("select count(*)::int n from guest_matches")).rows[0].n,
@@ -199,5 +400,5 @@ assert.equal(
 );
 await db.close();
 console.log(
-  "PASS: migrations, RLS, private storage, expiry, cross-event constraints, append-only logs, cascades, jobs, admin isolation, draft privacy, publishing, restore, version conflicts and revocation.",
+  "PASS: migrations, RLS, private storage, expiry, cross-event constraints, append-only logs, cascades, jobs, admin isolation, draft privacy, publishing, restore, version conflicts revocation, event ownership, immutable upload paths, resumable reservations and atomic upload completion.",
 );

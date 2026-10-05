@@ -2,7 +2,9 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 export async function proxy(request: NextRequest) {
   const headers = new Headers(request.headers);
-  const locale = request.nextUrl.pathname.split("/")[1];
+  const locale = request.nextUrl.pathname.startsWith("/e/")
+    ? request.nextUrl.searchParams.get("locale") || "az"
+    : request.nextUrl.pathname.split("/")[1];
   headers.set(
     "x-snapmatch-locale",
     ["az", "ru", "en"].includes(locale) ? locale : "az",

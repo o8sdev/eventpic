@@ -1,6 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { isLocale, messages } from "@/lib/i18n";
 import { createClient, isConfigured } from "@/lib/supabase/server";
+import Link from "next/link";
 type Event = {
   id: string;
   title: string;
@@ -30,7 +31,12 @@ export default async function Dashboard({
   return (
     <>
       <p className="eyebrow">{t.brand}</p>
-      <h1>{t.dashboard}</h1>
+      <div className="event-detail-heading">
+        <h1>{t.dashboard}</h1>
+        <Link className="button" href={`/${locale}/dashboard/events/new`}>
+          {t.phase2.newEvent} +
+        </Link>
+      </div>
       <p className="muted">{t.dashboardIntro}</p>
       {error ? (
         <p role="alert" className="notice">
@@ -61,13 +67,20 @@ export default async function Dashboard({
               </span>
               <h2>{t.empty}</h2>
               <p className="muted">{t.emptyBody}</p>
+              <Link className="button" href={`/${locale}/dashboard/events/new`}>
+                {t.phase2.newEvent} +
+              </Link>
             </section>
           ) : (
             <div className="event-grid">
               {events.map((event) => (
                 <article className="card" key={event.id}>
                   <span className="badge">{t.status[event.status]}</span>
-                  <h2>{event.title}</h2>
+                  <h2>
+                    <Link href={`/${locale}/dashboard/events/${event.id}`}>
+                      {event.title} →
+                    </Link>
+                  </h2>
                   <p className="muted">
                     {new Intl.DateTimeFormat(locale, {
                       dateStyle: "long",
