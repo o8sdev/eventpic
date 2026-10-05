@@ -12,15 +12,16 @@ export async function GET(request: NextRequest) {
   const client = await createClient();
   const code = z.string().min(1).max(2048).safeParse(query.get("code"));
   const token = z.string().min(1).max(2048).safeParse(query.get("token_hash"));
-  // No user-controlled redirect target. Both flows finish on this locale's dashboard.
+  // No user-controlled redirect target; trusted membership selects the destination.
   const result = code.success
     ? await client.auth.exchangeCodeForSession(code.data)
     : token.success && query.get("type") === "email"
       ? await client.auth.verifyOtp({ token_hash: token.data, type: "email" })
       : null;
   if (!result || result.error) return fail();
+  const { data: admin } = await client.rpc("is_system_admin");
   const response = NextResponse.redirect(
-    new URL(`/${locale}/dashboard`, origin),
+    new URL(`/${locale}/${admin === true ? "admin" : "dashboard"}`, origin),
   );
   response.headers.set("Cache-Control", "private, no-store");
   return response;

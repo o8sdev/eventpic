@@ -1,0 +1,201 @@
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { messages, type Locale } from "@/lib/i18n";
+import type { SiteContent } from "@/lib/site/schema";
+import { LanguageSwitcher } from "./language-switcher";
+import { Icon } from "./icon";
+
+export function SiteChrome({
+  locale,
+  content,
+  children,
+  preview = false,
+}: {
+  locale: Locale;
+  content: SiteContent;
+  children: React.ReactNode;
+  preview?: boolean;
+}) {
+  const path = usePathname();
+  const [open, setOpen] = useState(false);
+  const t = messages[locale];
+  const m = t.modern;
+  if (path.includes("/admin") && !preview) return <>{children}</>;
+  const nav = [
+    {
+      label: content.navigation.how,
+      id: "how-it-works",
+      show: content.sections.how,
+    },
+    {
+      label: content.navigation.studio,
+      id: "photographers",
+      show: content.sections.studio,
+    },
+    {
+      label: content.navigation.faq,
+      id: "questions",
+      show: content.sections.faq,
+    },
+  ].filter((n) => n.show);
+  const logo = (
+    <span className="brand-art">
+      <Image
+        src={content.branding.logoPath}
+        alt={t.brand}
+        width={2048}
+        height={683}
+        priority
+      />
+    </span>
+  );
+  return (
+    <>
+      <header className="site-header">
+        <div className="nav-inner">
+          <Link
+            href={`/${locale}`}
+            className="brand"
+            onClick={() => setOpen(false)}
+          >
+            {logo}
+          </Link>
+          <nav className="desktop-nav" aria-label={t.brand}>
+            {nav.map((n) => (
+              <Link key={n.id} href={`/${locale}#${n.id}`}>
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="header-actions">
+            <LanguageSwitcher label={t.language} />
+            <Link className="header-login" href={`/${locale}/login`}>
+              {content.navigation.signIn}
+              <Icon name="arrow" size={16} />
+            </Link>
+            <button
+              className="menu-toggle"
+              aria-label={open ? m.closeMenu : m.menu}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              onClick={() => setOpen(!open)}
+            >
+              <Icon name={open ? "close" : "menu"} />
+            </button>
+          </div>
+        </div>
+        {open && (
+          <nav id="mobile-menu" className="mobile-nav" aria-label={m.menu}>
+            {nav.map((n) => (
+              <Link
+                onClick={() => setOpen(false)}
+                key={n.id}
+                href={`/${locale}#${n.id}`}
+              >
+                {n.label}
+                <Icon name="arrow" size={16} />
+              </Link>
+            ))}
+            <Link onClick={() => setOpen(false)} href={`/${locale}/login`}>
+              {content.navigation.signIn}
+            </Link>
+          </nav>
+        )}
+        <div className="scroll-progress" />
+      </header>
+      <main id="top">{children}</main>
+      <footer className="site-footer">
+        <div className="footer-top">
+          <div className="footer-intro">
+            <Link href={`/${locale}`} className="brand">
+              {logo}
+            </Link>
+            <p>{content.footer.description}</p>
+            <div className="social-links">
+              {(["instagram", "facebook", "linkedin"] as const).map(
+                (key) =>
+                  content.company[key] && (
+                    <a
+                      key={key}
+                      href={content.company[key]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {key === "instagram"
+                        ? "Instagram"
+                        : key === "facebook"
+                          ? "Facebook"
+                          : "LinkedIn"}
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  ),
+              )}
+            </div>
+          </div>
+          <div>
+            <h3>{content.footer.product}</h3>
+            {nav.map((n) => (
+              <Link key={n.id} href={`/${locale}#${n.id}`}>
+                {n.label}
+              </Link>
+            ))}
+            <Link href={`/${locale}/login`}>{content.navigation.signIn}</Link>
+          </div>
+          <div>
+            <h3>{content.footer.company}</h3>
+            <Link
+              href={`/${locale}${content.sections.studio ? "#photographers" : ""}`}
+            >
+              {m.about}
+            </Link>
+            <Link href={`/${locale}/contact`}>{content.footer.contact}</Link>
+            <p>{content.company.legalName}</p>
+            {content.company.registrationNumber && (
+              <small>{content.company.registrationNumber}</small>
+            )}
+          </div>
+          <div>
+            <h3>{content.footer.legal}</h3>
+            <Link href={`/${locale}/privacy`}>{m.privacy}</Link>
+            <Link href={`/${locale}/terms`}>{m.terms}</Link>
+          </div>
+          <div>
+            <h3>{content.footer.contact}</h3>
+            {content.company.email && (
+              <a href={`mailto:${content.company.email}`}>
+                {content.company.email}
+              </a>
+            )}
+            {content.company.phone && (
+              <a href={`tel:${content.company.phone.replace(/[^+\d]/g, "")}`}>
+                {content.company.phone}
+              </a>
+            )}
+            {content.company.address && <p>{content.company.address}</p>}
+            {!content.company.email &&
+              !content.company.phone &&
+              !content.company.address && (
+                <Link href={`/${locale}/contact`}>
+                  {content.footer.contact}
+                </Link>
+              )}
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>
+            © {new Date().getFullYear()} {content.company.legalName || t.brand}.{" "}
+            {content.footer.copyright}
+          </span>
+          <span>AZ · RU · EN</span>
+          <a href="#top">
+            {m.backTop}
+            <span aria-hidden="true">↑</span>
+          </a>
+        </div>
+      </footer>
+    </>
+  );
+}

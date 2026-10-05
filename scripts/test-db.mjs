@@ -23,6 +23,7 @@ for (const name of [
   "202610050001_initial.sql",
   "202610050002_storage.sql",
   "202610050003_profile_logo.sql",
+  "202610050004_site_admin.sql",
 ])
   await db.exec(
     await readFile(
@@ -148,7 +149,42 @@ await db.exec(
 assert.equal((await db.query("select * from claim_jobs(1)")).rows.length, 0);
 await denied(`select * from claim_jobs(0)`);
 await denied("delete from consents");
-await db.exec(`reset role; delete from events where id='${e1}'`);
+await db.exec(`reset role; insert into system_admins(user_id) values('${uid}'); set role authenticated; set request.jwt.claim.sub='${other}'`);
+assert.equal((await db.query('select is_system_admin() admin')).rows[0].admin,false);
+assert.equal((await db.query('select * from site_content')).rows.length,0);
+await denied(`insert into system_admins(user_id) values('${other}')`);
+await denied(`select admin_platform_summary()`);
+await denied(`select admin_content_change('en','save','{"hero":{},"company":{},"legal":{}}',0)`);
+await denied(`update site_content set draft='{}'`);
+await db.exec(`set request.jwt.claim.sub='${uid}'`);
+assert.equal((await db.query('select is_system_admin() admin')).rows[0].admin,true);
+assert.equal((await db.query('select * from site_content')).rows.length,3);
+const draft='{"hero":{"title":"Draft only"},"company":{},"legal":{}}';
+assert.equal((await db.query(`select admin_content_change('en','save','${draft}',0) version`)).rows[0].version,1);
+await db.exec('reset role; set role anon');
+await denied('select * from site_content');
+await denied('select * from site_content_revisions');
+await denied('select * from admin_audit_log');
+await denied('select is_system_admin()');
+assert.equal((await db.query("select get_site_content('en') content")).rows[0].content,null);
+await db.exec(`reset role; set role authenticated; set request.jwt.claim.sub='${uid}'`);
+assert.equal((await db.query("select admin_content_change('en','publish',null,1) version")).rows[0].version,2);
+await denied(`select admin_content_change('en','save','${draft}',1)`);
+assert.equal((await db.query("select admin_content_change('en','restore',null,2,1) version")).rows[0].version,3);
+await db.exec('reset role; set role anon');
+assert.equal((await db.query("select get_site_content('en') content")).rows[0].content.hero.title,'Draft only');
+assert.equal((await db.query("select get_site_content('ru') content")).rows[0].content,null);
+await db.exec(`reset role; set role authenticated; set request.jwt.claim.sub='${uid}'`);
+const summary=(await db.query('select admin_platform_summary() summary')).rows[0].summary;
+assert.equal(summary.events,2);
+assert.equal(Object.hasOwn(summary,'guests'),false);
+await db.exec(`reset role; update system_admins set enabled=false where user_id='${uid}'; set role authenticated; set request.jwt.claim.sub='${uid}'`);
+assert.equal((await db.query('select is_system_admin() admin')).rows[0].admin,false);
+await denied('select admin_platform_summary()');
+await denied(`select admin_content_change('az','save','${draft}',0)`);
+await db.exec('reset role');
+for(const table of ['site_content_revisions','admin_audit_log']){await denied(`delete from ${table}`);await denied(`truncate ${table}`);}
+await db.exec(`delete from events where id='${e1}'`);
 assert.equal(
   (await db.query("select count(*)::int n from guest_matches")).rows[0].n,
   0,
@@ -163,5 +199,5 @@ assert.equal(
 );
 await db.close();
 console.log(
-  "PASS: migrations, RLS isolation, private storage reads, expiry, cross-event constraints, append-only logs, cascades, job claims and retry eligibility.",
+  "PASS: migrations, RLS, private storage, expiry, cross-event constraints, append-only logs, cascades, jobs, admin isolation, draft privacy, publishing, restore, version conflicts and revocation.",
 );

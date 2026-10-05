@@ -21,7 +21,10 @@ export default async function Login({
     const {
       data: { user },
     } = await client.auth.getUser();
-    if (user) redirect(`/${locale}/dashboard`);
+    if (user) {
+      const { data: admin } = await client.rpc("is_system_admin");
+      redirect(`/${locale}/${admin === true ? "admin" : "dashboard"}`);
+    }
   }
   const { notice } = await searchParams;
   const noticeText =

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { getSiteContent } from "@/lib/site/server";
 import { LegalPage } from "@/components/legal-page";
-export default async function Privacy({
+export default async function Terms({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -13,7 +13,7 @@ export default async function Privacy({
     <LegalPage
       locale={locale}
       content={await getSiteContent(locale)}
-      kind="privacy"
+      kind="terms"
     />
   );
 }
