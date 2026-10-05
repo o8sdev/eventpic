@@ -1,4 +1,4 @@
-# FaceFind
+# SnapMatch
 
 Private event photo delivery for Azerbaijan. Phase 1 provides a Next.js App Router / TypeScript / Tailwind app, Azerbaijani (default), Russian and English, Supabase migrations and RLS, photographer email magic-link authentication, profile editing with private logos, and a protected dashboard shell.
 
@@ -14,7 +14,7 @@ Copy-Item .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000. Without Supabase values the translated setup screen is shown; protected routes redirect to that screen. No fake login or demo data bypass is installed.
+Open http://localhost:3000. The public homepage is an editorial landing page. Photographer sign-in lives at `/az/login` (also `/ru/login` and `/en/login`). Without Supabase values the login route shows a translated setup screen; protected routes redirect there. No fake login or demo data bypass is installed.
 
 Do not overwrite an existing `.env.local` when it already contains your settings. It is ignored by git. Only the Supabase URL and publishable key may use `NEXT_PUBLIC_` variables. Never expose a service role or AWS secret with that prefix.
 
@@ -32,12 +32,12 @@ npx supabase status
 
 Copy the local API URL and publishable key (or legacy anon key) from `supabase status` to `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in `.env.local`. Set `SITE_URL=http://localhost:3000`, then restart Next.js. Always use the same hostname when opening the app and its email links.
 
-Local mail is captured at http://127.0.0.1:54324. Request a link from `/az`, open the captured email, and follow the link in the same browser. The default Supabase email template uses `{{ .ConfirmationURL }}`; the application exchanges its PKCE `code` at `/auth/confirm`.
+Local mail is captured at http://127.0.0.1:54324. Request a link from `/az/login`, open the captured email, and follow the link in the same browser. The default Supabase email template uses `{{ .ConfirmationURL }}`; the application exchanges its PKCE `code` at `/auth/confirm`.
 
 For links that must work across browsers, customize both the magic-link and signup-confirmation templates to use the token-hash route instead:
 
 ```html
-<a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">FaceFind</a>
+<a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">SnapMatch</a>
 ```
 
 `RedirectTo` already contains `?locale=...`. Both routes validate their inputs and redirect only to the matching locale's dashboard. Email copy and delivery customization can be added alongside production SMTP setup.
@@ -98,7 +98,7 @@ Manual integration checks once Supabase is connected:
 1. Open `/az`, `/ru` and `/en`; verify language switching and each privacy page.
 2. Request a magic link, follow the email and verify the empty dashboard. Reusing an expired/used link should show the translated error.
 3. Edit your name, business name and phone; reload and verify persistence. Upload a JPEG/PNG logo smaller than 2 MB; verify its preview URL is signed and the bucket remains private.
-4. Sign out and open `/az/dashboard` directly; it must return to login.
+4. Sign out and open `/az/dashboard` directly; it must return to `/az/login`.
 5. Use two photographer accounts and verify ownership isolation. Do not expose test credentials in the repository.
 
 Database SQL is tested in PGlite. The configured hosted Supabase Auth API responds successfully, but the project does not yet expose the `events` table: apply the migrations before testing login and dashboard data. Live email delivery, session refresh and Storage integration remain unverified. Docker is unavailable in the development environment.
@@ -108,7 +108,7 @@ Database SQL is tested in PGlite. The configured hosted Supabase Auth API respon
 ## Layout
 
 ```text
-src/app/[locale]/       localized login, dashboard, profile, privacy
+src/app/[locale]/       localized landing, login, dashboard, profile, privacy
 src/app/auth/confirm/   magic-link verification and PKCE exchange
 src/lib/supabase/       server-only session client
 src/messages/          all application copy in AZ/RU/EN
@@ -127,3 +127,11 @@ worker/                Phase 3 worker placeholder
 6. Stats, polish, sample data, matching/E2E tests and deployment guide.
 
 Each phase starts with a plan and approval, and ends with verification and a git commit.
+
+## Editorial design refinement
+
+The public landing page uses the Editorial Wedding direction: ivory, navy, blue and purple accents, serif headlines, original illustrative wedding imagery, a three-step flow preview, photographer benefits, privacy information and native accessible FAQ disclosures. All copy is translated. Future guest features are explicitly previews. The wedding image in `public/images/wedding-editorial.png` is AI-generated fictional imagery, not a customer photograph. It is served locally with Next.js image optimization. No external image tracker is used.
+
+Check the landing page at mobile and desktop widths, switch all three languages, open FAQ items, follow sign-in links and verify invalid auth callbacks still return to the localized login screen. The authenticated dashboard and profile inherit the updated shared design.
+
+SnapMatch branding uses the supplied logo and icon unchanged in `public/brand`, with the icon also registered through the Next.js app icon convention. The existing Supabase project identifier is retained to avoid resetting local project state.

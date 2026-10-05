@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   const locale = z.enum(locales).catch("az").parse(query.get("locale"));
   const origin = z.url().parse(process.env.SITE_URL || "http://localhost:3000");
   const fail = () =>
-    NextResponse.redirect(new URL(`/${locale}?notice=authError`, origin));
+    NextResponse.redirect(new URL(`/${locale}/login?notice=authError`, origin));
   if (!isConfigured()) return fail();
   const client = await createClient();
   const code = z.string().min(1).max(2048).safeParse(query.get("code"));

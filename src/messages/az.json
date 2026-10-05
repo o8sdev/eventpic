@@ -1,5 +1,5 @@
 {
-  "brand": "FaceFind",
+  "brand": "SnapMatch",
   "tagline": "Gözəl anlar. Rahat paylaşım.",
   "intro": "Tədbir şəkilləriniz üçün şəxsi məkan. Hər qonağa öz xatirələrini asanlıqla tapmaq imkanı verin.",
   "photographers": "FOTOQRAFLAR ÜÇÜN",
@@ -33,7 +33,7 @@
   "back": "Tədbirlərə qayıt",
   "privacyTitle": "Xatirələriniz və məxfiliyiniz",
   "privacyDraft": "Məxfilik bildirişinin layihəsi — hüquqi yoxlama gözlənilir",
-  "privacyBody": "FaceFind qonaqlara yalnız bir tədbir daxilində öz şəkillərini tapmağa kömək etmək üçün hazırlanır. Kameraya girişdən əvvəl qonağın razılığı alınacaq. Selfilər uyğunlaşdırma üçün yaddaşda emal olunacaq və saxlanılmayacaq. Tədbirin üz məlumatları göstərilən tarixdə silinəcək. Şəkillər şəxsi olacaq və qonaqlar yalnız uyğun gələn şəkillərə giriş əldə edəcəklər. Silinmə imkanı təqdim ediləcək. Əlaqə məlumatları, saxlama qaydaları, hüquqi əsas və emal edən tərəflər barədə məlumatlar istifadəyə verilməzdən əvvəl tamamlanmalıdır.",
+  "privacyBody": "SnapMatch qonaqlara yalnız bir tədbir daxilində öz şəkillərini tapmağa kömək etmək üçün hazırlanır. Kameraya girişdən əvvəl qonağın razılığı alınacaq. Selfilər uyğunlaşdırma üçün yaddaşda emal olunacaq və saxlanılmayacaq. Tədbirin üz məlumatları göstərilən tarixdə silinəcək. Şəkillər şəxsi olacaq və qonaqlar yalnız uyğun gələn şəkillərə giriş əldə edəcəklər. Silinmə imkanı təqdim ediləcək. Əlaqə məlumatları, saxlama qaydaları, hüquqi əsas və emal edən tərəflər barədə məlumatlar istifadəyə verilməzdən əvvəl tamamlanmalıdır.",
   "language": "Dil",
   "status": {
     "draft": "Qaralama",
@@ -46,5 +46,117 @@
   "logo": "Biznes loqosu",
   "logoHint": "JPEG və ya PNG, 2 MB-a qədər. Loqonuz şəxsi saxlanılır.",
   "saveLogo": "Loqonu yadda saxla",
-  "notFound": "Səhifə tapılmadı"
+  "notFound": "Səhifə tapılmadı",
+  "landing": {
+    "navHow": "Necə işləyir",
+    "navStudio": "Fotoqraflar üçün",
+    "navFaq": "Suallar",
+    "eyebrow": "DƏYƏRLİ ANLAR ÜÇÜN",
+    "title": "Hər xatirə.",
+    "titleAccent": "Özününkünü tap.",
+    "description": "Bayram bitir. Xatirələr qalır. Tədbir şəkillərini həmin anları yaşayan insanlara çatdırmağın daha şəxsi yolu.",
+    "primary": "Fotoqraflar üçün",
+    "secondary": "Təcrübə ilə tanış ol",
+    "note": "Hazırlanır · SnapMatch-a ilk baxış",
+    "imageAlt": "Bakının günəşli həyətində gəzən toy cütlüyünün illüstrativ şəkli",
+    "caption": "Kiçik bir an. Ömürlük bir xatirə.",
+    "demo": "TƏCRÜBƏNİN ÖN BAXIŞI",
+    "phoneTitle": "Sizin anlarınız",
+    "phoneSubtitle": "Yalnız sizin üçün qalereya",
+    "sampleEvent": "Bakıda bir toy",
+    "sampleLabel": "Nümunə qalereya",
+    "sampleCaption": "Süni intellektlə yaradılmış şəkil · Məhsula ön baxış",
+    "strip": [
+      "Bayramlar üçün yaradılıb",
+      "Məxfilik nəzərə alınır",
+      "Azərbaycan · Русский · English"
+    ],
+    "howEyebrow": "DAHA AZ AXTARIŞ. DAHA ÇOX XATİRƏ.",
+    "howTitle": "Gözəl bir gündən sevimli şəkillərinizə.",
+    "howDescription": "Qonaqlar üçün sadə və rahat bir təcrübə hazırlayırıq.",
+    "steps": [
+      {
+        "title": "Tədbirin QR kodunu skan edin",
+        "body": "Tədbirinizin şəxsi səhifəsini açın. Qonaq hesabı yaratmağa ehtiyac olmayacaq.",
+        "icon": "qr"
+      },
+      {
+        "title": "Razılığınızla bir selfi",
+        "body": "Əvvəlcə məxfilik bildirişini oxuyun, sonra şəkillərinizi tapmaq üçün selfi çəkin.",
+        "icon": "face"
+      },
+      {
+        "title": "Sevdiyiniz anları saxlayın",
+        "body": "Uyğun şəkillərə baxın və bəyəndiklərinizi endirin. Hamısı bir yerdə.",
+        "icon": "image"
+      }
+    ],
+    "studioEyebrow": "OBYEKTİVİN ARXASINDAKILAR ÜÇÜN",
+    "studioTitle": "Hekayəni siz çəkin. Hər qonaq öz anını tapsın.",
+    "studioBody": "“Şəkillərim haradadır?” sualına daha az vaxt ayırın. Sevdiyiniz işə daha çox vaxt qalsın. Hər tədbir üçün xüsusi bir məkan.",
+    "benefits": [
+      {
+        "title": "Bir tədbir. Bir gözəl qalereya.",
+        "body": "Şəkilləriniz üçün ayrıca məkan və paylaşmağa hazır keçid."
+      },
+      {
+        "title": "Daha rahat təhvil",
+        "body": "Planlaşdırılan toplu yükləmə və emal göstəriciləri işinizi nizamlayacaq."
+      },
+      {
+        "title": "İşinizə yaraşan təqdimat",
+        "body": "Biznesinizin üslubu, düşünülmüş dizayn və qonaqlar üçün rahat mobil təcrübə."
+      }
+    ],
+    "studioCta": "Fotoqraf girişini aç",
+    "privacyEyebrow": "ŞƏXSİ XATİRƏLƏR. DÜŞÜNÜLMÜŞ MƏXFİLİK.",
+    "privacyTitle": "Etibar da bu şəklin bir hissəsidir.",
+    "privacyBody": "Planlaşdırılan qonaq təcrübəsində üz axtarışından əvvəl seçimlər aydın göstəriləcək.",
+    "privacyItems": [
+      {
+        "title": "Əvvəlcə razılıq",
+        "body": "Kamera açılmazdan əvvəl aydın izah."
+      },
+      {
+        "title": "Yalnız bu tədbir",
+        "body": "Uyğunlaşdırma tək bir tədbirin üz kolleksiyası daxilində aparılacaq."
+      },
+      {
+        "title": "Aydın bitmə tarixi",
+        "body": "Qonaqlar üz məlumatlarının silinəcəyi tarixi görəcəklər."
+      },
+      {
+        "title": "Ayrılmaq imkanı",
+        "body": "Qonaq nəticələrində silinmə seçimi olacaq."
+      }
+    ],
+    "privacyLink": "Məxfilik bildirişinin layihəsini oxu",
+    "faqTitle": "Ağlınıza gələ biləcək suallar.",
+    "faqs": [
+      {
+        "q": "SnapMatch hazırda istifadəyə açıqdır?",
+        "a": "Fotoqraf girişi və profil qurulması hazırdır. Tədbirə şəkil yükləmə, üz axtarışı və qonaqlara çatdırılma hələ hazırlanır. Buradakı qalereya illüstrativ nümunədir."
+      },
+      {
+        "q": "Qonaqlara hesab lazım olacaq?",
+        "a": "Planlaşdırılan qonaq axını tədbirin QR kodu və razılıqla başlayır. Qonaqların hesab yaratmasına ehtiyac olmayacaq."
+      },
+      {
+        "q": "Qonağın selfisi necə istifadə olunacaq?",
+        "a": "Planlaşdırılan axtarış selfini yaddaşda emal edib siləcək. Tədbirin üz məlumatları ayrıca bitmə tarixinə malikdir. Tam məxfilik bildirişi hüquqi yoxlama gözləyir."
+      },
+      {
+        "q": "Hansı dillər dəstəklənir?",
+        "a": "İnterfeys Azərbaycan, rus və ingilis dillərindədir. Əsas dil Azərbaycan dilidir."
+      }
+    ],
+    "closingEyebrow": "HƏR BAYRAMIN BİR HEKAYƏSİ VAR",
+    "closingTitle": "Hər xatirəyə bir ünvan verin.",
+    "closingBody": "Fotoqraf profilinizlə başlayın. Növbəti mərhələ yaxındadır.",
+    "footer": "Azərbaycandakı bayramlar üçün düşünülüb.",
+    "loginIntro": "Studiyanıza xoş gəlmisiniz.",
+    "loginBody": "İşiniz, tədbirləriniz və yaratdığınız xatirələr üçün sakit bir məkan.",
+    "loginHint": "Sizə təhlükəsiz giriş keçidi göndərəcəyik. Şifrə lazım deyil.",
+    "home": "SnapMatch-a qayıt"
+  }
 }

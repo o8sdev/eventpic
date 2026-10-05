@@ -4,7 +4,7 @@ export async function proxy(request: NextRequest) {
   const headers = new Headers(request.headers);
   const locale = request.nextUrl.pathname.split("/")[1];
   headers.set(
-    "x-facefind-locale",
+    "x-snapmatch-locale",
     ["az", "ru", "en"].includes(locale) ? locale : "az",
   );
   let response = NextResponse.next({ request: { headers } });

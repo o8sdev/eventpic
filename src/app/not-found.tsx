@@ -2,7 +2,7 @@ import Link from "next/link";
 import { headers } from "next/headers";
 import { isLocale, messages } from "@/lib/i18n";
 export default async function NotFound() {
-  const value = (await headers()).get("x-facefind-locale") || "az";
+  const value = (await headers()).get("x-snapmatch-locale") || "az";
   const locale = isLocale(value) ? value : "az";
   const t = messages[locale];
   return (

@@ -5,7 +5,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const locale = (await headers()).get("x-facefind-locale") || "az";
+  const locale = (await headers()).get("x-snapmatch-locale") || "az";
   return (
     <html lang={locale}>
       <body>{children}</body>

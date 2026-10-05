@@ -18,13 +18,13 @@ export default async function Dashboard({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  if (!isConfigured()) redirect(`/${locale}`);
+  if (!isConfigured()) redirect(`/${locale}/login`);
   const t = messages[locale];
   const client = await createClient();
   const {
     data: { user },
   } = await client.auth.getUser();
-  if (!user) redirect(`/${locale}`);
+  if (!user) redirect(`/${locale}/login`);
   const { data, error } = await client.rpc("photographer_event_summary");
   const events = (data || []) as Event[];
   return (

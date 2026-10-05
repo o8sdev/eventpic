@@ -1,5 +1,5 @@
 {
-  "brand": "FaceFind",
+  "brand": "SnapMatch",
   "tagline": "Beautiful moments. Effortlessly shared.",
   "intro": "A private home for your event photographs. Give every guest a simple way to find their own memories.",
   "photographers": "FOR PHOTOGRAPHERS",
@@ -33,7 +33,7 @@
   "back": "Back to events",
   "privacyTitle": "Your memories, your privacy",
   "privacyDraft": "Draft privacy notice — pending legal review",
-  "privacyBody": "FaceFind is being developed to help guests find their photos within a single event. Before camera access, guests will be asked for consent. Selfies will be processed in memory for matching and will not be saved. Event face data will expire on the date shown for that event. Photos will be private, and guests will receive access only to their matched photos. A removal option will be provided. Contact details, retention rules, legal basis and processor information must be completed before launch.",
+  "privacyBody": "SnapMatch is being developed to help guests find their photos within a single event. Before camera access, guests will be asked for consent. Selfies will be processed in memory for matching and will not be saved. Event face data will expire on the date shown for that event. Photos will be private, and guests will receive access only to their matched photos. A removal option will be provided. Contact details, retention rules, legal basis and processor information must be completed before launch.",
   "language": "Language",
   "status": {
     "draft": "Draft",
@@ -46,5 +46,117 @@
   "logo": "Business logo",
   "logoHint": "JPEG or PNG, up to 2 MB. Your logo is stored privately.",
   "saveLogo": "Save logo",
-  "notFound": "Page not found"
+  "notFound": "Page not found",
+  "landing": {
+    "navHow": "How it works",
+    "navStudio": "For photographers",
+    "navFaq": "Questions",
+    "eyebrow": "MADE FOR MOMENTS THAT MATTER",
+    "title": "Every memory.",
+    "titleAccent": "Find yours.",
+    "description": "The celebration ends. The memories stay. A more personal way to bring event photographs to the people in them.",
+    "primary": "For photographers",
+    "secondary": "Explore the experience",
+    "note": "In development · A first look at SnapMatch",
+    "imageAlt": "Illustrative wedding couple walking through a sunlit Baku courtyard",
+    "caption": "A little moment. A lifelong memory.",
+    "demo": "EXPERIENCE PREVIEW",
+    "phoneTitle": "Your moments",
+    "phoneSubtitle": "A gallery, just for you",
+    "sampleEvent": "A wedding in Baku",
+    "sampleLabel": "Illustrative gallery",
+    "sampleCaption": "AI-generated imagery · Product preview",
+    "strip": [
+      "Made for celebrations",
+      "Designed around privacy",
+      "Azerbaijani · Russian · English"
+    ],
+    "howEyebrow": "LESS SEARCHING. MORE REMEMBERING.",
+    "howTitle": "From a beautiful day to your favourite photos.",
+    "howDescription": "We’re building a guest experience that feels as simple as it should.",
+    "steps": [
+      {
+        "title": "Scan the event QR",
+        "body": "Open your event’s private welcome page. No guest account to create.",
+        "icon": "qr"
+      },
+      {
+        "title": "A selfie. With your consent.",
+        "body": "Read the privacy notice first, then take a selfie to look for your photos.",
+        "icon": "face"
+      },
+      {
+        "title": "Keep the moments you love",
+        "body": "Browse your matches and download your favourites. All in one place.",
+        "icon": "image"
+      }
+    ],
+    "studioEyebrow": "FOR THE PEOPLE BEHIND THE LENS",
+    "studioTitle": "You capture the story. Let every guest find their part.",
+    "studioBody": "Less time answering “Where are my photos?” More time doing the work you love. One thoughtful home for every event.",
+    "benefits": [
+      {
+        "title": "One event. One beautiful gallery.",
+        "body": "A dedicated space for your photos, with a link ready to share."
+      },
+      {
+        "title": "A smoother handoff",
+        "body": "Planned bulk uploads and processing progress keep delivery organised."
+      },
+      {
+        "title": "Your work, beautifully presented",
+        "body": "Your business identity, considered layouts and a guest-first mobile experience."
+      }
+    ],
+    "studioCta": "Open photographer sign-in",
+    "privacyEyebrow": "PERSONAL MEMORIES. CONSIDERED PRIVACY.",
+    "privacyTitle": "Trust belongs in the picture.",
+    "privacyBody": "The planned guest experience puts clear choices before face search.",
+    "privacyItems": [
+      {
+        "title": "Consent comes first",
+        "body": "A clear explanation before the camera opens."
+      },
+      {
+        "title": "Only this event",
+        "body": "Matching stays within a single event’s face collection."
+      },
+      {
+        "title": "A clear expiry date",
+        "body": "Guests see when event face data is due for deletion."
+      },
+      {
+        "title": "A way to leave",
+        "body": "A removal option will be available from guest results."
+      }
+    ],
+    "privacyLink": "Read the draft privacy notice",
+    "faqTitle": "A few things you might wonder.",
+    "faqs": [
+      {
+        "q": "Is SnapMatch available to use today?",
+        "a": "Photographer sign-in and profile setup are built. Event uploads, face search and guest delivery are still in development. The gallery shown here is an illustrative preview."
+      },
+      {
+        "q": "Will guests need an account?",
+        "a": "The planned guest flow starts with an event QR code and consent. Guests will not need to create an account."
+      },
+      {
+        "q": "What happens to a guest’s selfie?",
+        "a": "The planned search processes the selfie in memory and discards it. Event face data has its own expiry date. The full privacy notice is awaiting legal review."
+      },
+      {
+        "q": "Which languages are supported?",
+        "a": "The interface supports Azerbaijani, Russian and English, with Azerbaijani as the default."
+      }
+    ],
+    "closingEyebrow": "EVERY CELEBRATION HAS A STORY",
+    "closingTitle": "Give every memory a way home.",
+    "closingBody": "Start with your photographer profile. The next chapter is coming.",
+    "footer": "Thoughtfully made for celebrations in Azerbaijan.",
+    "loginIntro": "Welcome to your studio.",
+    "loginBody": "A quiet space for your work, your celebrations and the memories you create.",
+    "loginHint": "We’ll email you a secure sign-in link. No password needed.",
+    "home": "Back to SnapMatch"
+  }
 }

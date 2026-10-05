@@ -14,13 +14,13 @@ export default async function Profile({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  if (!isConfigured()) redirect(`/${locale}`);
+  if (!isConfigured()) redirect(`/${locale}/login`);
   const t = messages[locale];
   const client = await createClient();
   const {
     data: { user },
   } = await client.auth.getUser();
-  if (!user) redirect(`/${locale}`);
+  if (!user) redirect(`/${locale}/login`);
   const { data: profile, error } = await client
     .from("profiles")
     .select("full_name,business_name,phone,logo_path")
