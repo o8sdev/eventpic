@@ -103,7 +103,9 @@ Manual integration checks once Supabase is connected:
 4. Sign out and open `/az/dashboard` directly; it must return to `/az/login`.
 5. Use two photographer accounts and verify ownership isolation. Do not expose test credentials in the repository.
 
-Database SQL is tested in PGlite. The configured hosted Supabase Auth API responds successfully, but the project does not yet expose the `events` table: apply the migrations before testing login and dashboard data. Live email delivery, session refresh and Storage integration remain unverified. Docker is unavailable in the development environment.
+Database SQL is tested in PGlite. On 2026-10-05, all five migrations were applied to the configured hosted EventPic project, which is active in `eu-central-1`. Local migration timestamps match its recorded migration history. Hosted checks confirmed RLS on all 15 tables, four private buckets, successful Auth/public-content responses, anonymous event/admin access denial, and service-role-only job claiming. Live email delivery, session refresh and authenticated Storage integration remain unverified. Docker is unavailable in the development environment; this checkout uses hosted Supabase.
+
+Supabase's advisor reports intentional access patterns: [RLS with no browser policies](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy) on eight server/worker tables, [public execution](https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable) of the published-marketing-content RPC, and [authenticated execution](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable) of guarded owner/admin RPCs. These functions have empty search paths and explicit ownership/membership checks where needed. Do not add broad policies or revoke required RPC access merely to hide these notices.
 
 `npm audit` currently reports five high-severity entries in the development-only Next ESLint dependency chain (`braces` / `micromatch` / `fast-glob`). The suggested automatic fix downgrades Next's lint config across major versions; it is not applied. Production dependency audit is checked separately.
 
@@ -122,7 +124,7 @@ worker/                Phase 3 worker placeholder
 ## Phases
 
 1. Foundation, schema/RLS, auth, dashboard shell, i18n (complete).
-2. Event creation, QR/poster, resumable bulk upload (implemented; hosted integration requires migrations).
+2. Event creation, QR/poster, resumable bulk upload (implemented; hosted schema deployed, authenticated integration pending).
 3. Worker, derivatives, face indexing, queue recovery and live status.
 4. Guest consent, selfie/search, results and downloads.
 5. Family search, removal, sessions, rate limits, purge and audit flows.
@@ -147,7 +149,7 @@ Company information starts empty. Contact details and social links appear when f
 
 ### Provision the first admin
 
-1. Apply **all five** migrations from `supabase/migrations` in filename order to the intended Supabase project. The site-admin migration is `202610050004_site_admin.sql`; it requires the earlier schema and immutable-record function.
+1. Apply pending migrations from `supabase/migrations` in filename order to the intended Supabase project. All five are already applied to this checkout's configured hosted project. The site-admin migration is `20261005145316_site_admin.sql`; it requires the earlier schema and immutable-record function.
 2. Sign in with the intended admin email at `/az/login` to create the Auth account. Do this before granting membership.
 3. Set `ADMIN_BOOTSTRAP_EMAIL` in your ignored `.env.local`, then run `npm run admin:bootstrap`. This creates ignored `supabase/bootstrap-admin.local.sql`.
 4. Review and run that generated SQL in the project's trusted Supabase SQL Editor. It looks up the existing account and adds enabled membership; it fails if the account does not exist.
@@ -169,7 +171,7 @@ The public `get_site_content(locale)` RPC returns only published website content
 4. Open two editor tabs and save in one; saving the stale tab must report a version conflict and retain its input. Restoring history must alter only the draft until published.
 5. Edit contact details in each locale, publish, and verify footer/contact pages. Revoke membership through SQL and verify privileged operations no longer work.
 
-The public app and migration security checks can run locally. Live CMS persistence requires applying the migrations and provisioning the account in the hosted project. Hosted magic-link delivery, Storage and the authenticated admin browser flow are not claimed as verified until that setup is complete.
+The public app and migration security checks can run locally. The hosted schema is deployed. Live CMS editing still requires first sign-in and trusted membership provisioning; the intended admin account did not exist at deployment time. Hosted magic-link delivery, authenticated Storage and the authenticated admin browser flow are not claimed as verified until tested.
 
 ## Phase 2: events and bulk uploads
 
@@ -181,7 +183,7 @@ QR PNGs encode the configured `SITE_URL` plus `/e/[slug]`. A5 PDFs contain the e
 
 ### Configure the database
 
-Apply migrations in filename order, including `202610050005_event_uploads.sql`. For a **fresh project**, `npm run db:bundle` prepares an ignored `supabase/setup.local.sql` containing all migrations in one transaction for the trusted SQL Editor. For an existing project, apply only unapplied migrations. Membership provisioning remains a separate step after the Auth account exists. The photographer features do not require a service-role key.
+Apply pending migrations in filename order, including `20261005145317_event_uploads.sql`. All five are already applied to this checkout's configured hosted project; do not rerun them there. For a **fresh project**, `npm run db:bundle` prepares an ignored `supabase/setup.local.sql` containing all migrations in one transaction for the trusted SQL Editor. For an existing project, apply only unapplied migrations. Membership provisioning remains a separate step after the Auth account exists. The photographer features do not require a service-role key.
 
 ### Upload behavior and access
 
@@ -207,4 +209,4 @@ After applying migrations and signing in:
 4. Pause/resume, interrupt the network, retry failed transfers, and confirm large/non-JPEG files produce friendly messages.
 5. Use another photographer account: event routes, QR/poster endpoints, reservations and Storage access must remain isolated. Public guest search continues in Phase 4; processing/status streaming continues in Phase 3.
 
-Hosted event/upload/email integration remains pending until migrations are applied and an authenticated account is available for testing. Local SQL, asset generation and unauthenticated route checks can be validated independently.
+The hosted schema and public API checks pass. Event/upload/email integration still requires an authenticated account for testing. Local SQL, asset generation and unauthenticated route checks are validated independently.

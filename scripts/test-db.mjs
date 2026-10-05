@@ -1,7 +1,7 @@
 // Real Postgres engine in WASM. Supabase-managed auth/storage are minimal fixtures;
 // this verifies our SQL, not the Supabase API or its managed storage policies.
 import { PGlite } from "@electric-sql/pglite";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import assert from "node:assert/strict";
 const db = new PGlite();
 await db.exec(`
@@ -19,13 +19,10 @@ await db.exec(`
  grant select on storage.objects to authenticated,anon;
  grant insert,update,delete on storage.objects to authenticated;
 `);
-for (const name of [
-  "202610050001_initial.sql",
-  "202610050002_storage.sql",
-  "202610050003_profile_logo.sql",
-  "202610050004_site_admin.sql",
-  "202610050005_event_uploads.sql",
-])
+const migrationDirectory = new URL("../supabase/migrations/", import.meta.url);
+for (const name of (await readdir(migrationDirectory))
+  .filter((name) => name.endsWith(".sql"))
+  .sort())
   await db.exec(
     await readFile(
       new URL(`../supabase/migrations/${name}`, import.meta.url),
