@@ -16,6 +16,8 @@ npm run dev
 
 Open http://localhost:3000. The public homepage uses the Modern Product design: blue/purple accents, an interactive product preview, a sticky navbar, scroll reveals and a complete footer. Photographer sign-in lives at `/az/login` (also `/ru/login` and `/en/login`). Without Supabase values the login route shows a translated setup screen; protected routes redirect there. No fake login or demo data bypass is installed.
 
+Run `npm run check:setup` while the web app is running to verify the configured Supabase connection, email sign-in availability, published-content RPC and anonymous table restrictions. It reads `.env.local`, makes no database changes and does not print credentials. Email delivery, authenticated uploads and AWS processing require separate integration checks.
+
 Do not overwrite an existing `.env.local` when it already contains your settings. It is ignored by git. Only the Supabase URL and publishable key may use `NEXT_PUBLIC_` variables. Never expose a service role or AWS secret with that prefix.
 
 ## Local Supabase
@@ -53,6 +55,8 @@ https://your-domain.example/auth/confirm?locale=en
 ```
 
 Enable email sign-in, configure SMTP for production, and put the project's public URL/key and matching `SITE_URL` in the deployment environment. HTTPS is required in production: session cookies are Secure there. Do not deploy the guest/face-search product until the later phases are complete.
+
+The configured hosted project uses `http://localhost:3000` as its Site URL. On 2026-10-06 its three exact localized callback URLs were added to the Auth allow list. Its current email sender is Supabase's default service, which sends only to project-team email addresses. Configure [custom SMTP](https://supabase.com/docs/guides/auth/auth-smtp) before inviting other photographers. Keep email verification enabled; do not bypass it to work around delivery configuration.
 
 ## Environment variables
 
@@ -151,7 +155,7 @@ Company information starts empty. Contact details and social links appear when f
 ### Provision the first admin
 
 1. Apply pending migrations from `supabase/migrations` in filename order to the intended Supabase project. All five are already applied to this checkout's configured hosted project. The site-admin migration is `20261005145316_site_admin.sql`; it requires the earlier schema and immutable-record function.
-2. Sign in with the intended admin email at `/az/login` to create the Auth account. Do this before granting membership.
+2. Sign in with the intended admin email at `/az/login` and complete email verification. The provisioning helper requires an email-confirmed Auth account before granting membership.
 3. Set `ADMIN_BOOTSTRAP_EMAIL` in your ignored `.env.local`, then run `npm run admin:bootstrap`. This creates ignored `supabase/bootstrap-admin.local.sql`.
 4. Review and run that generated SQL in the project's trusted Supabase SQL Editor. It looks up the existing account and adds enabled membership; it fails if the account does not exist.
 5. Open `/az/admin` after signing in. Subsequent magic-link sign-ins route enabled admins to the portal. Use the portal's photographer-dashboard link to reach the ordinary photographer tools.

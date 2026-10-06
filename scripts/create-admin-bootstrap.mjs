@@ -11,8 +11,9 @@ const sql = `-- Run in the trusted Supabase SQL Editor AFTER all migrations and 
 do $$
 declare target_user uuid;
 begin
- select id into target_user from auth.users where lower(email)=lower('${email}');
- if target_user is null then raise exception 'Sign in to create the account before provisioning'; end if;
+ select id into target_user from auth.users
+ where lower(email)=lower('${email}') and email_confirmed_at is not null;
+ if target_user is null then raise exception 'Complete email verification and sign in before provisioning'; end if;
  insert into public.system_admins(user_id,enabled) values(target_user,true)
  on conflict(user_id) do update set enabled=true;
 end $$;
