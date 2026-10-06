@@ -50,6 +50,11 @@ export function AdminEditor({
   }
   const labels = t.labels as Record<string, string>;
   const assetLabels: Record<string, string> = {
+    "/images/event-birthday.webp": t.assetBirthday,
+    "/images/event-corporate.webp": t.assetCorporate,
+    "/images/event-concert.webp": t.assetConcert,
+    "/images/event-graduation.webp": t.assetGraduation,
+    "/images/event-family.webp": t.assetFamily,
     "/images/wedding-editorial.png": t.assetHero,
     "/images/wedding-reception.webp": t.assetReception,
     "/images/wedding-dance.webp": t.assetDance,
@@ -220,7 +225,7 @@ export function AdminEditor({
               update(path, [
                 ...value,
                 key === "examplePhotos"
-                  ? { image: sitePhotoPaths[0], alt: "" }
+                  ? { image: sitePhotoPaths[0], alt: "", label: "" }
                   : group === "faqs"
                     ? { question: "", answer: "" }
                     : { title: "", body: "" },

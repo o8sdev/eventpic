@@ -8,6 +8,11 @@ const link = z.union([
   z.url().refine((value) => value.startsWith("https://"), "Use an HTTPS URL"),
 ]);
 export const sitePhotoPaths = [
+  "/images/event-birthday.webp",
+  "/images/event-corporate.webp",
+  "/images/event-concert.webp",
+  "/images/event-graduation.webp",
+  "/images/event-family.webp",
   "/images/wedding-editorial.png",
   "/images/wedding-reception.webp",
   "/images/wedding-dance.webp",
@@ -123,7 +128,13 @@ export const siteContentSchema = z
         imageAlt: short,
         examplePhotos: z
           .array(
-            z.object({ image: z.enum(sitePhotoPaths), alt: short }).strict(),
+            z
+              .object({
+                image: z.enum(sitePhotoPaths),
+                alt: short,
+                label: z.string().trim().max(60).optional(),
+              })
+              .strict(),
           )
           .min(3)
           .max(6)

@@ -25,6 +25,7 @@ export function ExampleGallery({
   return (
     <section
       className="modern-section example-gallery"
+      id="event-examples"
       aria-labelledby="example-gallery-title"
     >
       <div className="example-gallery-heading" data-reveal>
@@ -39,7 +40,7 @@ export function ExampleGallery({
         </div>
         <span className="example-gallery-hint">{m.openExample}</span>
       </div>
-      <div className="example-photo-grid">
+      <div className="example-photo-grid" data-photo-count={photos.length}>
         {photos.map((photo, index) => (
           <button
             key={index}
@@ -54,7 +55,12 @@ export function ExampleGallery({
               fill
               sizes="(max-width: 600px) 46vw, (max-width: 1000px) 43vw, 24vw"
             />
-            <span aria-hidden="true">↗</span>
+            {photo.label && (
+              <span className="example-photo-label">{photo.label}</span>
+            )}
+            <span className="example-photo-open" aria-hidden="true">
+              ↗
+            </span>
           </button>
         ))}
       </div>
@@ -66,7 +72,7 @@ export function ExampleGallery({
       >
         <div className="example-lightbox-toolbar">
           <span>
-            {m.galleryPreview} · {index + 1} / {photos.length}
+            {selected.label || m.galleryPreview} · {index + 1} / {photos.length}
           </span>
           <button
             onClick={() => dialog.current?.close()}

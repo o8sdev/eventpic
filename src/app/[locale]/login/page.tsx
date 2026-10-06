@@ -5,6 +5,7 @@ import { signIn } from "../actions";
 import { SubmitButton } from "@/components/submit-button";
 import Image from "next/image";
 import Link from "next/link";
+import { getSiteContent } from "@/lib/site/server";
 export default async function Login({
   params,
   searchParams,
@@ -15,6 +16,7 @@ export default async function Login({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = messages[locale];
+  const content = await getSiteContent(locale);
   const configured = isConfigured();
   if (configured) {
     const client = await createClient();
@@ -43,8 +45,8 @@ export default async function Login({
         <p className="intro">{t.landing.loginBody}</p>
         <div className="auth-photo">
           <Image
-            src="/images/wedding-editorial.png"
-            alt={t.landing.imageAlt}
+            src={content.branding.heroImage}
+            alt={content.branding.imageAlt}
             fill
             sizes="(max-width:760px) 100vw, 40vw"
           />

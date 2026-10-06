@@ -1,5 +1,6 @@
 import { messages, type Locale } from "@/lib/i18n";
 import { siteContentSchema, type SiteContent } from "./schema";
+import { samplePhotoLabel } from "./photos";
 
 export function defaultSiteContent(locale: Locale): SiteContent {
   const t = messages[locale];
@@ -81,19 +82,45 @@ export function defaultSiteContent(locale: Locale): SiteContent {
     branding: {
       logoPath: "/brand/snapmatch-logo.png",
       iconPath: "/brand/snapmatch-icon.png",
-      heroImage: "/images/wedding-editorial.png",
+      heroImage: "/images/event-birthday.webp",
       imageAlt: l.imageAlt,
       examplePhotos: [
-        { image: "/images/wedding-editorial.png", alt: l.imageAlt },
-        { image: "/images/wedding-reception.webp", alt: m.receptionAlt },
-        { image: "/images/wedding-dance.webp", alt: m.danceAlt },
-        { image: "/images/wedding-friends.webp", alt: m.friendsAlt },
+        {
+          image: "/images/event-birthday.webp",
+          alt: l.imageAlt,
+          label: m.birthdayLabel,
+        },
+        {
+          image: "/images/event-corporate.webp",
+          alt: m.corporateAlt,
+          label: m.corporateLabel,
+        },
+        {
+          image: "/images/event-concert.webp",
+          alt: m.concertAlt,
+          label: m.concertLabel,
+        },
+        {
+          image: "/images/event-graduation.webp",
+          alt: m.graduationAlt,
+          label: m.graduationLabel,
+        },
+        {
+          image: "/images/event-family.webp",
+          alt: m.familyAlt,
+          label: m.familyLabel,
+        },
+        {
+          image: "/images/wedding-editorial.png",
+          alt: m.weddingAlt,
+          label: m.weddingLabel,
+        },
       ],
     },
     seo: {
       title: "SnapMatch",
       description: m.description.slice(0, 200),
-      image: "/images/wedding-editorial.png",
+      image: "/images/event-birthday.webp",
     },
     sections: {
       order: ["how", "studio", "privacy", "faq"],
@@ -114,6 +141,15 @@ export function withSiteDefaults(
   return {
     ...content,
     walkthrough: { ...defaults.walkthrough, ...content.walkthrough },
-    branding: { ...defaults.branding, ...content.branding },
+    branding: {
+      ...defaults.branding,
+      ...content.branding,
+      examplePhotos: (
+        content.branding.examplePhotos || defaults.branding.examplePhotos
+      )?.map((photo) => ({
+        ...photo,
+        label: photo.label ?? samplePhotoLabel(locale, photo.image),
+      })),
+    },
   };
 }

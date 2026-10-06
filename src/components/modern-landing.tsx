@@ -61,7 +61,7 @@ export function ModernLanding({
           <StudioDemo locale={locale} content={c} />
           <span className="showcase-note">
             <Icon name="spark" size={15} />
-            {m.demoNote}
+            {m.studioDemoNote}
           </span>
         </div>
       </section>
@@ -159,6 +159,18 @@ export function ModernLanding({
             </span>
             <span>AZ · RU · EN</span>
           </div>
+          {c.walkthrough.showExamples !== false && (
+            <div className="hero-event-tags" aria-label={m.eventTypes}>
+              {c.branding.examplePhotos
+                ?.filter((photo) => photo.label)
+                .map((photo, index) => (
+                  <a href="#event-examples" key={index}>
+                    <span aria-hidden="true" />
+                    {photo.label}
+                  </a>
+                ))}
+            </div>
+          )}
         </div>
         <div id="product-demo">
           <ProductDemo locale={locale} content={c} />

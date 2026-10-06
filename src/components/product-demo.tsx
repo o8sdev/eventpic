@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { messages, type Locale } from "@/lib/i18n";
 import type { SiteContent } from "@/lib/site/schema";
+import { guestPreviewPhotos } from "@/lib/site/photos";
 import { Icon } from "./icon";
 
 function Phone({
@@ -15,6 +16,7 @@ function Phone({
   content: SiteContent;
 }) {
   const m = messages[locale].modern;
+  const guestPhotos = guestPreviewPhotos(content);
   return (
     <div className="demo-phone">
       <div className="phone-top">
@@ -77,19 +79,14 @@ function Phone({
             <span className="demo-label">{m.preview}</span>
             <h3>{m.galleryTitle}</h3>
             <p>{m.matchedLabel}</p>
-            <div className="demo-grid">
-              {(content.branding.examplePhotos || [])
-                .slice(0, 4)
-                .map((photo, i) => (
-                  <div key={i}>
-                    <Image
-                      src={photo.image}
-                      alt={photo.alt}
-                      fill
-                      sizes="140px"
-                    />
-                  </div>
-                ))}
+            <div
+              className={`demo-grid${guestPhotos.length === 1 ? " demo-grid-single" : ""}`}
+            >
+              {guestPhotos.map((photo, i) => (
+                <div key={i}>
+                  <Image src={photo.image} alt={photo.alt} fill sizes="140px" />
+                </div>
+              ))}
             </div>
             <span className="phone-button">
               <Icon name="image" size={16} />
@@ -147,13 +144,16 @@ export function StudioDemo({
           </div>
           <div className="studio-mini-grid">
             {(content.branding.examplePhotos || [])
-              .slice(0, 3)
+              .slice(0, 6)
               .map((photo, n) => (
                 <div key={n}>
                   <Image src={photo.image} alt={photo.alt} fill sizes="150px" />
-                  <span>
+                  <span className="studio-photo-check">
                     <Icon name="check" size={11} />
                   </span>
+                  {photo.label && (
+                    <small className="studio-photo-label">{photo.label}</small>
+                  )}
                 </div>
               ))}
           </div>
@@ -179,7 +179,7 @@ export function ProductDemo({
   locale: Locale;
   content: SiteContent;
 }) {
-  const [mode, setMode] = useState("guest");
+  const [mode, setMode] = useState("studio");
   const [step, setStep] = useState(2);
   const m = messages[locale].modern;
   return (
@@ -235,7 +235,9 @@ export function ProductDemo({
           ))}
         </div>
       )}
-      <p className="demo-disclaimer">{m.demoNote}</p>
+      <p className="demo-disclaimer">
+        {mode === "guest" ? m.demoNote : m.studioDemoNote}
+      </p>
     </div>
   );
 }

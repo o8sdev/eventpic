@@ -18,12 +18,37 @@ test("existing CMS documents gain gallery fields without losing published copy",
       hydrated.walkthrough.examplesTitle,
       defaultSiteContent(locale).walkthrough.examplesTitle,
     );
-    assert.equal(hydrated.branding.examplePhotos?.length, 4);
+    assert.equal(hydrated.branding.examplePhotos?.length, 6);
     hydrated.walkthrough.showExamples = false;
     assert.equal(
       withSiteDefaults(locale, hydrated).walkthrough.showExamples,
       false,
     );
+    const published = defaultSiteContent(locale);
+    published.branding.examplePhotos = [
+      { image: "/images/wedding-editorial.png", alt: "Published description" },
+      {
+        image: "/images/wedding-reception.webp",
+        alt: "Reception",
+        label: "Custom label",
+      },
+      { image: "/images/wedding-dance.webp", alt: "Dance", label: "" },
+    ];
+    const retained = withSiteDefaults(
+      locale,
+      siteContentSchema.parse(published),
+    );
+    assert.equal(retained.branding.examplePhotos?.length, 3);
+    assert.equal(
+      retained.branding.examplePhotos?.[0].image,
+      "/images/wedding-editorial.png",
+    );
+    assert.equal(
+      retained.branding.examplePhotos?.[0].alt,
+      "Published description",
+    );
+    assert.equal(retained.branding.examplePhotos?.[1].label, "Custom label");
+    assert.equal(retained.branding.examplePhotos?.[2].label, "");
   }
 });
 
