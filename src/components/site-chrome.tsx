@@ -24,6 +24,7 @@ export function SiteChrome({
   const t = messages[locale];
   const m = t.modern;
   if (path.includes("/admin") && !preview) return <>{children}</>;
+  const editorial = preview || !path.includes("/dashboard");
   const nav = [
     {
       label: content.navigation.how,
@@ -54,7 +55,7 @@ export function SiteChrome({
   );
   return (
     <>
-      <header className="site-header">
+      <header className={`site-header${editorial ? " editorial-header" : ""}`}>
         <div className="nav-inner">
           <Link
             href={`/${locale}`}
@@ -107,7 +108,7 @@ export function SiteChrome({
         <div className="scroll-progress" />
       </header>
       <main id="top">{children}</main>
-      <footer className="site-footer">
+      <footer className={`site-footer${editorial ? " editorial-footer" : ""}`}>
         <div className="footer-top">
           <div className="footer-intro">
             <Link href={`/${locale}`} className="brand">

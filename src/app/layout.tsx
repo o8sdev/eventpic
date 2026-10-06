@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./landing.css";
 import { headers } from "next/headers";
 export default async function RootLayout({
   children,

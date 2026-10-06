@@ -2,7 +2,7 @@
 
 These fictional public examples were generated with the built-in image generation tool. They illustrate events a photographer can cover; they are not customer photographs or real face-search matches. No guest data or reference images were sent to the tool. The originals are preserved outside the repository and these selected outputs are encoded as WebP for delivery. Wedding assets remain available in the CMS library; their earlier prompts are in `sample-images.md`.
 
-The default gallery shows birthdays, corporate events, concerts, graduations, family gatherings and one wedding. The photographer preview can show several event types; a guest preview shows photographs from only one fictional event.
+The default gallery shows birthdays, corporate events, concerts, graduations, family gatherings and one wedding. Public marketing photographs can show several event types; a guest preview shows photographs from only one fictional event.
 
 ## Saved assets and final prompt set
 

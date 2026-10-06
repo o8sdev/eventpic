@@ -73,7 +73,7 @@
     ],
     "howEyebrow": "DAHA AZ AXTARIŞ. DAHA ÇOX XATİRƏ.",
     "howTitle": "Gözəl bir gündən sevimli şəkillərinizə.",
-    "howDescription": "Qonaqların öz şəkillərini tapması üçün sadə yol.",
+    "howDescription": "Tədbir keçidini açın, selfi çəkin və olduğunuz şəkilləri tapın.",
     "steps": [
       {
         "title": "Tədbirin QR kodunu skan edin",
@@ -93,7 +93,7 @@
     ],
     "studioEyebrow": "FOTOQRAFLAR ÜÇÜN",
     "studioTitle": "Hekayəni siz çəkin. Hər qonaq öz anını tapsın.",
-    "studioBody": "Ad günü və ya işgüzar tədbir. Şəkilləri yükləyin, QR paylaşın və hər çəkilişi nizamlı saxlayın.",
+    "studioBody": "Şəkilləri yükləyin, ayarları seçin və QR kodunu məkanda paylaşın.",
     "benefits": [
       {
         "title": "Toplu yükləyin",
@@ -111,7 +111,7 @@
     "studioCta": "Fotoqraf girişini aç",
     "privacyEyebrow": "MƏXFİLİK NƏZƏRƏ ALINIB",
     "privacyTitle": "Etibar da bu şəklin bir hissəsidir.",
-    "privacyBody": "Aydın razılıq. Bir tədbir. Üz məlumatları üçün bitmə tarixi.",
+    "privacyBody": "Üz axtarışından istifadə edib-etməməyi qonaq seçir. Axtarış yalnız həmin tədbirdə aparılır, üz məlumatları üçün silinmə tarixi müəyyən edilir.",
     "privacyItems": [
       {
         "title": "Əvvəlcə razılıq",
@@ -131,7 +131,7 @@
       }
     ],
     "privacyLink": "Məxfilik bildirişini oxu",
-    "faqTitle": "Bilmək faydalıdır.",
+    "faqTitle": "Başlamazdan əvvəl.",
     "faqs": [
       {
         "q": "Hazırda nədən istifadə edə bilərəm?",
@@ -164,18 +164,18 @@
     "home": "SnapMatch-a qayıt"
   },
   "modern": {
-    "badge": "GÖZƏL ANLAR. GÖZƏL ŞƏKİLLƏR.",
-    "title": "Sizin xatirələriniz.",
-    "accent": "Hər tədbirdən.",
-    "description": "Ad günləri, konfranslar, konsertlər və daha çoxu. Bir selfi ilə olduğunuz şəkilləri tapın.",
+    "badge": "SNAPMATCH · AZƏRBAYCAN",
+    "title": "Şəkillərinizi tapın.",
+    "accent": "Anı yaşayın.",
+    "description": "Bir selfi ilə tədbirdə olduğunuz şəkilləri tapın. Yüzlərlə şəkli bir-bir axtarmağa ehtiyac yoxdur.",
     "primary": "Tədbir yarat",
     "secondary": "Necə işləyir?",
     "howKicker": "QONAQLARINIZ ÜÇÜN",
-    "howTitle": "Skan. Selfi. Şəkillər.",
-    "studioTitle": "Hər çəkiliş. Daha rahat çatdırılma.",
-    "privacyTitle": "Sizin şəkilləriniz. Sizin seçiminiz.",
-    "closingTitle": "Növbəti tədbirinizi SnapMatch ilə paylaşın.",
-    "footerDescription": "Tədbir şəkilləri hər qonağa özəl. Azərbaycan üçün yaradılıb.",
+    "howTitle": "Tədbirdən telefonunuzun qalereyasına.",
+    "studioTitle": "Hər çəkiliş bir yerdə.",
+    "privacyTitle": "Əvvəlcə razılıq.",
+    "closingTitle": "Növbəti tədbirinizi yaradın.",
+    "footerDescription": "Fotoqraflar və qonaqları üçün şəkil çatdırılması. Azərbaycandakı tədbirlər üçün yaradılıb.",
     "product": "Məhsul",
     "company": "Şirkət",
     "legal": "Hüquqi məlumat",
@@ -198,7 +198,7 @@
     "galleryTitle": "Sizin olduğunuz şəkillər",
     "matchedLabel": "Nümunə şəkillər",
     "download": "Şəkilləri endir",
-    "demoNote": "Qonaq təcrübəsinin nümunəsi",
+    "demoNote": "Qonaq nümunəsi · axtarış tezliklə",
     "studioEvent": "Bütün tədbirləriniz bir yerdə",
     "studioUpload": "Tədbirə şəkillər əlavə edin",
     "studioProgress": "Şəkillərin emalı",
@@ -221,9 +221,9 @@
     "stepLabel": "Ön baxış addımı",
     "galleryPreview": "Nümunə qalereya",
     "supportPlaceholder": "Əlaqə məlumatları hazır olduqda burada yayımlanacaq.",
-    "examplesTitle": "Hər tədbirə uyğun.",
-    "examplesDescription": "Rəqs meydanından böyük səhnəyə. Hər tədbirdə qonaqlara öz şəkilləri.",
-    "exampleKicker": "TƏDBİRLƏR DÜNYASI",
+    "examplesTitle": "Hər cür tədbir.",
+    "examplesDescription": "Ad günləri, işgüzar tədbirlər, canlı musiqi. Hər çəkiliş üçün ayrıca qalereya.",
+    "exampleKicker": "TƏDBİRLƏR",
     "exampleNote": "Şəkillər süni intellektlə yaradılıb. Bu, nümunə qalereyadır.",
     "openExample": "Şəkli aç",
     "closeExample": "Şəkli bağla",

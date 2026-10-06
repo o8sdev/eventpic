@@ -73,7 +73,7 @@
     ],
     "howEyebrow": "LESS SEARCHING. MORE REMEMBERING.",
     "howTitle": "From a beautiful day to your favourite photos.",
-    "howDescription": "A simple way for guests to find their part of the day.",
+    "howDescription": "Open the event link, take a selfie and find the photographs you’re in.",
     "steps": [
       {
         "title": "Scan the event QR",
@@ -93,7 +93,7 @@
     ],
     "studioEyebrow": "FOR PHOTOGRAPHERS",
     "studioTitle": "You capture the story. Let every guest find their part.",
-    "studioBody": "Birthdays or business events. Upload your photos, share a QR and keep every shoot organised.",
+    "studioBody": "Upload your photos, choose your settings and put the QR at the venue.",
     "benefits": [
       {
         "title": "Upload in batches",
@@ -111,7 +111,7 @@
     "studioCta": "Open photographer sign-in",
     "privacyEyebrow": "PRIVACY BY DESIGN",
     "privacyTitle": "Trust belongs in the picture.",
-    "privacyBody": "Clear consent. One event. An expiry date for face data.",
+    "privacyBody": "Guests decide whether to use face search. Searches stay within one event, and face data has a deletion date.",
     "privacyItems": [
       {
         "title": "Consent first",
@@ -131,7 +131,7 @@
       }
     ],
     "privacyLink": "Read the privacy notice",
-    "faqTitle": "Good to know.",
+    "faqTitle": "Before you get started.",
     "faqs": [
       {
         "q": "What can I use today?",
@@ -164,18 +164,18 @@
     "home": "Back to SnapMatch"
   },
   "modern": {
-    "badge": "GOOD TIMES. GREAT PHOTOS.",
-    "title": "Your moments.",
-    "accent": "From every event.",
-    "description": "Birthdays, conferences, concerts and more. Find the photos you’re in with one selfie.",
+    "badge": "SNAPMATCH · AZERBAIJAN",
+    "title": "Find your photos.",
+    "accent": "Enjoy the moment.",
+    "description": "A selfie finds your photos from the event. No scrolling through hundreds of pictures.",
     "primary": "Create your event",
     "secondary": "See how it works",
     "howKicker": "FOR YOUR GUESTS",
-    "howTitle": "Scan. Selfie. Photos.",
-    "studioTitle": "Every shoot. Simpler delivery.",
-    "privacyTitle": "Your photos. Your choice.",
-    "closingTitle": "Make your next event a SnapMatch event.",
-    "footerDescription": "Event photos, made personal. Built for Azerbaijan.",
+    "howTitle": "From the event to your camera roll.",
+    "studioTitle": "One place for every shoot.",
+    "privacyTitle": "Consent comes first.",
+    "closingTitle": "Set up your next event.",
+    "footerDescription": "Photo delivery for photographers and their guests. Made for events in Azerbaijan.",
     "product": "Product",
     "company": "Company",
     "legal": "Legal",
@@ -198,7 +198,7 @@
     "galleryTitle": "Photos with you in them",
     "matchedLabel": "Sample photos",
     "download": "Download photos",
-    "demoNote": "Guest experience preview",
+    "demoNote": "Guest preview · search coming soon",
     "studioEvent": "All your events, together",
     "studioUpload": "Add photos to your event",
     "studioProgress": "Photo processing",
@@ -221,9 +221,9 @@
     "stepLabel": "Preview step",
     "galleryPreview": "Sample gallery",
     "supportPlaceholder": "Contact details will be published here when available.",
-    "examplesTitle": "Whatever the occasion.",
-    "examplesDescription": "From the dance floor to the big stage. A personal photo experience for every event.",
-    "exampleKicker": "A WORLD OF EVENTS",
+    "examplesTitle": "Every kind of gathering.",
+    "examplesDescription": "Birthdays, work events, live music. A separate gallery for every shoot.",
+    "exampleKicker": "THE OCCASIONS",
     "exampleNote": "Illustrative photos created with AI. This is a sample gallery.",
     "openExample": "Open photo",
     "closeExample": "Close photo",

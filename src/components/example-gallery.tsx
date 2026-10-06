@@ -49,17 +49,24 @@ export function ExampleGallery({
             aria-label={`${m.openExample}: ${photo.alt}`}
             data-reveal
           >
-            <Image
-              src={photo.image}
-              alt={photo.alt}
-              fill
-              sizes="(max-width: 600px) 46vw, (max-width: 1000px) 43vw, 24vw"
-            />
-            {photo.label && (
-              <span className="example-photo-label">{photo.label}</span>
-            )}
-            <span className="example-photo-open" aria-hidden="true">
-              ↗
+            <span className="example-photo-image">
+              <Image
+                src={photo.image}
+                alt={photo.alt}
+                fill
+                sizes="(max-width: 600px) 90vw, (max-width: 900px) 44vw, 30vw"
+              />
+            </span>
+            <span className="example-photo-caption">
+              <span aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span className="example-photo-label">
+                {photo.label || m.openExample}
+              </span>
+              <span className="example-photo-open" aria-hidden="true">
+                ↗
+              </span>
             </span>
           </button>
         ))}
