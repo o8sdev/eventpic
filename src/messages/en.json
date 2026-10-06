@@ -57,7 +57,7 @@
     "description": "The celebration ends. The memories stay. A more personal way to bring event photographs to the people in them.",
     "primary": "For photographers",
     "secondary": "Explore the experience",
-    "note": "In development · A first look at SnapMatch",
+    "note": "Photographers can start today. Guest search is coming soon.",
     "imageAlt": "Illustrative wedding couple walking through a sunlit Baku courtyard",
     "caption": "A little moment. A lifelong memory.",
     "demo": "EXPERIENCE PREVIEW",
@@ -73,105 +73,105 @@
     ],
     "howEyebrow": "LESS SEARCHING. MORE REMEMBERING.",
     "howTitle": "From a beautiful day to your favourite photos.",
-    "howDescription": "We’re building a guest experience that feels as simple as it should.",
+    "howDescription": "A simple way for guests to find their part of the day.",
     "steps": [
       {
         "title": "Scan the event QR",
-        "body": "Open your event’s private welcome page. No guest account to create.",
+        "body": "Open your event link. No guest account needed.",
         "icon": "qr"
       },
       {
-        "title": "A selfie. With your consent.",
-        "body": "Read the privacy notice first, then take a selfie to look for your photos.",
+        "title": "Take a selfie",
+        "body": "Read the privacy notice and give consent first.",
         "icon": "face"
       },
       {
-        "title": "Keep the moments you love",
-        "body": "Browse your matches and download your favourites. All in one place.",
+        "title": "Find your photos",
+        "body": "See the photos you appear in and save your favourites.",
         "icon": "image"
       }
     ],
-    "studioEyebrow": "FOR THE PEOPLE BEHIND THE LENS",
+    "studioEyebrow": "FOR PHOTOGRAPHERS",
     "studioTitle": "You capture the story. Let every guest find their part.",
-    "studioBody": "Less time answering “Where are my photos?” More time doing the work you love. One thoughtful home for every event.",
+    "studioBody": "Upload your photos, share a QR and keep every event organised.",
     "benefits": [
       {
-        "title": "One event. One beautiful gallery.",
-        "body": "A dedicated space for your photos, with a link ready to share."
+        "title": "Upload in batches",
+        "body": "Drop in your JPEGs. Track each file and retry interrupted uploads."
       },
       {
-        "title": "A smoother handoff",
-        "body": "Bulk uploads and per-file progress keep delivery organised."
+        "title": "Share one event link",
+        "body": "Download a QR code or print an A5 poster for the venue."
       },
       {
-        "title": "Your work, beautifully presented",
-        "body": "Your business identity, considered layouts and a guest-first mobile experience."
+        "title": "Keep it your way",
+        "body": "Choose languages, downloads, watermark settings and a face-data expiry date."
       }
     ],
     "studioCta": "Open photographer sign-in",
-    "privacyEyebrow": "PERSONAL MEMORIES. CONSIDERED PRIVACY.",
+    "privacyEyebrow": "PRIVACY BY DESIGN",
     "privacyTitle": "Trust belongs in the picture.",
-    "privacyBody": "The planned guest experience puts clear choices before face search.",
+    "privacyBody": "Clear consent. One event. An expiry date for face data.",
     "privacyItems": [
       {
-        "title": "Consent comes first",
-        "body": "A clear explanation before the camera opens."
+        "title": "Consent first",
+        "body": "Read the notice before using the camera."
       },
       {
-        "title": "Only this event",
-        "body": "Matching stays within a single event’s face collection."
+        "title": "Only your event",
+        "body": "Face search stays within this event."
       },
       {
-        "title": "A clear expiry date",
-        "body": "Guests see when event face data is due for deletion."
+        "title": "A clear expiry",
+        "body": "Your photographer sets when face data expires."
       },
       {
-        "title": "A way to leave",
-        "body": "A removal option will be available from guest results."
+        "title": "A removal option",
+        "body": "Guest results will include a way to remove yourself."
       }
     ],
-    "privacyLink": "Read the draft privacy notice",
-    "faqTitle": "A few things you might wonder.",
+    "privacyLink": "Read the privacy notice",
+    "faqTitle": "Good to know.",
     "faqs": [
       {
-        "q": "Is SnapMatch available to use today?",
-        "a": "Photographer sign-in, profiles, event setup, QR posters and bulk uploads are built. Face search and guest photo delivery are still in development. The gallery shown here is an illustrative preview."
+        "q": "What can I use today?",
+        "a": "Photographers can create events, upload photos and download QR posters. Guest face search and photo delivery are coming soon."
       },
       {
-        "q": "Will guests need an account?",
-        "a": "The planned guest flow starts with an event QR code and consent. Guests will not need to create an account."
+        "q": "Do guests need an account?",
+        "a": "No guest account is planned. Guests will open their event link, give consent and take a selfie."
       },
       {
-        "q": "What happens to a guest’s selfie?",
-        "a": "The planned search processes the selfie in memory and discards it. Event face data has its own expiry date. The full privacy notice is awaiting legal review."
+        "q": "Will you keep my selfie?",
+        "a": "Search is designed to use the selfie temporarily and discard it. Event face data has a separate expiry date. See the privacy notice for details."
       },
       {
-        "q": "Which languages are supported?",
-        "a": "The interface supports Azerbaijani, Russian and English, with Azerbaijani as the default."
+        "q": "Which languages are available?",
+        "a": "Azerbaijani, Russian and English. Photographers choose the languages for each event."
       }
     ],
     "closingEyebrow": "EVERY CELEBRATION HAS A STORY",
     "closingTitle": "Give every memory a way home.",
-    "closingBody": "Start with your photographer profile. The next chapter is coming.",
+    "closingBody": "Create an event, add your photos and get your guest QR.",
     "footer": "Thoughtfully made for celebrations in Azerbaijan.",
-    "loginIntro": "Welcome to your studio.",
-    "loginBody": "A quiet space for your work, your celebrations and the memories you create.",
+    "loginIntro": "Your events start here.",
+    "loginBody": "One place for your photos, event links and delivery settings.",
     "loginHint": "We’ll email you a secure sign-in link. No password needed.",
     "home": "Back to SnapMatch"
   },
   "modern": {
-    "badge": "PHOTO DELIVERY, REIMAGINED",
-    "title": "Big moments.",
-    "accent": "Your photos.",
-    "description": "Turn an event gallery into a personal experience. Guests scan, take a selfie with consent, and find the moments they’re in.",
-    "primary": "Get started as a photographer",
+    "badge": "EVENT PHOTOS. SIMPLY SHARED.",
+    "title": "Your photos.",
+    "accent": "One selfie away.",
+    "description": "One event link. A quick selfie. The photos you appear in.",
+    "primary": "Create your event",
     "secondary": "See how it works",
-    "howKicker": "A LITTLE LESS SEARCHING",
-    "howTitle": "Three steps. All your moments.",
-    "studioTitle": "Beautiful delivery starts behind the scenes.",
-    "privacyTitle": "Personal photos. Clear choices.",
-    "closingTitle": "Your next event deserves a better handoff.",
-    "footerDescription": "Personal photo delivery for celebrations, communities and the people in every frame.",
+    "howKicker": "FOR YOUR GUESTS",
+    "howTitle": "Scan. Selfie. Photos.",
+    "studioTitle": "Shoot the event. Simplify the delivery.",
+    "privacyTitle": "Your photos. Your choice.",
+    "closingTitle": "Make your next event a SnapMatch event.",
+    "footerDescription": "Event photos, made personal. Built for Azerbaijan.",
     "product": "Product",
     "company": "Company",
     "legal": "Legal",
@@ -179,31 +179,31 @@
     "copyright": "All rights reserved.",
     "termsTitle": "Terms of use",
     "termsBody": "Draft terms — pending legal review. SnapMatch is in development. Service availability, account responsibilities, acceptable use, pricing, cancellation, liability and dispute resolution must be completed before launch.",
-    "preview": "PRODUCT PREVIEW",
-    "guest": "Guest experience",
-    "photographer": "Photographer studio",
+    "preview": "EXAMPLE",
+    "guest": "For guests",
+    "photographer": "For photographers",
     "scan": "Scan",
     "selfie": "Selfie",
     "photos": "Photos",
-    "eventTitle": "A celebration in Baku",
-    "scanLabel": "Your invitation to the memories",
-    "scanBody": "Open the event link and choose your language.",
+    "eventTitle": "A wedding in Baku",
+    "scanLabel": "Your event photos start here",
+    "scanBody": "Scan the QR. Open your event.",
     "continue": "Continue",
-    "consent": "Consent before the camera",
-    "faceHint": "One clear selfie. Only this event.",
-    "galleryTitle": "Your moments, together",
-    "matchedLabel": "Illustrative matches",
+    "consent": "Consent comes first",
+    "faceHint": "A selfie to find your event photos.",
+    "galleryTitle": "Photos with you in them",
+    "matchedLabel": "Sample photos",
     "download": "Download photos",
-    "demoNote": "Interactive preview · Guest search is in development",
-    "studioEvent": "Your event, ready to share",
-    "studioUpload": "Upload your photographs",
-    "studioProgress": "Processing progress",
-    "studioQr": "Share the event QR",
-    "studioStats": "Delivery insights",
-    "builtFor": "DESIGNED FOR THE WHOLE CELEBRATION",
-    "featureOne": "Your event. Your gallery.",
-    "featureTwo": "A link guests can open.",
-    "featureThree": "A personal way to remember.",
+    "demoNote": "Guest experience preview",
+    "studioEvent": "One place for your event",
+    "studioUpload": "Add your event photos",
+    "studioProgress": "Photo processing",
+    "studioQr": "Your guest QR",
+    "studioStats": "Event overview",
+    "builtFor": "EVERY EVENT. EVERY GUEST.",
+    "featureOne": "Private event galleries",
+    "featureTwo": "One simple QR",
+    "featureThree": "Photos that feel personal",
     "explore": "Scroll to explore",
     "menu": "Open navigation",
     "closeMenu": "Close navigation",
@@ -215,8 +215,19 @@
     "previewBanner": "Private draft preview. Changes are not published.",
     "backEditor": "Back to editor",
     "stepLabel": "Preview step",
-    "galleryPreview": "Illustrative gallery",
-    "supportPlaceholder": "Contact details will be published here when available."
+    "galleryPreview": "Sample gallery",
+    "supportPlaceholder": "Contact details will be published here when available.",
+    "examplesTitle": "One event. Every moment.",
+    "examplesDescription": "Open a photo to explore the sample gallery.",
+    "exampleKicker": "A GALLERY TO EXPLORE",
+    "exampleNote": "Illustrative photos created with AI. This is a sample gallery.",
+    "openExample": "Open photo",
+    "closeExample": "Close photo",
+    "previousExample": "Previous",
+    "nextExample": "Next",
+    "receptionAlt": "Bride and groom sharing a candid moment at their wedding reception",
+    "danceAlt": "Bride and groom dancing under warm lights at their wedding reception",
+    "friendsAlt": "Bride and groom celebrating with friends in a sunny courtyard"
   },
   "admin": {
     "title": "System admin",
@@ -347,8 +358,16 @@
       "imageAlt": "Image description",
       "image": "Sharing image",
       "order": "Section order",
-      "privacy": "Privacy section"
-    }
+      "privacy": "Privacy section",
+      "examplesTitle": "Sample gallery title",
+      "examplesDescription": "Sample gallery description",
+      "showExamples": "Show sample gallery",
+      "examplePhotos": "Sample photos",
+      "alt": "Photo description"
+    },
+    "assetReception": "Wedding reception sample",
+    "assetDance": "First dance sample",
+    "assetFriends": "Wedding friends sample"
   },
   "phase2": {
     "newEvent": "Create event",

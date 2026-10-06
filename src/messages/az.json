@@ -57,7 +57,7 @@
     "description": "Bayram bitir. Xatirələr qalır. Tədbir şəkillərini həmin anları yaşayan insanlara çatdırmağın daha şəxsi yolu.",
     "primary": "Fotoqraflar üçün",
     "secondary": "Təcrübə ilə tanış ol",
-    "note": "Hazırlanır · SnapMatch-a ilk baxış",
+    "note": "Fotoqraflar başlaya bilər. Qonaq axtarışı tezliklə.",
     "imageAlt": "Bakının günəşli həyətində gəzən toy cütlüyünün illüstrativ şəkli",
     "caption": "Kiçik bir an. Ömürlük bir xatirə.",
     "demo": "TƏCRÜBƏNİN ÖN BAXIŞI",
@@ -73,105 +73,105 @@
     ],
     "howEyebrow": "DAHA AZ AXTARIŞ. DAHA ÇOX XATİRƏ.",
     "howTitle": "Gözəl bir gündən sevimli şəkillərinizə.",
-    "howDescription": "Qonaqlar üçün sadə və rahat bir təcrübə hazırlayırıq.",
+    "howDescription": "Qonaqların öz şəkillərini tapması üçün sadə yol.",
     "steps": [
       {
         "title": "Tədbirin QR kodunu skan edin",
-        "body": "Tədbirinizin şəxsi səhifəsini açın. Qonaq hesabı yaratmağa ehtiyac olmayacaq.",
+        "body": "Tədbir keçidini açın. Qonaq hesabına ehtiyac yoxdur.",
         "icon": "qr"
       },
       {
-        "title": "Razılığınızla bir selfi",
-        "body": "Əvvəlcə məxfilik bildirişini oxuyun, sonra şəkillərinizi tapmaq üçün selfi çəkin.",
+        "title": "Bir selfi çəkin",
+        "body": "Əvvəlcə məxfilik bildirişini oxuyun və razılıq verin.",
         "icon": "face"
       },
       {
-        "title": "Sevdiyiniz anları saxlayın",
-        "body": "Uyğun şəkillərə baxın və bəyəndiklərinizi endirin. Hamısı bir yerdə.",
+        "title": "Şəkillərinizi tapın",
+        "body": "Olduğunuz şəkillərə baxın və sevdiklərinizi saxlayın.",
         "icon": "image"
       }
     ],
-    "studioEyebrow": "OBYEKTİVİN ARXASINDAKILAR ÜÇÜN",
+    "studioEyebrow": "FOTOQRAFLAR ÜÇÜN",
     "studioTitle": "Hekayəni siz çəkin. Hər qonaq öz anını tapsın.",
-    "studioBody": "“Şəkillərim haradadır?” sualına daha az vaxt ayırın. Sevdiyiniz işə daha çox vaxt qalsın. Hər tədbir üçün xüsusi bir məkan.",
+    "studioBody": "Şəkilləri yükləyin, QR paylaşın və hər tədbiri nizamlı saxlayın.",
     "benefits": [
       {
-        "title": "Bir tədbir. Bir gözəl qalereya.",
-        "body": "Şəkilləriniz üçün ayrıca məkan və paylaşmağa hazır keçid."
+        "title": "Toplu yükləyin",
+        "body": "JPEG şəkillərini əlavə edin. Gedişatı izləyin və yarımçıq yükləməni təkrarlayın."
       },
       {
-        "title": "Daha rahat təhvil",
-        "body": "Toplu yükləmə və hər faylın gedişatı çatdırılmanı nizamlı saxlayır."
+        "title": "Bir tədbir keçidi paylaşın",
+        "body": "QR kodunu endirin və ya məkan üçün A5 poster çap edin."
       },
       {
-        "title": "İşinizə yaraşan təqdimat",
-        "body": "Biznesinizin üslubu, düşünülmüş dizayn və qonaqlar üçün rahat mobil təcrübə."
+        "title": "Ayarları siz seçin",
+        "body": "Dilləri, endirmə və su nişanı ayarlarını, üz məlumatlarının bitmə tarixini seçin."
       }
     ],
     "studioCta": "Fotoqraf girişini aç",
-    "privacyEyebrow": "ŞƏXSİ XATİRƏLƏR. DÜŞÜNÜLMÜŞ MƏXFİLİK.",
+    "privacyEyebrow": "MƏXFİLİK NƏZƏRƏ ALINIB",
     "privacyTitle": "Etibar da bu şəklin bir hissəsidir.",
-    "privacyBody": "Planlaşdırılan qonaq təcrübəsində üz axtarışından əvvəl seçimlər aydın göstəriləcək.",
+    "privacyBody": "Aydın razılıq. Bir tədbir. Üz məlumatları üçün bitmə tarixi.",
     "privacyItems": [
       {
         "title": "Əvvəlcə razılıq",
-        "body": "Kamera açılmazdan əvvəl aydın izah."
+        "body": "Kameradan əvvəl bildirişi oxuyun."
       },
       {
-        "title": "Yalnız bu tədbir",
-        "body": "Uyğunlaşdırma tək bir tədbirin üz kolleksiyası daxilində aparılacaq."
+        "title": "Yalnız sizin tədbir",
+        "body": "Üz axtarışı bu tədbir daxilində aparılır."
       },
       {
         "title": "Aydın bitmə tarixi",
-        "body": "Qonaqlar üz məlumatlarının silinəcəyi tarixi görəcəklər."
+        "body": "Üz məlumatlarının bitmə tarixini fotoqraf seçir."
       },
       {
-        "title": "Ayrılmaq imkanı",
-        "body": "Qonaq nəticələrində silinmə seçimi olacaq."
+        "title": "Silinmə seçimi",
+        "body": "Qonaq nəticələrində özünüzü silmək imkanı olacaq."
       }
     ],
-    "privacyLink": "Məxfilik bildirişinin layihəsini oxu",
-    "faqTitle": "Ağlınıza gələ biləcək suallar.",
+    "privacyLink": "Məxfilik bildirişini oxu",
+    "faqTitle": "Bilmək faydalıdır.",
     "faqs": [
       {
-        "q": "SnapMatch hazırda istifadəyə açıqdır?",
-        "a": "Fotoqraf girişi, profil, tədbir yaratma, QR poster və toplu yükləmə hazırdır. Üz axtarışı və qonaqlara şəkil çatdırılması hələ hazırlanır. Buradakı qalereya nümunədir."
+        "q": "Hazırda nədən istifadə edə bilərəm?",
+        "a": "Fotoqraflar tədbir yarada, şəkil yükləyə və QR poster endirə bilər. Qonaqlar üçün üz axtarışı və şəkil çatdırılması tezliklə olacaq."
       },
       {
-        "q": "Qonaqlara hesab lazım olacaq?",
-        "a": "Planlaşdırılan qonaq axını tədbirin QR kodu və razılıqla başlayır. Qonaqların hesab yaratmasına ehtiyac olmayacaq."
+        "q": "Qonağa hesab lazımdır?",
+        "a": "Qonaq hesabı nəzərdə tutulmur. Qonaqlar tədbir keçidini açacaq, razılıq verəcək və bir selfi çəkəcək."
       },
       {
-        "q": "Qonağın selfisi necə istifadə olunacaq?",
-        "a": "Planlaşdırılan axtarış selfini yaddaşda emal edib siləcək. Tədbirin üz məlumatları ayrıca bitmə tarixinə malikdir. Tam məxfilik bildirişi hüquqi yoxlama gözləyir."
+        "q": "Selfim saxlanılacaq?",
+        "a": "Axtarış selfidən müvəqqəti istifadə edib onu silmək üçün nəzərdə tutulub. Tədbirin üz məlumatlarının ayrıca bitmə tarixi var. Təfərrüatlar məxfilik bildirişindədir."
       },
       {
-        "q": "Hansı dillər dəstəklənir?",
-        "a": "İnterfeys Azərbaycan, rus və ingilis dillərindədir. Əsas dil Azərbaycan dilidir."
+        "q": "Hansı dillər mövcuddur?",
+        "a": "Azərbaycan, rus və ingilis dilləri. Fotoqraf hər tədbir üçün dilləri seçir."
       }
     ],
     "closingEyebrow": "HƏR BAYRAMIN BİR HEKAYƏSİ VAR",
     "closingTitle": "Hər xatirəyə bir ünvan verin.",
-    "closingBody": "Fotoqraf profilinizlə başlayın. Növbəti mərhələ yaxındadır.",
+    "closingBody": "Tədbir yaradın, şəkilləri əlavə edin və qonaqlar üçün QR alın.",
     "footer": "Azərbaycandakı bayramlar üçün düşünülüb.",
-    "loginIntro": "Studiyanıza xoş gəlmisiniz.",
-    "loginBody": "İşiniz, tədbirləriniz və yaratdığınız xatirələr üçün sakit bir məkan.",
+    "loginIntro": "Tədbirləriniz buradan başlayır.",
+    "loginBody": "Şəkilləriniz, tədbir keçidləriniz və çatdırılma ayarlarınız bir yerdə.",
     "loginHint": "Sizə təhlükəsiz giriş keçidi göndərəcəyik. Şifrə lazım deyil.",
     "home": "SnapMatch-a qayıt"
   },
   "modern": {
-    "badge": "ŞƏKİL ÇATDIRILMASINA YENİ BAXIŞ",
-    "title": "Böyük anlar.",
-    "accent": "Sizin şəkilləriniz.",
-    "description": "Tədbir qalereyasını şəxsi təcrübəyə çevirin. Qonaqlar skan edir, razılıqla selfi çəkir və özlərinin olduğu anları tapırlar.",
-    "primary": "Fotoqraf kimi başla",
-    "secondary": "Necə işlədiyinə bax",
-    "howKicker": "BİR AZ DAHA AZ AXTARIŞ",
-    "howTitle": "Üç addım. Bütün anlarınız.",
-    "studioTitle": "Gözəl təqdimat pərdə arxasında başlayır.",
-    "privacyTitle": "Şəxsi şəkillər. Aydın seçimlər.",
-    "closingTitle": "Növbəti tədbiriniz daha yaxşı təqdimata layiqdir.",
-    "footerDescription": "Bayramlar, icmalar və hər kadrdakı insanlar üçün şəxsi şəkil çatdırılması.",
+    "badge": "TƏDBİR ŞƏKİLLƏRİNİ RAHAT PAYLAŞIN.",
+    "title": "Sizin şəkilləriniz.",
+    "accent": "Bir selfi ilə tapın.",
+    "description": "Bir tədbir keçidi. Bir selfi. Sizin olduğunuz şəkillər.",
+    "primary": "Tədbir yarat",
+    "secondary": "Necə işləyir?",
+    "howKicker": "QONAQLARINIZ ÜÇÜN",
+    "howTitle": "Skan. Selfi. Şəkillər.",
+    "studioTitle": "Tədbiri çəkin. Şəkilləri rahat çatdırın.",
+    "privacyTitle": "Sizin şəkilləriniz. Sizin seçiminiz.",
+    "closingTitle": "Növbəti tədbirinizi SnapMatch ilə paylaşın.",
+    "footerDescription": "Tədbir şəkilləri hər qonağa özəl. Azərbaycan üçün yaradılıb.",
     "product": "Məhsul",
     "company": "Şirkət",
     "legal": "Hüquqi məlumat",
@@ -179,31 +179,31 @@
     "copyright": "Bütün hüquqlar qorunur.",
     "termsTitle": "İstifadə şərtləri",
     "termsBody": "Şərtlərin layihəsi — hüquqi yoxlama gözlənilir. SnapMatch hazırlanır. Xidmətin mövcudluğu, hesab öhdəlikləri, qəbul edilən istifadə, qiymətlər, ləğv, məsuliyyət və mübahisələrin həlli istifadəyə verilməzdən əvvəl tamamlanmalıdır.",
-    "preview": "MƏHSULA ÖN BAXIŞ",
-    "guest": "Qonaq təcrübəsi",
-    "photographer": "Fotoqraf studiyası",
+    "preview": "NÜMUNƏ",
+    "guest": "Qonaqlar üçün",
+    "photographer": "Fotoqraflar üçün",
     "scan": "Skan",
     "selfie": "Selfi",
     "photos": "Şəkillər",
-    "eventTitle": "Bakıda bir bayram",
-    "scanLabel": "Xatirələrə dəvətiniz",
-    "scanBody": "Tədbir keçidini açın və dilinizi seçin.",
+    "eventTitle": "Bakıda bir toy",
+    "scanLabel": "Tədbir şəkilləriniz burada",
+    "scanBody": "QR kodunu skan edin. Tədbirinizi açın.",
     "continue": "Davam et",
-    "consent": "Kameradan əvvəl razılıq",
-    "faceHint": "Bir aydın selfi. Yalnız bu tədbir.",
-    "galleryTitle": "Anlarınız bir yerdə",
-    "matchedLabel": "Nümunə uyğunluqlar",
+    "consent": "Əvvəlcə razılıq",
+    "faceHint": "Tədbir şəkillərinizi tapmaq üçün bir selfi.",
+    "galleryTitle": "Sizin olduğunuz şəkillər",
+    "matchedLabel": "Nümunə şəkillər",
     "download": "Şəkilləri endir",
-    "demoNote": "İnteraktiv ön baxış · Qonaq axtarışı hazırlanır",
-    "studioEvent": "Tədbiriniz paylaşıma hazırdır",
-    "studioUpload": "Şəkillərinizi yükləyin",
-    "studioProgress": "Emal göstəriciləri",
-    "studioQr": "Tədbirin QR kodunu paylaşın",
-    "studioStats": "Çatdırılma göstəriciləri",
-    "builtFor": "BÜTÜN BAYRAM ÜÇÜN DÜŞÜNÜLÜB",
-    "featureOne": "Sizin tədbir. Sizin qalereya.",
-    "featureTwo": "Qonaqlar üçün sadə keçid.",
-    "featureThree": "Xatırlamağın şəxsi yolu.",
+    "demoNote": "Qonaq təcrübəsinin nümunəsi",
+    "studioEvent": "Tədbiriniz bir yerdə",
+    "studioUpload": "Tədbir şəkillərini əlavə edin",
+    "studioProgress": "Şəkillərin emalı",
+    "studioQr": "Qonaqlar üçün QR",
+    "studioStats": "Tədbirə baxış",
+    "builtFor": "HƏR TƏDBİR. HƏR QONAQ.",
+    "featureOne": "Şəxsi tədbir qalereyaları",
+    "featureTwo": "Bir sadə QR",
+    "featureThree": "Hər qonağa öz şəkilləri",
     "explore": "Baxmaq üçün sürüşdür",
     "menu": "Menyunu aç",
     "closeMenu": "Menyunu bağla",
@@ -216,7 +216,18 @@
     "backEditor": "Redaktora qayıt",
     "stepLabel": "Ön baxış addımı",
     "galleryPreview": "Nümunə qalereya",
-    "supportPlaceholder": "Əlaqə məlumatları hazır olduqda burada yayımlanacaq."
+    "supportPlaceholder": "Əlaqə məlumatları hazır olduqda burada yayımlanacaq.",
+    "examplesTitle": "Bir tədbir. Çoxlu xatirə.",
+    "examplesDescription": "Şəkli açın və nümunə qalereya ilə tanış olun.",
+    "exampleKicker": "NÜMUNƏ QALEREYA",
+    "exampleNote": "Şəkillər süni intellektlə yaradılıb. Bu, nümunə qalereyadır.",
+    "openExample": "Şəkli aç",
+    "closeExample": "Şəkli bağla",
+    "previousExample": "Əvvəlki",
+    "nextExample": "Növbəti",
+    "receptionAlt": "Toy məclisində səmimi bir anı bölüşən gəlin və bəy",
+    "danceAlt": "Toy məclisində isti işıqlar altında rəqs edən gəlin və bəy",
+    "friendsAlt": "Günəşli həyətdə dostları ilə sevinən gəlin və bəy"
   },
   "admin": {
     "title": "Sistem administratoru",
@@ -347,8 +358,16 @@
       "imageAlt": "Şəklin təsviri",
       "image": "Paylaşım şəkli",
       "order": "Bölmə sırası",
-      "privacy": "Məxfilik bölməsi"
-    }
+      "privacy": "Məxfilik bölməsi",
+      "examplesTitle": "Nümunə qalereyanın başlığı",
+      "examplesDescription": "Nümunə qalereyanın təsviri",
+      "showExamples": "Nümunə qalereyanı göstər",
+      "examplePhotos": "Nümunə şəkillər",
+      "alt": "Şəklin təsviri"
+    },
+    "assetReception": "Toy məclisi nümunəsi",
+    "assetDance": "İlk rəqs nümunəsi",
+    "assetFriends": "Toy dostları nümunəsi"
   },
   "phase2": {
     "newEvent": "Tədbir yarat",

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { isLocale, messages } from "@/lib/i18n";
-import { defaultSiteContent } from "@/lib/site/defaults";
+import { defaultSiteContent, withSiteDefaults } from "@/lib/site/defaults";
 import { requireAdminSession } from "@/lib/site/server";
 import { siteContentSchema } from "@/lib/site/schema";
 import { AdminEditor } from "@/components/admin-editor";
@@ -38,7 +38,11 @@ export default async function Editor({
     <AdminEditor
       key={`${locale}-${data.version}`}
       locale={locale}
-      initial={result.success ? result.data : defaultSiteContent(locale)}
+      initial={
+        result.success
+          ? withSiteDefaults(locale, result.data)
+          : defaultSiteContent(locale)
+      }
       version={data.version}
       notice={safeNotice}
     />

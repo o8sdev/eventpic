@@ -4,6 +4,7 @@ import type { SiteContent } from "@/lib/site/schema";
 import { ProductDemo, StudioDemo, Walkthrough } from "./product-demo";
 import { ScrollEffects } from "./scroll-effects";
 import { Icon } from "./icon";
+import { ExampleGallery } from "./example-gallery";
 
 export function ModernLanding({
   locale,
@@ -187,6 +188,9 @@ export function ModernLanding({
           </span>
         </div>
       </section>
+      {c.walkthrough.showExamples !== false && (
+        <ExampleGallery locale={locale} content={c} />
+      )}
       {c.sections.order
         .filter((key) => c.sections[key])
         .map((key) => sections[key])}

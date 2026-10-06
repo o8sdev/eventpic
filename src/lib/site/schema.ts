@@ -7,8 +7,14 @@ const link = z.union([
   z.literal(""),
   z.url().refine((value) => value.startsWith("https://"), "Use an HTTPS URL"),
 ]);
-export const siteImagePaths = [
+export const sitePhotoPaths = [
   "/images/wedding-editorial.png",
+  "/images/wedding-reception.webp",
+  "/images/wedding-dance.webp",
+  "/images/wedding-friends.webp",
+] as const;
+export const siteImagePaths = [
+  ...sitePhotoPaths,
   "/brand/snapmatch-logo.png",
   "/brand/snapmatch-icon.png",
 ] as const;
@@ -39,6 +45,9 @@ export const siteContentSchema = z
         title: short,
         description: copy,
         steps: z.array(pair).min(3).max(4),
+        examplesTitle: short.optional(),
+        examplesDescription: copy.optional(),
+        showExamples: z.boolean().optional(),
       })
       .strict(),
     studio: z
@@ -112,6 +121,13 @@ export const siteContentSchema = z
         iconPath: z.enum(siteImagePaths),
         heroImage: z.enum(siteImagePaths),
         imageAlt: short,
+        examplePhotos: z
+          .array(
+            z.object({ image: z.enum(sitePhotoPaths), alt: short }).strict(),
+          )
+          .min(3)
+          .max(6)
+          .optional(),
       })
       .strict(),
     seo: z

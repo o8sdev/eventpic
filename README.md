@@ -89,6 +89,7 @@ npm run lint
 npm run typecheck
 npm run test:db
 npm run test:events
+npm run test:site
 npm run build
 npm start
 ```
@@ -136,7 +137,7 @@ Each phase starts with a plan and approval, and ends with verification and a git
 
 The landing page includes an interactive guest/studio preview, scroll-linked walkthrough, photographer benefits, privacy information, accessible native FAQ disclosures, a responsive navbar and a footer linking to privacy, terms and contact. Motion respects reduced-motion settings. Product mockups are labelled previews. Photographer event creation and uploads are implemented in Phase 2; processing, guest face search and guest downloads arrive in later phases.
 
-The supplied SnapMatch logo and icon remain unchanged in `public/brand`. Metadata uses the selected CMS icon. The existing wedding image is fictional AI-generated imagery, served locally through Next.js image optimization. There are no external image trackers.
+The supplied SnapMatch logo and icon remain unchanged in `public/brand`. Metadata uses the selected CMS icon. Four fictional wedding photos illustrate the gallery and product previews, served locally through Next.js image optimization. Reception, first-dance and group photos are optimized WebP assets; their generation prompts are recorded in `public/images/sample-images.md`. There are no external image trackers. The sample gallery opens a native dialog with previous/next controls and Escape-to-close.
 
 The system-admin portal at `/az/admin`, `/ru/admin` or `/en/admin` provides:
 
@@ -145,7 +146,7 @@ The system-admin portal at `/az/admin`, `/ru/admin` or `/en/admin` provides:
 - Section visibility/order and list-item editing. Text is escaped by React; arbitrary HTML/scripts are not accepted.
 - Save draft, private saved-draft preview, publish, revision history, restore as a draft and an immutable activity log. Each locale is edited and published independently. Save failures preserve unsaved input; stale versions are rejected instead of overwriting someone else's work.
 
-Company information starts empty. Contact details and social links appear when filled and published. Privacy and terms start as translated drafts awaiting legal review. Image selectors use the three approved assets already in this repository; media uploads and a general page builder are outside this scope.
+Company information starts empty. Contact details and social links appear when filled and published. Privacy and terms start as translated drafts awaiting legal review. Image selectors use the approved local brand and photo library; media uploads and a general page builder are outside this scope. Edit the gallery heading, description and visibility under How it works, and choose/reorder its photos under Branding & images. Existing CMS documents receive localized defaults for these new fields while preserving their published copy.
 
 ### Provision the first admin
 
@@ -165,7 +166,7 @@ The public `get_site_content(locale)` RPC returns only published website content
 
 ### Manual review
 
-1. Review `/az`, `/ru` and `/en` at mobile and desktop widths. Switch the guest/studio preview, select its three steps, scroll the walkthrough, open FAQs, and check mobile navigation, legal/contact links and back-to-top.
+1. Review `/az`, `/ru` and `/en` at mobile and desktop widths. Open a sample photo, move through the gallery and close it with Escape. Switch the guest/studio preview, select its three steps, scroll the walkthrough, open FAQs, and check mobile navigation, legal/contact links and back-to-top.
 2. Anonymous access to `/en/admin` must return to login. A signed-in photographer without enabled admin membership must receive a 404.
 3. As the provisioned admin, change and save a headline. Public copy must stay unchanged until Publish. Open the private preview, publish, then reload the public site.
 4. Open two editor tabs and save in one; saving the stale tab must report a version conflict and retain its input. Restoring history must alter only the draft until published.

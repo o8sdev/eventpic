@@ -78,17 +78,18 @@ function Phone({
             <h3>{m.galleryTitle}</h3>
             <p>{m.matchedLabel}</p>
             <div className="demo-grid">
-              {[0, 1, 2, 3].map((i) => (
-                <div key={i}>
-                  <Image
-                    src={content.branding.heroImage}
-                    alt=""
-                    fill
-                    sizes="140px"
-                    style={{ objectPosition: `${40 + i * 7}% ${40 + i * 8}%` }}
-                  />
-                </div>
-              ))}
+              {(content.branding.examplePhotos || [])
+                .slice(0, 4)
+                .map((photo, i) => (
+                  <div key={i}>
+                    <Image
+                      src={photo.image}
+                      alt={photo.alt}
+                      fill
+                      sizes="140px"
+                    />
+                  </div>
+                ))}
             </div>
             <span className="phone-button">
               <Icon name="image" size={16} />
@@ -145,20 +146,16 @@ export function StudioDemo({
             </div>
           </div>
           <div className="studio-mini-grid">
-            {[0, 1, 2].map((n) => (
-              <div key={n}>
-                <Image
-                  src={content.branding.heroImage}
-                  alt=""
-                  fill
-                  sizes="150px"
-                  style={{ objectPosition: `${n * 20 + 30}% center` }}
-                />
-                <span>
-                  <Icon name="check" size={11} />
-                </span>
-              </div>
-            ))}
+            {(content.branding.examplePhotos || [])
+              .slice(0, 3)
+              .map((photo, n) => (
+                <div key={n}>
+                  <Image src={photo.image} alt={photo.alt} fill sizes="150px" />
+                  <span>
+                    <Icon name="check" size={11} />
+                  </span>
+                </div>
+              ))}
           </div>
           <div className="studio-demo-bottom">
             <span>

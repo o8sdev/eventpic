@@ -5,6 +5,7 @@ import { messages, type Locale } from "@/lib/i18n";
 import {
   siteContentSchema,
   siteImagePaths,
+  sitePhotoPaths,
   type SiteContent,
 } from "@/lib/site/schema";
 import { changeContent, saveDraft } from "@/app/[locale]/admin/actions";
@@ -48,6 +49,14 @@ export function AdminEditor({
     });
   }
   const labels = t.labels as Record<string, string>;
+  const assetLabels: Record<string, string> = {
+    "/images/wedding-editorial.png": t.assetHero,
+    "/images/wedding-reception.webp": t.assetReception,
+    "/images/wedding-dance.webp": t.assetDance,
+    "/images/wedding-friends.webp": t.assetFriends,
+    "/brand/snapmatch-logo.png": t.assetLogo,
+    "/brand/snapmatch-icon.png": t.assetIcon,
+  };
   function render(
     value: FieldValue,
     path: (string | number)[],
@@ -80,9 +89,12 @@ export function AdminEditor({
               value={value}
               onChange={(e) => update(path, e.target.value)}
             >
-              {siteImagePaths.map((asset, i) => (
+              {(path.includes("examplePhotos")
+                ? sitePhotoPaths
+                : siteImagePaths
+              ).map((asset) => (
                 <option key={asset} value={asset}>
-                  {[t.assetHero, t.assetLogo, t.assetIcon][i]}
+                  {assetLabels[asset]}
                 </option>
               ))}
             </select>
@@ -113,7 +125,8 @@ export function AdminEditor({
       );
     }
     if (Array.isArray(value)) {
-      const minimum = group === "walkthrough" ? 3 : 1;
+      const minimum =
+        group === "walkthrough" || key === "examplePhotos" ? 3 : 1;
       const maximum = group === "walkthrough" ? 4 : group === "faqs" ? 12 : 6;
       if (key === "order")
         return (
@@ -206,9 +219,11 @@ export function AdminEditor({
             onClick={() =>
               update(path, [
                 ...value,
-                group === "faqs"
-                  ? { question: "", answer: "" }
-                  : { title: "", body: "" },
+                key === "examplePhotos"
+                  ? { image: sitePhotoPaths[0], alt: "" }
+                  : group === "faqs"
+                    ? { question: "", answer: "" }
+                    : { title: "", body: "" },
               ])
             }
           >

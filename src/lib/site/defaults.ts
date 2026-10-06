@@ -26,6 +26,9 @@ export function defaultSiteContent(locale: Locale): SiteContent {
       title: m.howTitle,
       description: l.howDescription,
       steps: l.steps.map(({ title, body }) => ({ title, body })),
+      examplesTitle: m.examplesTitle,
+      examplesDescription: m.examplesDescription,
+      showExamples: true,
     },
     studio: {
       kicker: l.studioEyebrow,
@@ -80,6 +83,12 @@ export function defaultSiteContent(locale: Locale): SiteContent {
       iconPath: "/brand/snapmatch-icon.png",
       heroImage: "/images/wedding-editorial.png",
       imageAlt: l.imageAlt,
+      examplePhotos: [
+        { image: "/images/wedding-editorial.png", alt: l.imageAlt },
+        { image: "/images/wedding-reception.webp", alt: m.receptionAlt },
+        { image: "/images/wedding-dance.webp", alt: m.danceAlt },
+        { image: "/images/wedding-friends.webp", alt: m.friendsAlt },
+      ],
     },
     seo: {
       title: "SnapMatch",
@@ -94,4 +103,17 @@ export function defaultSiteContent(locale: Locale): SiteContent {
       faq: true,
     },
   });
+}
+
+// Add new presentation fields without discarding existing published copy.
+export function withSiteDefaults(
+  locale: Locale,
+  content: SiteContent,
+): SiteContent {
+  const defaults = defaultSiteContent(locale);
+  return {
+    ...content,
+    walkthrough: { ...defaults.walkthrough, ...content.walkthrough },
+    branding: { ...defaults.branding, ...content.branding },
+  };
 }

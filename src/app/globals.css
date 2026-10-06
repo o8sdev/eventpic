@@ -2888,3 +2888,179 @@ table form {
     font-size: 32px;
   }
 }
+
+/* Public illustrative photo gallery; these are approved marketing assets. */
+.example-gallery {
+  padding-top: 70px;
+  padding-bottom: 35px;
+}
+.example-gallery-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+.example-gallery-heading h2 {
+  font-size: clamp(28px, 3vw, 42px);
+  letter-spacing: -1.2px;
+  margin: 12px 0;
+}
+.example-gallery-heading p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
+.example-gallery-hint {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.example-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.example-photo {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border: 0;
+  padding: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f0edf6;
+  cursor: zoom-in;
+}
+.example-photo img {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.example-photo:hover img {
+  transform: scale(1.04);
+}
+.example-photo > span {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: #fff;
+  background: #111b36a6;
+  font-size: 19px;
+}
+.example-gallery-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  margin: 20px 0 0;
+}
+.example-lightbox {
+  width: min(1100px, 92vw);
+  height: min(850px, 90dvh);
+  max-width: 92vw;
+  max-height: 90dvh;
+  padding: 18px;
+  border: 0;
+  border-radius: 20px;
+  background: #11182a;
+  color: #fff;
+}
+.example-lightbox[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.example-lightbox::backdrop {
+  background: #060c18e6;
+}
+.example-lightbox-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+}
+.example-lightbox button {
+  border: 1px solid #ffffff38;
+  border-radius: 9px;
+  padding: 10px 14px;
+  color: #fff;
+  background: #ffffff0c;
+  cursor: pointer;
+  font: inherit;
+}
+.example-lightbox-toolbar button {
+  font-size: 25px;
+  line-height: 1;
+  padding: 6px 12px;
+}
+.example-lightbox-image {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+.example-lightbox-image img {
+  object-fit: contain;
+}
+.example-lightbox-navigation {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+}
+.example-lightbox-navigation p {
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+  color: #d9dded;
+}
+@media (max-width: 800px) {
+  .example-photo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .example-gallery-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .example-photo {
+    aspect-ratio: 4 / 5;
+  }
+}
+@media (max-width: 600px) {
+  .example-gallery {
+    padding-top: 45px;
+  }
+  .example-photo-grid {
+    gap: 10px;
+  }
+  .example-photo {
+    border-radius: 12px;
+  }
+  .example-lightbox {
+    padding: 12px;
+  }
+  .example-lightbox-navigation p {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  .example-lightbox-navigation button:first-child {
+    grid-row: 2;
+  }
+  .example-lightbox-navigation button:last-child {
+    grid-column: 3;
+    grid-row: 2;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .example-photo img {
+    transition: none;
+  }
+  .example-photo:hover img {
+    transform: none;
+  }
+}

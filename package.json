@@ -11,6 +11,7 @@
     "test:db": "node scripts/test-db.mjs",
     "admin:bootstrap": "node scripts/create-admin-bootstrap.mjs",
     "test:events": "tsx --test tests/events.test.ts",
+    "test:site": "tsx --test tests/site-content.test.ts",
     "db:bundle": "node scripts/bundle-migrations.mjs"
   },
   "dependencies": {

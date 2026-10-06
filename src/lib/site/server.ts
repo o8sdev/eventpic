@@ -3,7 +3,7 @@ import { cache } from "react";
 import { notFound, redirect } from "next/navigation";
 import { createClient, isConfigured } from "@/lib/supabase/server";
 import type { Locale } from "@/lib/i18n";
-import { defaultSiteContent } from "./defaults";
+import { defaultSiteContent, withSiteDefaults } from "./defaults";
 import { siteContentSchema } from "./schema";
 
 // Per-request memoization. Publishing appears on the next request; no stale global cache.
@@ -17,7 +17,7 @@ export const getSiteContent = cache(async (locale: Locale) => {
     });
     if (error || !data) return fallback;
     const result = siteContentSchema.safeParse(data);
-    return result.success ? result.data : fallback;
+    return result.success ? withSiteDefaults(locale, result.data) : fallback;
   } catch {
     return fallback;
   }

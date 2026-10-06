@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, messages } from "@/lib/i18n";
 import { requireAdminSession } from "@/lib/site/server";
-import { defaultSiteContent } from "@/lib/site/defaults";
+import { defaultSiteContent, withSiteDefaults } from "@/lib/site/defaults";
 import { siteContentSchema } from "@/lib/site/schema";
 import { SiteChrome } from "@/components/site-chrome";
 import { ModernLanding } from "@/components/modern-landing";
@@ -23,7 +23,9 @@ export default async function Preview({
     .eq("locale", locale)
     .single();
   const parsed = siteContentSchema.safeParse(data?.draft);
-  const c = parsed.success ? parsed.data : defaultSiteContent(locale);
+  const c = parsed.success
+    ? withSiteDefaults(locale, parsed.data)
+    : defaultSiteContent(locale);
   const m = messages[locale].modern;
   return (
     <>
