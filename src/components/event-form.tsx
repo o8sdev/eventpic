@@ -1,7 +1,7 @@
 "use client";
 import { useActionState, useState } from "react";
 import Link from "next/link";
-import { messages, locales, type Locale } from "@/lib/i18n";
+import { messages, type Locale } from "@/lib/i18n";
 import {
   bakuDate,
   defaultExpiry,
@@ -26,21 +26,12 @@ export function EventForm({
   const [expiry, setExpiry] = useState(
     event ? bakuDate(event.face_expires_at) : "",
   );
-  const [languages, setLanguages] = useState<Locale[]>(
-    event?.languages || [...locales],
-  );
-  const [primary, setPrimary] = useState<Locale>(event?.default_locale || "az");
-  function toggle(value: Locale) {
-    const next = languages.includes(value)
-      ? languages.filter((item) => item !== value)
-      : [...languages, value];
-    setLanguages(next);
-    if (next.length && !next.includes(primary)) setPrimary(next[0]);
-  }
   return (
     <form action={action} className="event-form card">
       <input type="hidden" name="locale" value={locale} />
       <input type="hidden" name="id" value={id} />
+      <input type="hidden" name="languages" value="en" />
+      <input type="hidden" name="default_locale" value="en" />
       {state.notice && (
         <p className="notice" role="alert">
           {(t[state.notice as keyof typeof t] as string) || t.saveError}
@@ -78,38 +69,6 @@ export function EventForm({
             maxLength={300}
             defaultValue={event?.venue || ""}
           />
-        </div>
-        <fieldset className="event-language-field">
-          <legend>{t.languages}</legend>
-          <div>
-            {locales.map((value) => (
-              <label key={value}>
-                <input
-                  name="languages"
-                  type="checkbox"
-                  value={value}
-                  checked={languages.includes(value)}
-                  onChange={() => toggle(value)}
-                />
-                {value.toUpperCase()}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-        <div>
-          <label htmlFor="default_locale">{t.defaultLocale}</label>
-          <select
-            id="default_locale"
-            name="default_locale"
-            value={primary}
-            onChange={(e) => setPrimary(e.target.value as Locale)}
-          >
-            {languages.map((value) => (
-              <option key={value} value={value}>
-                {value.toUpperCase()}
-              </option>
-            ))}
-          </select>
         </div>
         <div className="full-field">
           <label htmlFor="cover">{t.cover}</label>
@@ -178,7 +137,6 @@ export function EventForm({
         <SubmitButton
           label={event ? t.save : t.create}
           pending={messages[locale].sending}
-          disabled={languages.length === 0}
         />
         <Link
           className="button button-secondary"

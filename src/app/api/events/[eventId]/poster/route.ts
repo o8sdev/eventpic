@@ -15,7 +15,7 @@ export async function GET(
   if (access.response) return access.response;
   const locale = z
     .enum(locales)
-    .catch("az")
+    .catch("en")
     .parse(request.nextUrl.searchParams.get("locale"));
   const event = access.event!;
   try {

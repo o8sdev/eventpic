@@ -1,14 +1,18 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { englishPath } from "@/lib/i18n";
 export async function proxy(request: NextRequest) {
+  const pathname = englishPath(request.nextUrl.pathname);
+  if (
+    pathname !== request.nextUrl.pathname &&
+    ["GET", "HEAD"].includes(request.method)
+  ) {
+    const target = request.nextUrl.clone();
+    target.pathname = pathname;
+    return NextResponse.redirect(target);
+  }
   const headers = new Headers(request.headers);
-  const locale = request.nextUrl.pathname.startsWith("/e/")
-    ? request.nextUrl.searchParams.get("locale") || "az"
-    : request.nextUrl.pathname.split("/")[1];
-  headers.set(
-    "x-snapmatch-locale",
-    ["az", "ru", "en"].includes(locale) ? locale : "az",
-  );
+  headers.set("x-snapmatch-locale", "en");
   let response = NextResponse.next({ request: { headers } });
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;

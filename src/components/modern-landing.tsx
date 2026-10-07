@@ -1,11 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { messages, type Locale } from "@/lib/i18n";
 import type { SiteContent } from "@/lib/site/schema";
-import { guestPreviewPhotos } from "@/lib/site/photos";
 import { ScrollEffects } from "./scroll-effects";
 import { Icon } from "./icon";
-import { ExampleGallery } from "./example-gallery";
 
 export function ModernLanding({
   locale,
@@ -15,21 +12,23 @@ export function ModernLanding({
   content: SiteContent;
 }) {
   const m = messages[locale].modern;
-  const photos = c.branding.examplePhotos || [];
-  const hero = photos.find((photo) => photo.image === c.branding.heroImage);
-  const supporting =
-    photos.find(
-      (photo) =>
-        photo.image === "/images/event-concert.webp" &&
-        photo.image !== c.branding.heroImage,
-    ) || photos.find((photo) => photo.image !== c.branding.heroImage);
-  const studioPhoto = photos[1] || hero;
-  const guestPhoto = guestPreviewPhotos(c)[0];
   const learnTarget = c.sections.how
     ? "#how-it-works"
-    : c.walkthrough.showExamples !== false
-      ? "#event-examples"
-      : "#top";
+    : c.sections.studio
+      ? "#photographers"
+      : c.sections.privacy
+        ? "#privacy"
+        : c.sections.faq
+          ? "#questions"
+          : "#contact";
+  const occasions = [
+    m.corporateLabel,
+    m.concertLabel,
+    m.birthdayLabel,
+    m.weddingLabel,
+    m.graduationLabel,
+    m.familyLabel,
+  ];
   const sections = {
     how: (
       <section
@@ -41,89 +40,49 @@ export function ModernLanding({
           <span className="landing-kicker">{c.walkthrough.kicker}</span>
           <h2>{c.walkthrough.title}</h2>
           <p>{c.walkthrough.description}</p>
+          <span className="landing-small-note">{m.guestAvailability}</span>
         </div>
-        <div className="landing-how-body">
-          <ol className="landing-steps">
-            {c.walkthrough.steps.map((step, i) => (
-              <li key={i} data-reveal>
-                <span className="landing-step-number" aria-hidden="true">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          {guestPhoto && (
-            <figure className="landing-guest-preview" data-reveal>
-              <div className="landing-preview-heading">
-                <Image
-                  src={c.branding.iconPath}
-                  width={30}
-                  height={30}
-                  alt=""
-                />
-                <span>{m.galleryTitle}</span>
-                <Icon name="lock" size={17} />
+        <ol className="landing-steps">
+          {c.walkthrough.steps.map((step, i) => (
+            <li key={i} data-reveal>
+              <span className="landing-step-number" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
               </div>
-              <div className="landing-preview-photo">
-                <Image
-                  src={guestPhoto.image}
-                  alt={guestPhoto.alt}
-                  fill
-                  sizes="(max-width: 760px) 90vw, 40vw"
-                />
-              </div>
-              <figcaption>
-                <span>{m.matchedLabel}</span>
-                <span>{m.demoNote}</span>
-              </figcaption>
-            </figure>
-          )}
-        </div>
+              <span className="landing-step-arrow" aria-hidden="true">
+                ↗
+              </span>
+            </li>
+          ))}
+        </ol>
       </section>
     ),
     studio: (
       <section key="studio" id="photographers" className="landing-studio">
-        <div className="landing-section landing-studio-inner">
-          <div data-reveal>
+        <div className="landing-section">
+          <div className="landing-studio-heading" data-reveal>
             <span className="landing-kicker">{c.studio.kicker}</span>
             <h2>{c.studio.title}</h2>
-            <p className="landing-intro">{c.studio.description}</p>
-            <Link
-              className="landing-button landing-button-light"
-              href={`/${locale}/login`}
-            >
-              {c.hero.primary}
-              <Icon name="arrow" size={19} />
-            </Link>
-            <dl className="landing-studio-features">
-              {c.studio.features.map((feature, i) => (
-                <div key={i}>
-                  <dt>{feature.title}</dt>
-                  <dd>{feature.body}</dd>
-                </div>
-              ))}
-            </dl>
+            <p>{c.studio.description}</p>
           </div>
-          {studioPhoto && (
-            <figure className="landing-studio-photo" data-reveal>
-              <div>
-                <Image
-                  src={studioPhoto.image}
-                  alt={studioPhoto.alt}
-                  fill
-                  sizes="(max-width: 760px) 90vw, 45vw"
-                />
+          <dl className="landing-studio-features">
+            {c.studio.features.map((feature, i) => (
+              <div key={i} data-reveal>
+                <span className="landing-feature-index" aria-hidden="true">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <dt>{feature.title}</dt>
+                <dd>{feature.body}</dd>
               </div>
-              <figcaption>
-                <span>{studioPhoto.label || m.photos}</span>
-                <span>SnapMatch</span>
-              </figcaption>
-            </figure>
-          )}
+            ))}
+          </dl>
+          <div className="landing-studio-footnote">
+            <span>{m.studioFootnote}</span>
+            <span aria-hidden="true">↗</span>
+          </div>
         </div>
       </section>
     ),
@@ -133,10 +92,10 @@ export function ModernLanding({
         id="privacy"
         className="landing-section landing-privacy"
       >
-        <div data-reveal>
+        <div className="landing-section-head" data-reveal>
           <span className="landing-kicker">{c.privacy.kicker}</span>
           <h2>{c.privacy.title}</h2>
-          <p className="landing-intro">{c.privacy.description}</p>
+          <p>{c.privacy.description}</p>
           <Link className="landing-text-link" href={`/${locale}/privacy`}>
             {c.privacy.linkLabel}
             <Icon name="arrow" size={18} />
@@ -145,7 +104,7 @@ export function ModernLanding({
         <div className="landing-privacy-list">
           {c.privacy.items.map((item, i) => (
             <article key={i} data-reveal>
-              <span aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+              <Icon name="check" size={18} />
               <h3>{item.title}</h3>
               <p>{item.body}</p>
             </article>
@@ -155,7 +114,7 @@ export function ModernLanding({
     ),
     faq: (
       <section key="faq" id="questions" className="landing-section landing-faq">
-        <div data-reveal>
+        <div className="landing-section-head" data-reveal>
           <span className="landing-kicker">{c.navigation.faq}</span>
           <h2>{c.faqs.title}</h2>
         </div>
@@ -177,93 +136,56 @@ export function ModernLanding({
     <div className="crafted-landing">
       <ScrollEffects />
       <section className="landing-section landing-hero">
-        <div className="landing-hero-copy">
+        <div className="landing-hero-topline">
           <span className="landing-kicker">{c.hero.badge}</span>
-          <h1>
-            {c.hero.title}
-            <span>{c.hero.accent}</span>
-          </h1>
-          <p className="landing-hero-description">{c.hero.description}</p>
-          <div className="landing-hero-actions">
-            <Link className="landing-button" href={`/${locale}/login`}>
-              {c.hero.primary}
-              <Icon name="arrow" size={20} />
-            </Link>
-            <a className="landing-text-link" href={learnTarget}>
-              {c.hero.secondary}
-              <span aria-hidden="true">↓</span>
-            </a>
+          <span className="landing-edition">{m.madeIn}</span>
+        </div>
+        <h1>
+          {c.hero.title}
+          <span>{c.hero.accent}</span>
+        </h1>
+        <div className="landing-hero-bottom">
+          <div>
+            <p className="landing-hero-description">{c.hero.description}</p>
+            <p className="landing-availability">
+              <span aria-hidden="true" />
+              {c.hero.notice}
+            </p>
           </div>
-          <p className="landing-availability">{c.hero.notice}</p>
-        </div>
-        <div className="landing-hero-photos">
-          <figure className="landing-photo-main">
-            <div>
-              <Image
-                src={c.branding.heroImage}
-                alt={c.branding.imageAlt}
-                fill
-                priority
-                sizes="(max-width: 760px) 75vw, 40vw"
-              />
-            </div>
-            <figcaption>
-              <span>{hero?.label || m.galleryPreview}</span>
-              <span aria-hidden="true">01</span>
-            </figcaption>
-          </figure>
-          {supporting && (
-            <figure className="landing-photo-secondary">
-              <div>
-                <Image
-                  src={supporting.image}
-                  alt={supporting.alt}
-                  fill
-                  priority
-                  sizes="(max-width: 760px) 42vw, 20vw"
-                />
-              </div>
-              <figcaption>{supporting.label || m.galleryPreview}</figcaption>
-            </figure>
-          )}
-          <span className="landing-photo-edition">AZ / RU / EN</span>
-        </div>
-        <div className="landing-hero-footnote">
-          <span>{m.eventTypes}</span>
-          <p>
-            {photos
-              .filter((photo) => photo.label)
-              .map((photo) => photo.label)
-              .join(" / ")}
-          </p>
-          <a
-            href={
-              c.walkthrough.showExamples !== false
-                ? "#event-examples"
-                : learnTarget
-            }
-          >
-            {m.explore}
-            <span aria-hidden="true">↘</span>
+          <a className="landing-explore" href={learnTarget}>
+            <span>{c.hero.secondary}</span>
+            <span className="landing-explore-arrow" aria-hidden="true">
+              ↓
+            </span>
           </a>
         </div>
+        <div className="landing-hero-rule" aria-hidden="true">
+          <span />
+        </div>
       </section>
-      {c.walkthrough.showExamples !== false && (
-        <ExampleGallery locale={locale} content={c} />
-      )}
+      <section className="landing-occasions" aria-label={m.eventTypes}>
+        <div>
+          <span className="landing-kicker">{m.eventTypes}</span>
+          <ul>
+            {occasions.map((occasion) => (
+              <li key={occasion}>{occasion}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
       {c.sections.order
         .filter((key) => c.sections[key])
         .map((key) => sections[key])}
-      <section className="landing-closing">
+      <section className="landing-closing" id="contact">
         <div className="landing-section" data-reveal>
           <div>
-            <span className="landing-kicker">SnapMatch</span>
+            <span className="landing-kicker">{m.closingKicker}</span>
             <h2>{c.closing.title}</h2>
             <p>{c.closing.description}</p>
           </div>
-          <Link className="landing-button" href={`/${locale}/login`}>
+          <Link className="landing-contact-link" href={`/${locale}/contact`}>
             {c.closing.button}
-            <Icon name="arrow" size={22} />
+            <span aria-hidden="true">↗</span>
           </Link>
         </div>
       </section>

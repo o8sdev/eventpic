@@ -2,7 +2,29 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { defaultSiteContent, withSiteDefaults } from "../src/lib/site/defaults";
 import { siteContentSchema } from "../src/lib/site/schema";
-import { locales } from "../src/lib/i18n";
+import { englishPath, isLocale, locales } from "../src/lib/i18n";
+
+test("retired locale paths redirect to English without changing nested slugs", () => {
+  assert.deepEqual(locales, ["en"]);
+  assert.equal(isLocale("az"), false);
+  assert.equal(isLocale("ru"), false);
+  for (const retired of ["az", "ru"]) {
+    assert.equal(englishPath(`/${retired}`), "/en");
+    assert.equal(
+      englishPath(`/${retired}/dashboard/events/abc`),
+      "/en/dashboard/events/abc",
+    );
+  }
+  for (const path of [
+    "/en/login",
+    "/e/az",
+    "/api/events/ru",
+    "/azure",
+    "/russian",
+    "/auth/confirm",
+  ])
+    assert.equal(englishPath(path), path);
+});
 
 test("existing CMS documents gain gallery fields without losing published copy", () => {
   for (const locale of locales) {

@@ -4,7 +4,7 @@ import { createClient, isConfigured } from "@/lib/supabase/server";
 import { locales } from "@/lib/i18n";
 export async function GET(request: NextRequest) {
   const query = request.nextUrl.searchParams;
-  const locale = z.enum(locales).catch("az").parse(query.get("locale"));
+  const locale = z.enum(locales).catch("en").parse(query.get("locale"));
   const origin = z.url().parse(process.env.SITE_URL || "http://localhost:3000");
   const fail = () =>
     NextResponse.redirect(new URL(`/${locale}/login?notice=authError`, origin));

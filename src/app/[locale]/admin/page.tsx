@@ -27,6 +27,7 @@ export default async function AdminOverview({
     client
       .from("site_content")
       .select("locale,draft,published,version,published_version")
+      .eq("locale", "en")
       .order("locale"),
   ]);
   if (summary.error || rows.error)

@@ -2,13 +2,8 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { eventPoster } from "../src/lib/events/poster";
 async function main() {
   await mkdir("tmp/pdfs", { recursive: true });
-  for (const locale of ["az", "ru", "en"] as const) {
-    const title =
-      locale === "az"
-        ? "Əli və Aysel - Bakı"
-        : locale === "ru"
-          ? "Свадьба Али и Айсель"
-          : "Ali & Aysel - Baku";
+  for (const locale of ["en"] as const) {
+    const title = "Əli & Aysel — Baku";
     await writeFile(
       `tmp/pdfs/poster-${locale}.pdf`,
       await eventPoster({
@@ -30,7 +25,7 @@ async function main() {
       date: "2026-10-05",
       expiry: "2026-11-03T20:00:00Z",
       url: "https://snapmatch.example/e/1234abcdef56",
-      locale: "az",
+      locale: "en",
     }),
   );
   console.log("Created local QA posters in ignored tmp/pdfs.");

@@ -67,9 +67,9 @@
     "sampleLabel": "Illustrative gallery",
     "sampleCaption": "AI-generated imagery · Product preview",
     "strip": [
-      "Made for celebrations",
-      "Designed around privacy",
-      "Azerbaijani · Russian · English"
+      "Every kind of event",
+      "Private by default",
+      "Built for photographers"
     ],
     "howEyebrow": "LESS SEARCHING. MORE REMEMBERING.",
     "howTitle": "From a beautiful day to your favourite photos.",
@@ -93,7 +93,7 @@
     ],
     "studioEyebrow": "FOR PHOTOGRAPHERS",
     "studioTitle": "You capture the story. Let every guest find their part.",
-    "studioBody": "Upload your photos, choose your settings and put the QR at the venue.",
+    "studioBody": "Keep each shoot organised. Upload in batches, prepare your event link and choose how your photos are delivered.",
     "benefits": [
       {
         "title": "Upload in batches",
@@ -105,7 +105,7 @@
       },
       {
         "title": "Keep it your way",
-        "body": "Choose languages, downloads, watermark settings and a face-data expiry date."
+        "body": "Set download permissions, watermark preferences and a face-data expiry date."
       }
     ],
     "studioCta": "Open photographer sign-in",
@@ -150,13 +150,13 @@
         "a": "Search is designed to use the selfie temporarily and discard it. Event face data has a separate expiry date. See the privacy notice for details."
       },
       {
-        "q": "Which languages are available?",
-        "a": "Azerbaijani, Russian and English. Photographers choose the languages for each event."
+        "q": "Are the photo galleries public?",
+        "a": "Event photos are stored privately. Guest delivery is being built to show each guest only the photos matched to them."
       }
     ],
     "closingEyebrow": "EVERY CELEBRATION HAS A STORY",
     "closingTitle": "Give every memory a way home.",
-    "closingBody": "Create an event, add your photos and get your guest QR.",
+    "closingBody": "Have an event in mind? Talk to us about using SnapMatch for your photography business.",
     "footer": "Made for every kind of event in Azerbaijan.",
     "loginIntro": "Your events start here.",
     "loginBody": "From parties to conferences. Your photos, event links and delivery settings in one place.",
@@ -164,17 +164,17 @@
     "home": "Back to SnapMatch"
   },
   "modern": {
-    "badge": "SNAPMATCH · AZERBAIJAN",
-    "title": "Find your photos.",
-    "accent": "Enjoy the moment.",
-    "description": "A selfie finds your photos from the event. No scrolling through hundreds of pictures.",
+    "badge": "EVENT PHOTOGRAPHY, DELIVERED.",
+    "title": "Good moments.",
+    "accent": "Easy to find.",
+    "description": "Bring event photos to the people in them. One private gallery, one event link, less back-and-forth.",
     "primary": "Create your event",
-    "secondary": "See how it works",
-    "howKicker": "FOR YOUR GUESTS",
-    "howTitle": "From the event to your camera roll.",
-    "studioTitle": "One place for every shoot.",
-    "privacyTitle": "Consent comes first.",
-    "closingTitle": "Set up your next event.",
+    "secondary": "Explore SnapMatch",
+    "howKicker": "THE GUEST EXPERIENCE",
+    "howTitle": "A shorter way to your photos.",
+    "studioTitle": "One place for every event.",
+    "privacyTitle": "Personal photos. Clear boundaries.",
+    "closingTitle": "Your next event, a little simpler.",
     "footerDescription": "Photo delivery for photographers and their guests. Made for events in Azerbaijan.",
     "product": "Product",
     "company": "Company",
@@ -245,7 +245,11 @@
     "concertAlt": "Friends enjoying a live music festival under colorful stage lights",
     "graduationAlt": "University graduates celebrating together in a sunny courtyard",
     "familyAlt": "A family across generations enjoying a garden reunion picnic",
-    "weddingAlt": "Illustrative wedding couple walking through a sunlit Baku courtyard"
+    "weddingAlt": "Illustrative wedding couple walking through a sunlit Baku courtyard",
+    "madeIn": "Built in Azerbaijan.",
+    "guestAvailability": "Guest search is coming soon.",
+    "studioFootnote": "Your photographs. Your events. Your settings.",
+    "closingKicker": "FOR YOUR NEXT SHOOT"
   },
   "admin": {
     "title": "System admin",
@@ -287,7 +291,7 @@
     "draft": "Draft",
     "publishHelp": "Publishing makes the saved version public. Save your changes first.",
     "placeholders": "Complete business contact details and review legal copy before launch.",
-    "translationHelp": "Each language has its own draft and publication. Missing published content uses the default translations.",
+    "translationHelp": "Edit the English website. Save a draft, preview it, then publish.",
     "assetHelp": "Select from the approved local asset library. Private event photos cannot be used here.",
     "jobsQueued": "Queued jobs",
     "jobsFailed": "Failed jobs",
@@ -326,7 +330,7 @@
       "footer": "Footer",
       "company": "Company & contact",
       "legal": "Legal pages",
-      "branding": "Branding & images",
+      "branding": "Browser icon",
       "seo": "Search & sharing",
       "sections": "Section order & visibility"
     },
@@ -340,7 +344,7 @@
       "accent": "Accent headline",
       "description": "Description",
       "primary": "Primary button",
-      "secondary": "Secondary button",
+      "secondary": "Explore link",
       "notice": "Availability notice",
       "kicker": "Section label",
       "steps": "Steps",
@@ -350,7 +354,7 @@
       "linkLabel": "Link label",
       "question": "Question",
       "answer": "Answer",
-      "button": "Button label",
+      "button": "Contact link label",
       "product": "Product column",
       "company": "Company column",
       "legal": "Legal column",
@@ -420,7 +424,7 @@
     "edit": "Edit settings",
     "back": "All events",
     "saved": "Event saved.",
-    "invalid": "Check the required fields, languages and expiry date.",
+    "invalid": "Check the required fields and expiry date.",
     "saveError": "Unable to save. Check database setup and event permissions.",
     "coverInvalid": "Choose a valid JPEG or PNG cover no larger than 2 MB.",
     "coverError": "Event settings were saved, but the cover could not be updated. Please try again.",

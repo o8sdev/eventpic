@@ -1,6 +1,6 @@
 # SnapMatch
 
-Private event photo delivery for Azerbaijan. Phase 1 provides a Next.js App Router / TypeScript / Tailwind app, Azerbaijani (default), Russian and English, Supabase migrations and RLS, photographer email magic-link authentication, profile editing with private logos, and a protected dashboard shell.
+Private event photo delivery for Azerbaijan. Phase 1 provides a Next.js App Router / TypeScript / Tailwind app, an English interface, Supabase migrations and RLS, photographer email magic-link authentication, profile editing with private logos, and a protected dashboard shell.
 
 Phase 2 adds event creation/editing, private covers, QR PNG and A5 PDF downloads, and resumable bulk uploads. Phase 3 adds the separate processing worker, face indexing, durable retries and a live photographer gallery. Guest flows are not implemented yet. The privacy notice is a translated draft for legal review, not a production policy.
 
@@ -14,7 +14,7 @@ Copy-Item .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000. The public homepage uses the editorial design: mixed-event photography, warm neutral backgrounds, a sticky navbar, scroll reveals and a complete footer. Photographer sign-in lives at `/az/login` (also `/ru/login` and `/en/login`). Without Supabase values the login route shows a translated setup screen; protected routes redirect there. No fake login or demo data bypass is installed.
+Open http://localhost:3000/en. The public homepage uses an image-free layout, large typography, neutral backgrounds, a sticky navbar, scroll reveals and a full footer. Photographer sign-in lives at `/en/login`. Old `/az` and `/ru` GET/HEAD paths redirect to English, preserving the path and query. Without Supabase values the login route shows a setup screen; protected routes redirect there. No fake login or demo data bypass is installed.
 
 Run `npm run check:setup` while the web app is running to verify the configured Supabase connection, email sign-in availability, published-content RPC and anonymous table restrictions. It reads `.env.local`, makes no database changes and does not print credentials. Email delivery, authenticated uploads and AWS processing require separate integration checks.
 
@@ -34,7 +34,7 @@ npx supabase status
 
 Copy the local API URL and publishable key (or legacy anon key) from `supabase status` to `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in `.env.local`. Set `SITE_URL=http://localhost:3000`, then restart Next.js. Always use the same hostname when opening the app and its email links.
 
-Local mail is captured at http://127.0.0.1:54324. Request a link from `/az/login`, open the captured email, and follow the link in the same browser. The default Supabase email template uses `{{ .ConfirmationURL }}`; the application exchanges its PKCE `code` at `/auth/confirm`.
+Local mail is captured at http://127.0.0.1:54324. Request a link from `/en/login`, open the captured email, and follow the link in the same browser. The default Supabase email template uses `{{ .ConfirmationURL }}`; the application exchanges its PKCE `code` at `/auth/confirm`.
 
 For links that must work across browsers, customize both the magic-link and signup-confirmation templates to use the token-hash route instead:
 
@@ -42,15 +42,13 @@ For links that must work across browsers, customize both the magic-link and sign
 <a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">SnapMatch</a>
 ```
 
-`RedirectTo` already contains `?locale=...`. Both routes validate their inputs and redirect only to the matching locale's dashboard or system-admin portal, according to trusted database membership. Email copy and delivery customization can be added alongside production SMTP setup.
+`RedirectTo` already contains `?locale=...`. Both routes validate their inputs and redirect only to the English dashboard or system-admin portal, according to trusted database membership. Email copy and delivery customization can be added alongside production SMTP setup.
 
 ## Hosted Supabase alternative
 
 Create a fresh Supabase project and apply the SQL files in filename order via the SQL editor, or link the CLI project and run `supabase db push` after reviewing the target. Configure your exact site origin and allow these Auth redirect URLs, replacing the example origin:
 
 ```text
-https://your-domain.example/auth/confirm?locale=az
-https://your-domain.example/auth/confirm?locale=ru
 https://your-domain.example/auth/confirm?locale=en
 ```
 
@@ -105,7 +103,7 @@ Manual integration checks once Supabase is connected:
 1. Open `/az`, `/ru` and `/en`; verify language switching and each privacy page.
 2. Request a magic link, follow the email and verify the empty dashboard. Reusing an expired/used link should show the translated error.
 3. Edit your name, business name and phone; reload and verify persistence. Upload a JPEG/PNG logo smaller than 2 MB; verify its preview URL is signed and the bucket remains private.
-4. Sign out and open `/az/dashboard` directly; it must return to `/az/login`.
+4. Sign out and open `/az/dashboard` directly; it must return to `/en/login`.
 5. Use two photographer accounts and verify ownership isolation. Do not expose test credentials in the repository.
 
 Database SQL is tested in PGlite. On 2026-10-07, all six migrations had been applied to the configured hosted EventPic project, which is active in `eu-central-1`. Local migration timestamps match its recorded migration history. Hosted checks confirmed RLS on all 15 tables, four private buckets, successful Auth/public-content responses, anonymous event/admin access denial, and service-role-only job claiming. Live email delivery, session refresh and authenticated Storage integration remain unverified. Docker is unavailable in the development environment; this checkout uses hosted Supabase.
@@ -120,7 +118,7 @@ Supabase's advisor reports intentional access patterns: [RLS with no browser pol
 src/app/[locale]/       localized landing, login, dashboard, profile, legal/contact, admin
 src/app/auth/confirm/   magic-link verification and PKCE exchange
 src/lib/supabase/       server-only session client
-src/messages/          all application copy in AZ/RU/EN
+src/messages/          English application copy (legacy files are not loaded)
 supabase/migrations/   schema, authorization, private storage and site-admin CMS
 scripts/test-db.mjs    migration and security regression checks
 worker/                separate Node processing service
@@ -139,26 +137,26 @@ Each phase starts with a plan and approval, and ends with verification and a git
 
 ## Public website and site administration
 
-The public site uses a photography-led editorial layout: a warm paper background, plain typography with a serif accent, two overlapping hero photographs, a captioned contact sheet, a numbered guest walkthrough and a solid blue photographer section. Navigation, footer and section content are CMS-driven. Subtle scroll reveals and image hover effects respect reduced-motion settings; FAQs and the full-photo viewer use native controls. Guest search is labelled as a future feature. Photographer event creation and uploads are implemented in Phase 2; processing, guest face search and guest downloads arrive in later phases. Public presentation styles are scoped in `src/app/landing.css`; photographer and system-admin tools keep their compact application layout.
+The landing page contains no images or photo galleries. It uses large type, an off-white background, cobalt accents, a dark green photographer section, numbered steps and a sage contact section. Navigation, footer and section text are CMS-driven. Scroll reveals respect reduced-motion settings; FAQs use native disclosure controls. Event-creation prompts are removed from the landing page; sign-in remains in the navbar and footer, and the closing link leads to Contact. Photographer event creation remains in the dashboard. Guest search is labelled as coming soon. Public styles are scoped in `src/app/landing.css`.
 
-The supplied SnapMatch logo and icon remain unchanged in `public/brand`. Metadata uses the selected CMS icon. Six fictional event photographs illustrate birthdays, corporate events, concerts, graduations, family gatherings and weddings. The responsive contact sheet uses numbered category captions below each photograph and a native full-photo dialog with previous/next controls and Escape-to-close. Hero photographs follow the CMS hero and sample selections; the small supporting photograph prefers a concert when selected in the gallery. Local WebP asset prompts are recorded in `public/images/event-samples.md`. Earlier wedding assets remain available in the CMS library, with prompts in `public/images/sample-images.md`. There are no external image trackers. The guest gallery preview uses only a photograph from one fictional event.
+All application routes and controls use English. Language selectors are removed and event forms submit English. Historical database locale values and CMS documents remain compatible; only English content is loaded and edited by the app. Retired image and primary-button fields remain in saved documents, but their landing-page editor controls are hidden. Supplied brand assets remain in `public/brand`; the landing uses a text/CSS wordmark. The browser icon and sharing image remain configurable. Images may still appear on sign-in and photographer event pages.
 
-The system-admin portal at `/az/admin`, `/ru/admin` or `/en/admin` provides:
+The system-admin portal at `/en/admin` provides:
 
-- A counts-only platform overview, locale publishing status, missing company details and legal-review reminders.
+- A counts-only platform overview, English publishing status, missing company details and legal-review reminders.
 - Structured editing of navigation, hero, walkthrough, photographer benefits, privacy, FAQ, closing CTA, footer, company/contact/social details, legal text, SEO and branding.
 - Section visibility/order and list-item editing. Text is escaped by React; arbitrary HTML/scripts are not accepted.
-- Save draft, private saved-draft preview, publish, revision history, restore as a draft and an immutable activity log. Each locale is edited and published independently. Save failures preserve unsaved input; stale versions are rejected instead of overwriting someone else's work.
+- Save draft, private saved-draft preview, publish, revision history, restore as a draft and an immutable activity log. Only English is edited and published through the app. Save failures preserve unsaved input; stale versions are rejected instead of overwriting someone else's work.
 
-Company information starts empty. Contact details and social links appear when filled and published. Privacy and terms start as translated drafts awaiting legal review. Image selectors use the approved local brand and photo library; media uploads and a general page builder are outside this scope. Edit the gallery heading, description and visibility under How it works, and choose/reorder its photos, descriptions and event labels under Branding & images. Login imagery follows the CMS hero selection. Existing CMS documents receive localized defaults for missing fields while preserving their published copy and chosen photos.
+Company information starts empty. Contact details and social links appear when filled and published. Privacy and terms start as drafts awaiting legal review. Browser icon and Search & sharing selectors use the approved local asset library; media uploads and a general page builder are outside this scope. Existing CMS documents preserve their published copy.
 
 ### Provision the first admin
 
 1. Apply pending migrations from `supabase/migrations` in filename order to the intended Supabase project. All five are already applied to this checkout's configured hosted project. The site-admin migration is `20261005145316_site_admin.sql`; it requires the earlier schema and immutable-record function.
-2. Sign in with the intended admin email at `/az/login` and complete email verification. The provisioning helper requires an email-confirmed Auth account before granting membership.
+2. Sign in with the intended admin email at `/en/login` and complete email verification. The provisioning helper requires an email-confirmed Auth account before granting membership.
 3. Set `ADMIN_BOOTSTRAP_EMAIL` in your ignored `.env.local`, then run `npm run admin:bootstrap`. This creates ignored `supabase/bootstrap-admin.local.sql`.
 4. Review and run that generated SQL in the project's trusted Supabase SQL Editor. It looks up the existing account and adds enabled membership; it fails if the account does not exist.
-5. Open `/az/admin` after signing in. Subsequent magic-link sign-ins route enabled admins to the portal. Use the portal's photographer-dashboard link to reach the ordinary photographer tools.
+5. Open `/en/admin` after signing in. Subsequent magic-link sign-ins route enabled admins to the portal. Use the portal's photographer-dashboard link to reach the ordinary photographer tools.
 
 An email in configuration does not grant access. Membership lives in `system_admins`; authenticated browser roles cannot add or enable themselves. To revoke access, set that account's membership `enabled=false` through a trusted database owner connection. No service-role key is needed by the website CMS.
 
@@ -170,21 +168,21 @@ The public `get_site_content(locale)` RPC returns only published website content
 
 ### Manual review
 
-1. Review `/az`, `/ru` and `/en` at mobile and desktop widths. Open a sample photo, move through the gallery and close it with Escape. Switch the guest/studio preview, select its three steps, scroll the walkthrough, open FAQs, and check mobile navigation, legal/contact links and back-to-top.
+1. Review `/en` at mobile and desktop widths: no landing images, language selector or Create event links. Check section anchors, FAQs, mobile navigation, legal/contact links and back-to-top. Open `/az` and `/ru/login?notice=sent` to verify English redirects.
 2. Anonymous access to `/en/admin` must return to login. A signed-in photographer without enabled admin membership must receive a 404.
 3. As the provisioned admin, change and save a headline. Public copy must stay unchanged until Publish. Open the private preview, publish, then reload the public site.
 4. Open two editor tabs and save in one; saving the stale tab must report a version conflict and retain its input. Restoring history must alter only the draft until published.
-5. Edit contact details in each locale, publish, and verify footer/contact pages. Revoke membership through SQL and verify privileged operations no longer work.
+5. Edit English contact details, publish, and verify footer/contact pages. Revoke membership through SQL and verify privileged operations no longer work.
 
 The public app and migration security checks can run locally. The hosted schema is deployed. Live CMS editing still requires first sign-in and trusted membership provisioning; the intended admin account did not exist at deployment time. Hosted magic-link delivery, authenticated Storage and the authenticated admin browser flow are not claimed as verified until tested.
 
 ## Phase 2: events and bulk uploads
 
-Create an event from the dashboard, then use its detail page for sharing, settings and uploads. Events start as drafts. Title, date, venue, guest languages, default language, download settings, watermark choice and expiry are validated with Zod and again in the database. The expiry default is midnight Baku time, event date + 30 days. Editing a date preserves the prior expiry unless explicitly changed. Watermark settings are fixed once any photo is reserved; later processing must produce consistent delivery images.
+Create an event from the dashboard, then use its detail page for sharing, settings and uploads. Events start as drafts. Title, date, venue, download settings, watermark choice and expiry are validated with Zod and again in the database. The expiry default is midnight Baku time, event date + 30 days. Editing a date preserves the prior expiry unless explicitly changed. Watermark settings are fixed once any photo is reserved; later processing must produce consistent delivery images.
 
 Covers accept JPEG/PNG up to 2 MB and 40 megapixels. The server verifies authentication before decoding, validates actual image format, rotates/resizes, strips metadata and writes a new JPEG to the private branding bucket. Assigning the cover checks event ownership and the stored path. Referenced covers cannot be removed through the photographer Storage policy; unreferenced replacements can be cleaned up. Rare failed cleanup can leave an old object, which the later coordinated event-prefix cleanup must remove.
 
-QR PNGs encode the configured `SITE_URL` plus `/e/[slug]`. A5 PDFs contain the event title, localized instructions, expiry/privacy notice, logo and actual QR. Their bundled [Noto Sans font](https://github.com/notofonts/noto-fonts) supports AZ/RU/EN and is redistributed with its OFL license in `public/fonts`. Set `SITE_URL` to the public deployment origin before printing QR posters. The current guest destination and poster clearly indicate preparation: consent/camera/search are implemented in Phase 4.
+QR PNGs encode the configured `SITE_URL` plus `/e/[slug]`. A5 PDFs contain the event title, English instructions, expiry/privacy notice, logo and actual QR. Their bundled [Noto Sans font](https://github.com/notofonts/noto-fonts) supports Unicode event names and is redistributed with its OFL license in `public/fonts`. Set `SITE_URL` to the public deployment origin before printing QR posters. The current guest destination and poster clearly indicate preparation: consent/camera/search are implemented in Phase 4.
 
 ### Configure the database
 
@@ -208,8 +206,8 @@ Run lint, typecheck, `test:db`, `test:events` and the production build. New data
 
 After applying migrations and signing in:
 
-1. Create and edit an event; verify default/custom expiry, language choices, cover replacement and download settings. Reload to confirm persistence.
-2. Download the QR and localized A5 poster. Scan the QR to the preparation notice. Print the PDF at 100% A5 size.
+1. Create and edit an event; verify default/custom expiry, cover replacement and download settings. Reload to confirm persistence.
+2. Download the QR and English A5 poster. Scan the QR to the preparation notice. Print the PDF at 100% A5 size.
 3. Upload multiple JPEGs. Check per-file progress, received status and dashboard counts. Close mid-batch, return, reselect the same files and verify one photo/one job per fingerprint.
 4. Pause/resume, interrupt the network, retry failed transfers, and confirm large/non-JPEG files produce friendly messages.
 5. Use another photographer account: event routes, QR/poster endpoints, reservations and Storage access must remain isolated. Public guest search continues in Phase 4; processing and automatic status refresh are implemented in Phase 3.

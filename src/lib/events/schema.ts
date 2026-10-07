@@ -24,7 +24,7 @@ export const eventSchema = z
     languages: z
       .array(z.enum(locales))
       .min(1)
-      .max(3)
+      .max(1)
       .refine((items) => new Set(items).size === items.length),
     default_locale: z.enum(locales),
     allow_original_download: z.boolean(),

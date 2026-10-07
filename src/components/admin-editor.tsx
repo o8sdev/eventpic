@@ -67,6 +67,20 @@ export function AdminEditor({
     path: (string | number)[],
     key: string,
   ): React.ReactNode {
+    // Preserve historical CMS documents, while hiding controls for retired UI.
+    if (
+      [
+        "hero.primary",
+        "walkthrough.examplesTitle",
+        "walkthrough.examplesDescription",
+        "walkthrough.showExamples",
+        "branding.logoPath",
+        "branding.heroImage",
+        "branding.imageAlt",
+        "branding.examplePhotos",
+      ].includes(path.join("."))
+    )
+      return null;
     const id = `field-${path.join("-")}`;
     const label = labels[key] || t.groups[group];
     if (typeof value === "boolean")

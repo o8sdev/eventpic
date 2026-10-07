@@ -29,7 +29,7 @@ export function defaultSiteContent(locale: Locale): SiteContent {
       steps: l.steps.map(({ title, body }) => ({ title, body })),
       examplesTitle: m.examplesTitle,
       examplesDescription: m.examplesDescription,
-      showExamples: true,
+      showExamples: false,
     },
     studio: {
       kicker: l.studioEyebrow,
@@ -51,7 +51,7 @@ export function defaultSiteContent(locale: Locale): SiteContent {
     closing: {
       title: m.closingTitle,
       description: l.closingBody,
-      button: m.primary,
+      button: m.contact,
     },
     footer: {
       description: m.footerDescription,
@@ -120,7 +120,7 @@ export function defaultSiteContent(locale: Locale): SiteContent {
     seo: {
       title: "SnapMatch",
       description: m.description.slice(0, 200),
-      image: "/images/event-birthday.webp",
+      image: "/brand/snapmatch-icon.png",
     },
     sections: {
       order: ["how", "studio", "privacy", "faq"],

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { messages, type Locale } from "@/lib/i18n";
 import { Brand } from "./brand";
-import { LanguageSwitcher } from "./language-switcher";
 import { signOut } from "@/app/[locale]/actions";
 import { Icon } from "./icon";
 export function AdminShell({
@@ -55,7 +54,6 @@ export function AdminShell({
         <header className="admin-topbar">
           <span>{t.title}</span>
           <div>
-            <LanguageSwitcher label={messages[locale].language} />
             <form action={signOut}>
               <input type="hidden" name="locale" value={locale} />
               <button type="submit" className="text-button">

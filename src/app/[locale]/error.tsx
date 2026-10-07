@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import { isLocale, messages } from "@/lib/i18n";
 export default function ErrorPage({ reset }: { reset: () => void }) {
   const { locale } = useParams<{ locale: string }>();
-  const t = messages[isLocale(locale) ? locale : "az"];
+  const t = messages[isLocale(locale) ? locale : "en"];
   return (
     <section className="privacy">
       <p role="alert">{t.loadError}</p>

@@ -1,11 +1,9 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { messages, type Locale } from "@/lib/i18n";
 import type { SiteContent } from "@/lib/site/schema";
-import { LanguageSwitcher } from "./language-switcher";
 import { Icon } from "./icon";
 
 export function SiteChrome({
@@ -37,20 +35,23 @@ export function SiteChrome({
       show: content.sections.studio,
     },
     {
+      label: m.privacy,
+      id: "privacy",
+      show: content.sections.privacy,
+    },
+    {
       label: content.navigation.faq,
       id: "questions",
       show: content.sections.faq,
     },
   ].filter((n) => n.show);
   const logo = (
-    <span className="brand-art">
-      <Image
-        src={content.branding.logoPath}
-        alt={t.brand}
-        width={2048}
-        height={683}
-        priority
-      />
+    <span className="wordmark">
+      <span className="wordmark-symbol" aria-hidden="true">
+        <i />
+        <i />
+      </span>
+      <span>{t.brand}</span>
     </span>
   );
   return (
@@ -72,7 +73,6 @@ export function SiteChrome({
             ))}
           </nav>
           <div className="header-actions">
-            <LanguageSwitcher label={t.language} />
             <Link className="header-login" href={`/${locale}/login`}>
               {content.navigation.signIn}
               <Icon name="arrow" size={16} />
@@ -190,7 +190,6 @@ export function SiteChrome({
             © {new Date().getFullYear()} {content.company.legalName || t.brand}.{" "}
             {content.footer.copyright}
           </span>
-          <span>AZ · RU · EN</span>
           <a href="#top">
             {m.backTop}
             <span aria-hidden="true">↑</span>

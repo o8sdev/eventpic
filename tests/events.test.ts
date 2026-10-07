@@ -17,8 +17,8 @@ const event = {
   title: "Baku wedding",
   event_date: "2026-10-05",
   venue: "Baku",
-  languages: ["az", "ru", "en"],
-  default_locale: "az",
+  languages: ["en"],
+  default_locale: "en",
   allow_original_download: false,
   watermark_enabled: true,
   expiry: "",
@@ -33,7 +33,7 @@ test("event dates and guest settings reject impossible or inconsistent values", 
     false,
   );
   assert.equal(
-    eventSchema.safeParse({ ...event, languages: ["az", "az"] }).success,
+    eventSchema.safeParse({ ...event, languages: ["en", "en"] }).success,
     false,
   );
   assert.equal(
@@ -70,20 +70,19 @@ test("QR pixels decode to the exact guest URL", async () => {
   const result = jsQR(new Uint8ClampedArray(data), info.width, info.height);
   assert.equal(result?.data, url);
 });
-test("each localized poster is a single A5 page with embedded Unicode text", async () => {
-  for (const locale of ["az", "ru", "en"] as const) {
+test("English posters are single A5 pages and support Unicode event titles", async () => {
+  for (const title of [
+    "Əli və Aysel — Bakı",
+    "Свадьба Али и Айсель",
+    "Ali & Aysel",
+  ]) {
     const bytes = await eventPoster({
-      title:
-        locale === "az"
-          ? "Əli və Aysel — Bakı"
-          : locale === "ru"
-            ? "Свадьба Али и Айсель"
-            : "Ali & Aysel",
+      title,
       venue: "Baku",
       date: "2026-10-05",
       expiry: "2026-11-03T20:00:00Z",
       url: "https://snapmatch.example/e/1234abcdef56",
-      locale,
+      locale: "en",
     });
     const doc = await PDFDocument.load(bytes);
     assert.equal(doc.getPageCount(), 1);

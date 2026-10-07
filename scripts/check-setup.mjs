@@ -30,7 +30,9 @@ if (!parsed.success) {
 } else {
   const settings = parsed.data;
   let failures = 0;
-  console.log(`Supabase: ${new URL(settings.NEXT_PUBLIC_SUPABASE_URL).hostname}`);
+  console.log(
+    `Supabase: ${new URL(settings.NEXT_PUBLIC_SUPABASE_URL).hostname}`,
+  );
   console.log(`Web app: ${settings.SITE_URL}`);
 
   async function check(label, task) {
@@ -70,7 +72,7 @@ if (!parsed.success) {
       const response = await api("/rest/v1/rpc/get_site_content", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ p_locale: "az" }),
+        body: JSON.stringify({ p_locale: "en" }),
       });
       if (!response.ok) throw new Error();
     }),
@@ -81,24 +83,27 @@ if (!parsed.success) {
       }),
     ),
     check("Local web app", async () => {
-      const response = await fetch(new URL("/az/login", settings.SITE_URL), {
+      const response = await fetch(new URL("/en/login", settings.SITE_URL), {
         signal: AbortSignal.timeout(15000),
       });
       if (!response.ok) throw new Error();
     }),
     ...["dashboard", "admin"].map((page) =>
       check(`Anonymous ${page} redirects to sign-in`, async () => {
-        const response = await fetch(new URL(`/az/${page}`, settings.SITE_URL), {
-          redirect: "manual",
-          signal: AbortSignal.timeout(15000),
-        });
+        const response = await fetch(
+          new URL(`/en/${page}`, settings.SITE_URL),
+          {
+            redirect: "manual",
+            signal: AbortSignal.timeout(15000),
+          },
+        );
         const location = response.headers.get("location");
         if (![302, 303, 307, 308].includes(response.status) || !location)
           throw new Error();
         const target = new URL(location, settings.SITE_URL);
         if (
           target.origin !== new URL(settings.SITE_URL).origin ||
-          target.pathname !== "/az/login"
+          target.pathname !== "/en/login"
         )
           throw new Error();
       }),
