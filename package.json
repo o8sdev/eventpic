@@ -13,7 +13,12 @@
     "test:events": "tsx --test tests/events.test.ts",
     "test:site": "tsx --test tests/site-content.test.ts",
     "check:setup": "node scripts/check-setup.mjs",
-    "db:bundle": "node scripts/bundle-migrations.mjs"
+    "db:bundle": "node scripts/bundle-migrations.mjs",
+    "worker:dev": "npm run dev --prefix worker",
+    "worker:build": "npm run build --prefix worker",
+    "worker:start": "npm start --prefix worker",
+    "worker:check": "npm run check --prefix worker",
+    "test:worker": "npm test --prefix worker"
   },
   "dependencies": {
     "@pdf-lib/fontkit": "^1.1.1",

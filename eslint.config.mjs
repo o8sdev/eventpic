@@ -4,5 +4,5 @@ import ts from "eslint-config-next/typescript";
 export default defineConfig([
   ...next,
   ...ts,
-  globalIgnores([".next/**", "tmp/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", "tmp/**", "worker/dist/**", "next-env.d.ts"]),
 ]);

@@ -2,7 +2,7 @@
 
 Private event photo delivery for Azerbaijan. Phase 1 provides a Next.js App Router / TypeScript / Tailwind app, Azerbaijani (default), Russian and English, Supabase migrations and RLS, photographer email magic-link authentication, profile editing with private logos, and a protected dashboard shell.
 
-Phase 2 adds event creation/editing, private covers, QR PNG and A5 PDF downloads, and resumable bulk uploads. The worker, face indexing and guest flows are not implemented yet. The privacy notice is a translated draft for legal review, not a production policy.
+Phase 2 adds event creation/editing, private covers, QR PNG and A5 PDF downloads, and resumable bulk uploads. Phase 3 adds the separate processing worker, face indexing, durable retries and a live photographer gallery. Guest flows are not implemented yet. The privacy notice is a translated draft for legal review, not a production policy.
 
 ## Run the web app
 
@@ -14,7 +14,7 @@ Copy-Item .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000. The public homepage uses the Modern Product design: blue/purple accents, an interactive product preview, a sticky navbar, scroll reveals and a complete footer. Photographer sign-in lives at `/az/login` (also `/ru/login` and `/en/login`). Without Supabase values the login route shows a translated setup screen; protected routes redirect there. No fake login or demo data bypass is installed.
+Open http://localhost:3000. The public homepage uses the editorial design: mixed-event photography, warm neutral backgrounds, a sticky navbar, scroll reveals and a complete footer. Photographer sign-in lives at `/az/login` (also `/ru/login` and `/en/login`). Without Supabase values the login route shows a translated setup screen; protected routes redirect there. No fake login or demo data bypass is installed.
 
 Run `npm run check:setup` while the web app is running to verify the configured Supabase connection, email sign-in availability, published-content RPC and anonymous table restrictions. It reads `.env.local`, makes no database changes and does not print credentials. Email delivery, authenticated uploads and AWS processing require separate integration checks.
 
@@ -81,7 +81,7 @@ The configured hosted project uses `http://localhost:3000` as its Site URL. On 2
 - Logos use `<photographer-id>/logo.png`. The authenticated upload action validates MIME/size, decodes with a 16-million-pixel limit, rotates, scales to 512px, strips metadata and writes PNG. Storage policies and a profile constraint restrict the path to that photographer. Previews use a one-hour signed URL. Logo replacement overwrites a stable path to avoid orphan files.
 - Composite foreign keys prevent cross-event face/match/job references. Download references are checked by a trigger. Family matches include `selfie_index` in the primary key so one indexed face can be retained for multiple searches.
 - `consents` and `audit_log` intentionally have no FKs. Update, delete and truncate are blocked by triggers; the service role only gets append/read privileges on these tables. Removal requests have mutable lifecycle status; future handlers must append transitions to `audit_log`. Never put images, selfies or raw IPs in audit metadata.
-- `claim_jobs(n, worker_id)` is service-role-only, uses atomic UPDATE plus `FOR UPDATE SKIP LOCKED`, and increments attempts on claim. It accepts 1–100 jobs. Lease recovery, heartbeats, backoff, exhausted-job handling and idempotent processing belong to Phase 3. A claimed job stays running until the worker updates it.
+- `claim_jobs(n, worker_id)` is service-role-only, uses atomic UPDATE plus `FOR UPDATE SKIP LOCKED`, and increments attempts on claim. It accepts 1–100 jobs. The Phase 3 worker renews five-minute leases, fences stale workers, retries with backoff and atomically commits results. Dead jobs can be retried by their event owner after a cooldown.
 - Default expiry is midnight Asia/Baku on `event_date + 30 days`; explicit expiry is preserved. Changing event_date does not silently extend an existing retention period. Slugs use 12 random hexadecimal characters rather than eight, for a larger collision space; the unique constraint remains authoritative. They are identifiers, not authorization secrets.
 
 Auth implementation follows [Supabase's SSR guidance](https://supabase.com/docs/guides/auth/server-side/creating-a-client) and the [Next.js Proxy convention](https://nextjs.org/docs/app/getting-started/proxy).
@@ -108,7 +108,7 @@ Manual integration checks once Supabase is connected:
 4. Sign out and open `/az/dashboard` directly; it must return to `/az/login`.
 5. Use two photographer accounts and verify ownership isolation. Do not expose test credentials in the repository.
 
-Database SQL is tested in PGlite. On 2026-10-05, all five migrations were applied to the configured hosted EventPic project, which is active in `eu-central-1`. Local migration timestamps match its recorded migration history. Hosted checks confirmed RLS on all 15 tables, four private buckets, successful Auth/public-content responses, anonymous event/admin access denial, and service-role-only job claiming. Live email delivery, session refresh and authenticated Storage integration remain unverified. Docker is unavailable in the development environment; this checkout uses hosted Supabase.
+Database SQL is tested in PGlite. On 2026-10-07, all six migrations had been applied to the configured hosted EventPic project, which is active in `eu-central-1`. Local migration timestamps match its recorded migration history. Hosted checks confirmed RLS on all 15 tables, four private buckets, successful Auth/public-content responses, anonymous event/admin access denial, and service-role-only job claiming. Live email delivery, session refresh and authenticated Storage integration remain unverified. Docker is unavailable in the development environment; this checkout uses hosted Supabase.
 
 Supabase's advisor reports intentional access patterns: [RLS with no browser policies](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy) on eight server/worker tables, [public execution](https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable) of the published-marketing-content RPC, and [authenticated execution](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable) of guarded owner/admin RPCs. These functions have empty search paths and explicit ownership/membership checks where needed. Do not add broad policies or revoke required RPC access merely to hide these notices.
 
@@ -123,7 +123,7 @@ src/lib/supabase/       server-only session client
 src/messages/          all application copy in AZ/RU/EN
 supabase/migrations/   schema, authorization, private storage and site-admin CMS
 scripts/test-db.mjs    migration and security regression checks
-worker/                Phase 3 worker placeholder
+worker/                separate Node processing service
 ```
 
 ## Phases
@@ -182,7 +182,7 @@ The public app and migration security checks can run locally. The hosted schema 
 
 Create an event from the dashboard, then use its detail page for sharing, settings and uploads. Events start as drafts. Title, date, venue, guest languages, default language, download settings, watermark choice and expiry are validated with Zod and again in the database. The expiry default is midnight Baku time, event date + 30 days. Editing a date preserves the prior expiry unless explicitly changed. Watermark settings are fixed once any photo is reserved; later processing must produce consistent delivery images.
 
-Covers accept JPEG/PNG up to 2 MB and 40 megapixels. The server verifies authentication before decoding, validates actual image format, rotates/resizes, strips metadata and writes a new JPEG to the private branding bucket. Assigning the cover checks event ownership and the stored path. Referenced covers cannot be removed through the photographer Storage policy; unreferenced replacements can be cleaned up. Rare failed cleanup can leave an old object, which full event-prefix cleanup in Phase 3 must remove.
+Covers accept JPEG/PNG up to 2 MB and 40 megapixels. The server verifies authentication before decoding, validates actual image format, rotates/resizes, strips metadata and writes a new JPEG to the private branding bucket. Assigning the cover checks event ownership and the stored path. Referenced covers cannot be removed through the photographer Storage policy; unreferenced replacements can be cleaned up. Rare failed cleanup can leave an old object, which the later coordinated event-prefix cleanup must remove.
 
 QR PNGs encode the configured `SITE_URL` plus `/e/[slug]`. A5 PDFs contain the event title, localized instructions, expiry/privacy notice, logo and actual QR. Their bundled [Noto Sans font](https://github.com/notofonts/noto-fonts) supports AZ/RU/EN and is redistributed with its OFL license in `public/fonts`. Set `SITE_URL` to the public deployment origin before printing QR posters. The current guest destination and poster clearly indicate preparation: consent/camera/search are implemented in Phase 4.
 
@@ -195,12 +195,12 @@ Apply pending migrations in filename order, including `20261005145317_event_uplo
 - JPEGs up to 50 MB, four parallel uploads, one full-file hash buffer at a time, and a maximum 10,000 files per browser queue. The server limits upload metadata bodies to 4 KB.
 - Full SHA-256 fingerprints are unique per event. A guarded RPC reserves a canonical path `<owner>/<event>/<photo>/original.jpg`. The ownership/status check and reservation use an event row lock. Duplicate reservations reuse the row; they never create additional photo rows or overwrite received originals.
 - Signing uses the verified photographer session. Storage INSERT is allowed only for the exact reserved pending path in an owned editable event. Signed upload tokens are path-scoped and use `upsert=false`; files travel directly from browser to Storage. No JWT/session token or signed URL is saved in browser queue history.
-- Completion verifies a JPEG header through a bounded range read, then the guarded database RPC checks Storage-computed size/MIME, changes status to uploaded, and inserts one processing job atomically. The Phase 3 worker must fully decode/validate the untrusted original before processing it. Upload acknowledgement is separate from indexing readiness.
+- Completion verifies a JPEG header through a bounded range read, then the guarded database RPC checks Storage-computed size/MIME, changes status to uploaded, and inserts one processing job atomically. The Phase 3 worker fully decodes/validates the untrusted original before indexing it. Upload acknowledgement is separate from indexing readiness.
 - Three total attempts with fresh signing and backoff handle network/storage failures. Pause aborts transfers. After reopening, reselect the same files: received files are skipped, stored files awaiting confirmation are finalized, and interrupted files restart. Resume is per file; partial bytes are not persisted. Browser history stores only filename, size, modification time and queue state under owner/event keys. Clearing it does not delete uploaded photos.
-- Gallery pages contain 48 photos each, with private one-hour thumbnail/cover URLs. Queue pages contain 50 entries each. Original downloads may retain original EXIF metadata; the setting explains this. GPS stripping for web/thumb derivatives is Phase 3.
+- Gallery pages contain 48 photos each, with private one-hour thumbnail/cover URLs. Queue pages contain 50 entries each. Original downloads may retain original EXIF metadata; the setting explains this. The worker strips GPS and other metadata from web/thumb derivatives.
 - POST upload endpoints require a verified user, owned editable event and matching configured Origin. QR/poster GET endpoints are authenticated and owner-scoped. Responses are private/no-store. Anonymous and other photographers receive no private files.
 
-[Supabase signed upload tokens expire after two hours](https://supabase.com/docs/reference/javascript/storage-from-createsigneduploadurl), while display URLs last one hour. Reservation timestamps are refreshed before signing. Phase 3 deletion must mark the event deleting, block new signing, and allow outstanding upload tokens to expire (with a grace period) before final prefix cleanup so late uploads cannot recreate orphan files. No event/photo deletion UI is added before that coordinated cleanup exists.
+[Supabase signed upload tokens expire after two hours](https://supabase.com/docs/reference/javascript/storage-from-createsigneduploadurl), while display URLs last one hour. Reservation timestamps are refreshed before signing. Coordinated deletion must mark the event deleting, block new signing, and allow outstanding upload tokens to expire (with a grace period) before final prefix cleanup so late uploads cannot recreate orphan files. No event/photo deletion UI is added before that coordinated cleanup exists.
 
 ### Verify Phase 2
 
@@ -212,6 +212,12 @@ After applying migrations and signing in:
 2. Download the QR and localized A5 poster. Scan the QR to the preparation notice. Print the PDF at 100% A5 size.
 3. Upload multiple JPEGs. Check per-file progress, received status and dashboard counts. Close mid-batch, return, reselect the same files and verify one photo/one job per fingerprint.
 4. Pause/resume, interrupt the network, retry failed transfers, and confirm large/non-JPEG files produce friendly messages.
-5. Use another photographer account: event routes, QR/poster endpoints, reservations and Storage access must remain isolated. Public guest search continues in Phase 4; processing/status streaming continues in Phase 3.
+5. Use another photographer account: event routes, QR/poster endpoints, reservations and Storage access must remain isolated. Public guest search continues in Phase 4; processing and automatic status refresh are implemented in Phase 3.
 
 The hosted schema and public API checks pass. Event/upload/email integration still requires an authenticated account for testing. Local SQL, asset generation and unauthenticated route checks are validated independently.
+
+## Phase 3: processing worker and live gallery
+
+See [worker/README.md](worker/README.md) for configuration, minimal AWS permissions, security boundaries, recovery behaviour and live acceptance steps. Install with `npm ci --prefix worker`; run `npm run worker:check`, `npm run worker:build`, then `npm run worker:start` alongside Next.js. Credentials stay in `.env.local` or the host environment.
+
+The event gallery shows private thumbnails/full previews, aggregate statuses, face counts, zero-face explanations and localized failures. It refreshes automatically without reloading cached images; dead jobs offer a guarded retry. Run `npm run test:worker` for image and processing regression tests and `npm run test:db` for queue/RLS/lease tests. The migration is deployed, but live AWS/Storage processing still needs populated service/AWS credentials and a verified photographer sign-in.

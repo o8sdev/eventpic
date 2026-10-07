@@ -19,5 +19,5 @@ export async function assetAccess(eventId: string) {
     .maybeSingle();
   if (error) return { response: apiError("setup", 503) };
   if (!data) return { response: apiError("unavailable", 404) };
-  return { event: data as PhotographerEvent };
+  return { event: data as PhotographerEvent, client };
 }

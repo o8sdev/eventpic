@@ -3,6 +3,7 @@
 import { PGlite } from "@electric-sql/pglite";
 import { readFile, readdir } from "node:fs/promises";
 import assert from "node:assert/strict";
+import { testProcessing } from "./test-processing-db.mjs";
 const db = new PGlite();
 await db.exec(`
  create role anon; create role authenticated; create role service_role bypassrls;
@@ -382,6 +383,7 @@ await denied(
 await denied(`select complete_photo_upload('${e3}','${reservation.id}')`);
 await db.exec("reset role");
 
+await testProcessing(db, uid, other);
 await db.exec(`delete from events where id='${e1}'`);
 assert.equal(
   (await db.query("select count(*)::int n from guest_matches")).rows[0].n,

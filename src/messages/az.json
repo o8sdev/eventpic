@@ -408,7 +408,7 @@
     "originals": "Orijinal ölçüdə endirməyə icazə ver",
     "originalsHelp": "Qonaqlar orijinal metadatası ilə birlikdə faylı əldə edə bilərlər.",
     "watermark": "Veb şəkillərə su nişanı əlavə et",
-    "watermarkHelp": "Emal prosesi çatdırılma şəkillərinə su nişanınızı əlavə edəcək.",
+    "watermarkHelp": "Veb şəkillərə və kiçik önizləmələrə incə SnapMatch nişanı əlavə edir. Orijinallar dəyişmir.",
     "watermarkLocked": "Bütün çatdırılma şəkilləri üçün eyni parametrin qalması məqsədilə yükləmədən sonra dəyişmir.",
     "expiry": "Üz məlumatlarının bitmə tarixi (Bakı vaxtı)",
     "expiryDefault": "Tədbir tarixi + 30 gün üçün boş saxlayın. Standart:",
@@ -438,7 +438,7 @@
     "guestPending": "Qonaq axtarışı 4-cü mərhələdə hazırlanacaq. Keçid hazırda hazırlıq bildirişi göstərir.",
     "removeCover": "Üz qabığını sil",
     "uploadTitle": "Şəkillərinizi əlavə edin",
-    "uploadHelp": "Orijinalları birbaşa şəxsi yaddaşa yükləyin. İşçi proses qoşulduqda emal başlayır.",
+    "uploadHelp": "Orijinalları məxfi yaddaşa yükləyin. İşçi xidməti önizləmələri hazırlayır və üzləri avtomatik indeksləyir.",
     "parallel": "4 paralel yükləmə",
     "drop": "JPEG şəkillərinizi bura buraxın",
     "fileLimit": "Yalnız JPEG · Hər şəkil ən çox 50 MB · Növbədə ən çox 10 000 fayl",
@@ -464,7 +464,6 @@
     "library": "Şəkil kitabxanası",
     "noPhotos": "Yükləmədən sonra şəkilləriniz burada görünəcək.",
     "faces": "Üzlər",
-    "pendingWorker": "Yüklənmiş şəkillər növbəyə alınıb. 3-cü mərhələdə şəkil emalı prosesi qoşulacaq.",
     "draftHelp": "Qaralama tədbir. Qonaq axtarışını aktivləşdirməzdən əvvəl parametrləri və yükləmələri hazırlayın.",
     "posterKicker": "SİZİN TƏDBİRİNİZ. SİZİN XATİRƏLƏRİNİZ.",
     "posterHeadline": "Şəkillərinizi tapmaq üçün skan edin",
@@ -492,5 +491,31 @@
       "failed": "Emal xətası"
     },
     "downloadError": "Endirmək mümkün olmadı. Yenidən cəhd edin və ya səhifəni yeniləyin."
+  },
+  "phase3": {
+    "live": "Bir neçə saniyədən bir avtomatik yenilənir. Önizləmələr məxfidir.",
+    "loading": "Şəkillər yüklənir",
+    "refresh": "Yenilə",
+    "connectionError": "Şəkilləri yeniləmək mümkün olmadı. Son nəticələr göstərilir.",
+    "retry": "Yenidən emal et",
+    "retrying": "Növbəyə əlavə edilir…",
+    "retryUnavailable": "Təkrar emal mümkün deyil. Xətadan sonra bir dəqiqə gözləyin; tədbirin açıq olduğuna və üz məlumatlarının müddətinin bitmədiyinə əmin olun.",
+    "autoRetry": "Avtomatik təkrar planlaşdırılıb. Cəhd",
+    "preview": "Şəkilə bax",
+    "close": "Bağla",
+    "noFaces": "Emal tamamlandı. Axtarış üçün uyğun üz tapılmadı.",
+    "qualitySkipped": "Bəzi üzlər çox kiçik və ya qeyri-aydın olduğundan indekslənmədi.",
+    "errors": {
+      "invalid_image": "Bu JPEG oxuna bilmir. Yenidən ixrac edib yeni faylı yükləyin.",
+      "image_too_large": "Şəkil emal ölçüsü limitini aşır.",
+      "fingerprint_mismatch": "Saxlanılan fayl yüklənən fayla uyğun deyil. Düzgün faylı yenidən yükləyin.",
+      "storage_error": "Şəkli oxumaq və ya saxlamaq mümkün olmadı. Yenidən cəhd ediləcək.",
+      "aws_access": "Üzlərin indekslənməsi mümkün deyil. Administrator AWS girişini yoxlamalıdır.",
+      "aws_unavailable": "Üzlərin indekslənməsi müvəqqəti olaraq mümkün deyil.",
+      "event_unavailable": "Tədbir bağlıdır və ya üz məlumatlarının müddəti bitib.",
+      "photo_unavailable": "Bu şəkil emal üçün əlçatan deyil.",
+      "worker_interrupted": "Emal dayandırıldı. Cəhdlər qalıbsa, avtomatik davam edəcək.",
+      "processing_error": "Emal alınmadı. Cəhdlər qalıbsa, avtomatik təkrarlanacaq."
+    }
   }
 }

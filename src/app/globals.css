@@ -3217,3 +3217,15 @@ table form {
     height: 80px;
   }
 }
+.processing-counts { display:flex; flex-wrap:wrap; gap:10px 22px; margin:18px 0 24px; font-size:13px; color:var(--muted); }
+.processing-counts strong { color:var(--ink); }
+.photo-preview-button { border:0; width:100%; padding:0; cursor:zoom-in; }
+.photo-preview-button:disabled { cursor:default; opacity:1; }
+.photo-processing-note { font-size:12px; line-height:1.6; margin:10px 0; }
+.photo-library-skeleton { aspect-ratio:3/4; border-radius:12px; background:#e9edf3; animation:pulse 1.6s ease-in-out infinite alternate; }
+.photo-preview-dialog { max-width:min(94vw,1100px); max-height:94dvh; padding:16px; border:0; border-radius:12px; margin:auto; }
+.photo-preview-dialog::backdrop { background:#07111fce; }
+.photo-preview-dialog img { width:auto; height:auto; max-width:100%; max-height:76dvh; object-fit:contain; display:block; margin:12px auto; }
+.photo-preview-dialog p { margin:8px 0 0; overflow-wrap:anywhere; }
+@keyframes pulse { from { opacity:.45; } to { opacity:1; } }
+@media(prefers-reduced-motion:reduce) { .photo-library-skeleton { animation:none; } }

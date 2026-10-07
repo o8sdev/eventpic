@@ -7,3 +7,4 @@ supabase/.temp/
 supabase/.branches/
 *.local.sql
 tmp/
+worker/dist/

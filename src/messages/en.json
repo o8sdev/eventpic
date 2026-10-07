@@ -408,7 +408,7 @@
     "originals": "Allow original-resolution downloads",
     "originalsHelp": "Guests may receive the original file, including its original metadata.",
     "watermark": "Watermark web photos",
-    "watermarkHelp": "The processing worker will apply your watermark to delivery images.",
+    "watermarkHelp": "Adds a subtle SnapMatch watermark to web photos and thumbnails. Originals stay unchanged.",
     "watermarkLocked": "Fixed after uploads begin so all delivery images use the same setting.",
     "expiry": "Face data expires on (Baku time)",
     "expiryDefault": "Leave empty for event date + 30 days. Default:",
@@ -438,7 +438,7 @@
     "guestPending": "Guest search arrives in Phase 4. The link currently shows a preparation notice.",
     "removeCover": "Remove cover",
     "uploadTitle": "Add your photographs",
-    "uploadHelp": "Upload originals directly to private storage. Processing starts when the worker is connected.",
+    "uploadHelp": "Upload originals to private storage. The worker prepares previews and indexes faces automatically.",
     "parallel": "4 parallel uploads",
     "drop": "Drop your JPEGs here",
     "fileLimit": "JPEG only · Up to 50 MB per photo · Up to 10,000 files per queue",
@@ -464,7 +464,6 @@
     "library": "Photo library",
     "noPhotos": "Your photos will appear here after upload.",
     "faces": "Faces",
-    "pendingWorker": "Uploaded photos are queued. Phase 3 connects the image-processing worker.",
     "draftHelp": "Draft event. Prepare the settings and uploads before activating guest search.",
     "posterKicker": "YOUR EVENT. YOUR MEMORIES.",
     "posterHeadline": "Scan to find your photos",
@@ -492,5 +491,31 @@
       "failed": "Processing failed"
     },
     "downloadError": "Unable to download. Please try again or refresh the page."
+  },
+  "phase3": {
+    "live": "Updates automatically every few seconds. Previews are private.",
+    "loading": "Loading photographs",
+    "refresh": "Refresh",
+    "connectionError": "Unable to refresh photos. Your last results are still shown.",
+    "retry": "Retry processing",
+    "retrying": "Queuing…",
+    "retryUnavailable": "Retry is unavailable. Wait one minute after a failure and check that the event is open and its face-data expiry is in the future.",
+    "autoRetry": "Automatic retry scheduled. Attempt",
+    "preview": "View photograph",
+    "close": "Close",
+    "noFaces": "Processed successfully. No searchable faces were found.",
+    "qualitySkipped": "Some faces were too small or unclear to index.",
+    "errors": {
+      "invalid_image": "This JPEG cannot be decoded. Export it again and upload the new file.",
+      "image_too_large": "This image exceeds the processing size limit.",
+      "fingerprint_mismatch": "The stored file does not match the upload. Upload the correct file again.",
+      "storage_error": "The image could not be read or saved. Processing will retry.",
+      "aws_access": "Face indexing is unavailable. The administrator needs to check AWS access.",
+      "aws_unavailable": "Face indexing is temporarily unavailable.",
+      "event_unavailable": "This event is closed or its face-data expiry has passed.",
+      "photo_unavailable": "This photo is unavailable for processing.",
+      "worker_interrupted": "Processing was interrupted and will resume automatically if attempts remain.",
+      "processing_error": "Processing failed. It will retry automatically if attempts remain."
+    }
   }
 }
