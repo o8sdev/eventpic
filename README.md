@@ -1,6 +1,6 @@
 # SnapMatch
 
-Private event photo delivery for Azerbaijan. Phase 1 provides a Next.js App Router / TypeScript / Tailwind app, an English interface, Supabase migrations and RLS, photographer email magic-link authentication, profile editing with private logos, and a protected dashboard shell.
+Private event management and photo delivery for professional photographers. Phase 1 provides a Next.js App Router / TypeScript / Tailwind app, an English interface, Supabase migrations and RLS, photographer email magic-link authentication, profile editing with private logos, and a protected dashboard shell.
 
 Phase 2 adds event creation/editing, private covers, QR PNG and A5 PDF downloads, and resumable bulk uploads. Phase 3 adds the separate processing worker, face indexing, durable retries and a live photographer gallery. Guest flows are not implemented yet. The privacy notice is a translated draft for legal review, not a production policy.
 
@@ -137,9 +137,9 @@ Each phase starts with a plan and approval, and ends with verification and a git
 
 ## Public website and site administration
 
-The landing page contains no images or photo galleries. It uses large type, an off-white background, cobalt accents, a dark green photographer section, numbered steps and a sage contact section. Navigation, footer and section text are CMS-driven. Scroll reveals respect reduced-motion settings; FAQs use native disclosure controls. Event-creation prompts are removed from the landing page; sign-in remains in the navbar and footer, and the closing link leads to Contact. Photographer event creation remains in the dashboard. Guest search is labelled as coming soon. Public styles are scoped in `src/app/landing.css`.
+The landing page contains no images or photo galleries. It uses large type, an off-white background, cobalt accents, a dark green photographer section, numbered steps and a sage contact section. Navigation, footer and section text are CMS-driven. Scroll reveals respect reduced-motion settings; FAQs use native disclosure controls. Event-creation prompts are removed from the landing page; sign-in remains in the navbar and footer, and the closing link leads to Contact. Photographer event creation remains in the dashboard. Public copy focuses on the photographer workflow, workspace and delivery controls, without location or launch-status announcements. Product and Resources dropdowns support keyboard navigation, Escape and outside-click dismissal, with grouped navigation on mobile. Public styles are scoped in `src/app/landing.css`.
 
-All application routes and controls use English. Language selectors are removed and event forms submit English. Historical database locale values and CMS documents remain compatible; only English content is loaded and edited by the app. Retired image and primary-button fields remain in saved documents, but their landing-page editor controls are hidden. Supplied brand assets remain in `public/brand`; the landing uses a text/CSS wordmark. The browser icon and sharing image remain configurable. Images may still appear on sign-in and photographer event pages.
+All application routes and controls use English. Language selectors are removed and event forms submit English. Historical database locale values and CMS documents remain compatible; only English content is loaded and edited by the app. Retired image, availability-notice and primary-button fields remain in saved documents, but their landing-page editor controls are hidden. Supplied brand assets remain in `public/brand`; the landing uses a text/CSS wordmark. The browser icon and sharing image remain configurable. The sign-in page is also image-free, with a responsive email form and distinct success/error feedback. Photographer event pages still show private event images.
 
 The system-admin portal at `/en/admin` provides:
 
@@ -168,7 +168,7 @@ The public `get_site_content(locale)` RPC returns only published website content
 
 ### Manual review
 
-1. Review `/en` at mobile and desktop widths: no landing images, language selector or Create event links. Check section anchors, FAQs, mobile navigation, legal/contact links and back-to-top. Open `/az` and `/ru/login?notice=sent` to verify English redirects.
+1. Review `/en` at mobile and desktop widths: no landing images, language selector or Create event links. Check Product/Resources dropdowns with keyboard, Escape and outside clicks, then section anchors, FAQs, mobile navigation, legal/contact links and back-to-top. Review the image-free login page and its sent/invalid/authError feedback states. Open `/az` and `/ru/login?notice=sent` to verify English redirects.
 2. Anonymous access to `/en/admin` must return to login. A signed-in photographer without enabled admin membership must receive a 404.
 3. As the provisioned admin, change and save a headline. Public copy must stay unchanged until Publish. Open the private preview, publish, then reload the public site.
 4. Open two editor tabs and save in one; saving the stale tab must report a version conflict and retain its input. Restoring history must alter only the draft until published.

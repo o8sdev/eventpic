@@ -3,9 +3,8 @@ import { isLocale, messages } from "@/lib/i18n";
 import { createClient, isConfigured } from "@/lib/supabase/server";
 import { signIn } from "../actions";
 import { SubmitButton } from "@/components/submit-button";
-import Image from "next/image";
 import Link from "next/link";
-import { getSiteContent } from "@/lib/site/server";
+import { Icon } from "@/components/icon";
 export default async function Login({
   params,
   searchParams,
@@ -16,7 +15,6 @@ export default async function Login({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = messages[locale];
-  const content = await getSiteContent(locale);
   const configured = isConfigured();
   if (configured) {
     const client = await createClient();
@@ -37,55 +35,92 @@ export default async function Login({
         : notice === "authError"
           ? t.authError
           : "";
+  const error = notice === "invalid" || notice === "authError";
   return (
-    <div className="landing auth-landing">
-      <section className="hero">
-        <p className="eyebrow">{t.photographers}</p>
-        <h1>{t.landing.loginIntro}</h1>
-        <p className="intro">{t.landing.loginBody}</p>
-        <div className="auth-photo">
-          <Image
-            src={content.branding.heroImage}
-            alt={content.branding.imageAlt}
-            fill
-            sizes="(max-width:760px) 100vw, 40vw"
-          />
-        </div>
-      </section>
-      <section className="card login-card">
-        <span className="small-flower" aria-hidden="true">
-          ✧
-        </span>
-        <h2>{configured ? t.login : t.setup}</h2>
-        {configured && (
-          <p className="muted login-hint">{t.landing.loginHint}</p>
-        )}
-        {configured ? (
-          <form action={signIn}>
-            <input name="locale" type="hidden" value={locale} />
-            <label htmlFor="email">{t.email}</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              maxLength={254}
-            />
-            <SubmitButton label={t.send} pending={t.sending} />
-            {noticeText && (
-              <p role="status" className="notice">
-                {noticeText}
-              </p>
-            )}
-          </form>
-        ) : (
-          <p className="muted">{t.setupBody}</p>
-        )}
-        <Link className="auth-back" href={`/${locale}`}>
-          ← {t.landing.home}
+    <div className="signin-page">
+      <div className="signin-shell">
+        <Link className="signin-back" href={`/${locale}`}>
+          <span aria-hidden="true">←</span> {t.landing.home}
         </Link>
-      </section>
+        <div className="signin-layout">
+          <section className="signin-intro">
+            <p className="signin-kicker">{t.signin.eyebrow}</p>
+            <h1>
+              {t.signin.title}
+              <span>{t.signin.accent}</span>
+            </h1>
+            <p className="signin-description">{t.landing.loginBody}</p>
+            <ul className="signin-topics" aria-label={t.signin.workspaceLabel}>
+              {t.signin.topics.map((topic) => (
+                <li key={topic}>{topic}</li>
+              ))}
+            </ul>
+          </section>
+          <section className="signin-panel" aria-labelledby="signin-title">
+            <div className="signin-panel-heading">
+              <span className="signin-key" aria-hidden="true">
+                <Icon name="lock" size={20} />
+              </span>
+              <span className="signin-kicker">{t.signin.access}</span>
+            </div>
+            <h2 id="signin-title">{configured ? t.login : t.setup}</h2>
+            {configured ? (
+              <>
+                <p className="signin-hint" id="signin-hint">
+                  {t.landing.loginHint}
+                </p>
+                {noticeText && (
+                  <p
+                    id="signin-notice"
+                    role={error ? "alert" : "status"}
+                    className={`signin-notice${error ? " signin-notice-error" : ""}`}
+                  >
+                    {noticeText}
+                  </p>
+                )}
+                <form action={signIn}>
+                  <input name="locale" type="hidden" value={locale} />
+                  <label htmlFor="email">{t.email}</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    inputMode="email"
+                    required
+                    autoComplete="email"
+                    autoCapitalize="none"
+                    spellCheck={false}
+                    maxLength={254}
+                    placeholder={t.signin.emailPlaceholder}
+                    aria-invalid={notice === "invalid" || undefined}
+                    aria-describedby={
+                      error ? "signin-hint signin-notice" : "signin-hint"
+                    }
+                  />
+                  <SubmitButton label={t.send} pending={t.sending} />
+                </form>
+                <p className="signin-account-note">{t.signin.accountNote}</p>
+              </>
+            ) : (
+              <p className="signin-hint">{t.setupBody}</p>
+            )}
+            <div className="signin-help">
+              <span>{t.signin.help}</span>
+              <Link href={`/${locale}/contact`}>
+                {t.modern.contact}
+                <Icon name="arrow" size={16} />
+              </Link>
+            </div>
+          </section>
+        </div>
+        <div className="signin-bottom">
+          <span>{t.signin.footnote}</span>
+          <nav aria-label={t.modern.legal}>
+            <Link href={`/${locale}/privacy`}>{t.privacy}</Link>
+            <Link href={`/${locale}/terms`}>{t.modern.terms}</Link>
+          </nav>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 {
   "brand": "SnapMatch",
-  "tagline": "Beautiful moments. Effortlessly shared.",
-  "intro": "A private home for your event photographs. Give every guest a simple way to find their own memories.",
+  "tagline": "Your photography. Better organised.",
+  "intro": "A private workspace for event photographers. Organise shoots, manage uploads and prepare photo delivery in one place.",
   "photographers": "FOR PHOTOGRAPHERS",
   "login": "Sign in",
   "email": "Email address",
@@ -13,7 +13,7 @@
   "setup": "Connect Supabase to get started",
   "setupBody": "Add your Supabase URL and publishable key to .env.local. Setup instructions are in the README.",
   "dashboard": "Your events",
-  "dashboardIntro": "A thoughtful space for every celebration.",
+  "dashboardIntro": "Manage your shoots, photographs and delivery settings.",
   "profile": "Your profile",
   "logout": "Sign out",
   "privacy": "Privacy",
@@ -47,23 +47,35 @@
   "logoHint": "JPEG or PNG, up to 2 MB. Your logo is stored privately.",
   "saveLogo": "Save logo",
   "notFound": "Page not found",
+  "signin": {
+    "eyebrow": "YOUR PHOTOGRAPHER WORKSPACE",
+    "title": "Your work.",
+    "accent": "All together.",
+    "workspaceLabel": "Your workspace",
+    "topics": ["Events", "Photographs", "Delivery"],
+    "access": "EMAIL ACCESS",
+    "emailPlaceholder": "you@yourstudio.com",
+    "accountNote": "Use the same email each time to access your events.",
+    "help": "Need a hand?",
+    "footnote": "A little less admin. More time behind the camera."
+  },
   "landing": {
-    "navHow": "How it works",
-    "navStudio": "For photographers",
-    "navFaq": "Questions",
+    "navHow": "Workflow",
+    "navStudio": "Event workspace",
+    "navFaq": "FAQs",
     "eyebrow": "MADE FOR MOMENTS THAT MATTER",
     "title": "Every memory.",
     "titleAccent": "Find yours.",
     "description": "From birthdays to big stages, bring event photographs to the people in them.",
     "primary": "For photographers",
     "secondary": "Explore the experience",
-    "note": "Photographers can start today. Guest search is coming soon.",
-    "imageAlt": "Friends celebrating a rooftop birthday with cake and confetti in Baku",
+    "note": "A private workspace for professional event photography.",
+    "imageAlt": "Friends celebrating a rooftop birthday with cake and confetti",
     "caption": "Big nights. Small gatherings. Your moments.",
     "demo": "EXPERIENCE PREVIEW",
     "phoneTitle": "Your moments",
     "phoneSubtitle": "A gallery, just for you",
-    "sampleEvent": "A birthday in Baku",
+    "sampleEvent": "A birthday celebration",
     "sampleLabel": "Illustrative gallery",
     "sampleCaption": "AI-generated imagery · Product preview",
     "strip": [
@@ -71,111 +83,111 @@
       "Private by default",
       "Built for photographers"
     ],
-    "howEyebrow": "LESS SEARCHING. MORE REMEMBERING.",
-    "howTitle": "From a beautiful day to your favourite photos.",
-    "howDescription": "Open the event link, take a selfie and find the photographs you’re in.",
+    "howEyebrow": "YOUR WORKFLOW",
+    "howTitle": "From shoot to handover.",
+    "howDescription": "Keep the work after the shoot straightforward, with each event organised from the start.",
     "steps": [
       {
-        "title": "Scan the event QR",
-        "body": "Open your event link. No guest account needed.",
+        "title": "Set up your event",
+        "body": "Add the details, choose download permissions and set your watermark preferences.",
         "icon": "qr"
       },
       {
-        "title": "Take a selfie",
-        "body": "Read the privacy notice and give consent first.",
-        "icon": "face"
+        "title": "Upload your photographs",
+        "body": "Add JPEGs in batches. Follow processing progress and retry interrupted uploads.",
+        "icon": "image"
       },
       {
-        "title": "Find your photos",
-        "body": "See the photos you appear in and save your favourites.",
-        "icon": "image"
+        "title": "Prepare your delivery",
+        "body": "Keep your event link, QR code and printable poster ready for your client.",
+        "icon": "qr"
       }
     ],
-    "studioEyebrow": "FOR PHOTOGRAPHERS",
+    "studioEyebrow": "THE WORKSPACE",
     "studioTitle": "You capture the story. Let every guest find their part.",
-    "studioBody": "Keep each shoot organised. Upload in batches, prepare your event link and choose how your photos are delivered.",
+    "studioBody": "One place for event details, photo processing and delivery settings. Keep every shoot separate and every file accounted for.",
     "benefits": [
       {
-        "title": "Upload in batches",
-        "body": "Drop in your JPEGs. Track each file and retry interrupted uploads."
+        "title": "Built for a full shoot",
+        "body": "Upload large batches with per-file progress and retries. Pick up interrupted uploads without duplicating files."
       },
       {
-        "title": "Share one event link",
-        "body": "Download a QR code or print an A5 poster for the venue."
+        "title": "A clear view of every file",
+        "body": "See processing status and face counts alongside private previews, so you know which photos are ready."
       },
       {
-        "title": "Keep it your way",
-        "body": "Set download permissions, watermark preferences and a face-data expiry date."
+        "title": "Your delivery settings",
+        "body": "Choose original download permissions, watermark preferences and a retention date for each event."
       }
     ],
     "studioCta": "Open photographer sign-in",
-    "privacyEyebrow": "PRIVACY BY DESIGN",
+    "privacyEyebrow": "CONTROL & PRIVACY",
     "privacyTitle": "Trust belongs in the picture.",
-    "privacyBody": "Guests decide whether to use face search. Searches stay within one event, and face data has a deletion date.",
+    "privacyBody": "Your client work belongs in a private workspace. Set the permissions and retention rules for each event.",
     "privacyItems": [
       {
-        "title": "Consent first",
-        "body": "Read the notice before using the camera."
+        "title": "Private storage",
+        "body": "Your event photographs stay private. Access is checked before a preview is shared."
       },
       {
-        "title": "Only your event",
-        "body": "Face search stays within this event."
+        "title": "Separate events",
+        "body": "Keep each shoot and its face index isolated from other events."
       },
       {
-        "title": "A clear expiry",
-        "body": "Your photographer sets when face data expires."
+        "title": "Download controls",
+        "body": "Decide whether original-resolution downloads are allowed for an event."
       },
       {
-        "title": "A removal option",
-        "body": "Guest results will include a way to remove yourself."
+        "title": "Retention settings",
+        "body": "Set the face-data expiry date as part of your event setup."
       }
     ],
     "privacyLink": "Read the privacy notice",
-    "faqTitle": "Before you get started.",
+    "faqTitle": "The details, before you begin.",
     "faqs": [
       {
-        "q": "What can I use today?",
-        "a": "Photographers can create events, upload photos and download QR posters. Guest face search and photo delivery are coming soon."
+        "q": "Who is SnapMatch for?",
+        "a": "SnapMatch is a workspace for event photographers and photography businesses managing multiple shoots, large photo collections and client handovers."
       },
       {
-        "q": "Which events is SnapMatch for?",
-        "a": "Weddings, birthdays, corporate events, concerts, graduations and family gatherings. Photographers can keep each event in its own gallery."
+        "q": "What kinds of events can I manage?",
+        "a": "Corporate events, conferences, concerts, weddings, birthdays and more. Each event has its own details, photographs and delivery settings."
       },
       {
-        "q": "Do guests need an account?",
-        "a": "No guest account is planned. Guests will open their event link, give consent and take a selfie."
+        "q": "How do bulk uploads work?",
+        "a": "Select or drop in your JPEGs and follow the progress of each file. If an upload is interrupted, select the same files again to resume without duplicating completed uploads."
       },
       {
-        "q": "Will you keep my selfie?",
-        "a": "Search is designed to use the selfie temporarily and discard it. Event face data has a separate expiry date. See the privacy notice for details."
+        "q": "Can I control original downloads and watermarks?",
+        "a": "Yes. Set download permissions and watermark preferences for each event. Choose the watermark setting before uploading so the processed collection stays consistent."
       },
       {
-        "q": "Are the photo galleries public?",
-        "a": "Event photos are stored privately. Guest delivery is being built to show each guest only the photos matched to them."
+        "q": "Can I print a QR code for an event?",
+        "a": "Yes. Each event has a link, a downloadable QR PNG and a printable A5 poster containing the event details."
       }
     ],
     "closingEyebrow": "EVERY CELEBRATION HAS A STORY",
     "closingTitle": "Give every memory a way home.",
-    "closingBody": "Have an event in mind? Talk to us about using SnapMatch for your photography business.",
-    "footer": "Made for every kind of event in Azerbaijan.",
+    "closingBody": "Tell us about your photography business and how you manage event delivery.",
+    "footer": "A workspace for professional event photography.",
     "loginIntro": "Your events start here.",
-    "loginBody": "From parties to conferences. Your photos, event links and delivery settings in one place.",
+    "loginBody": "Your shoots, photographs and delivery settings. One organised workspace.",
     "loginHint": "We’ll email you a secure sign-in link. No password needed.",
     "home": "Back to SnapMatch"
   },
   "modern": {
-    "badge": "EVENT PHOTOGRAPHY, DELIVERED.",
-    "title": "Good moments.",
-    "accent": "Easy to find.",
-    "description": "Bring event photos to the people in them. One private gallery, one event link, less back-and-forth.",
+    "badge": "FOR PROFESSIONAL EVENT PHOTOGRAPHY",
+    "title": "Your photography.",
+    "accent": "Better organised.",
+    "description": "Manage every shoot from one workspace. Upload your photographs, keep track of processing and put your delivery settings in order.",
     "primary": "Create your event",
-    "secondary": "Explore SnapMatch",
-    "howKicker": "THE GUEST EXPERIENCE",
-    "howTitle": "A shorter way to your photos.",
-    "studioTitle": "One place for every event.",
-    "privacyTitle": "Personal photos. Clear boundaries.",
-    "closingTitle": "Your next event, a little simpler.",
-    "footerDescription": "Photo delivery for photographers and their guests. Made for events in Azerbaijan.",
+    "secondary": "Explore the workflow",
+    "howKicker": "YOUR WORKFLOW",
+    "howTitle": "From shoot to handover.",
+    "studioTitle": "A workspace for every shoot.",
+    "privacyTitle": "Your work. Your controls.",
+    "closingTitle": "Make room for your next shoot.",
+    "footerDescription": "Event management and photo delivery tools for professional photographers.",
     "product": "Product",
     "company": "Company",
     "legal": "Legal",
@@ -184,12 +196,12 @@
     "termsTitle": "Terms of use",
     "termsBody": "Draft terms — pending legal review. SnapMatch is in development. Service availability, account responsibilities, acceptable use, pricing, cancellation, liability and dispute resolution must be completed before launch.",
     "preview": "EXAMPLE",
-    "guest": "For guests",
-    "photographer": "For photographers",
+    "guest": "Client delivery",
+    "photographer": "Your workspace",
     "scan": "Scan",
     "selfie": "Selfie",
     "photos": "Photos",
-    "eventTitle": "A birthday in Baku",
+    "eventTitle": "A birthday celebration",
     "scanLabel": "Your event photos start here",
     "scanBody": "Scan the QR. Open your event.",
     "continue": "Continue",
@@ -198,7 +210,7 @@
     "galleryTitle": "Photos with you in them",
     "matchedLabel": "Sample photos",
     "download": "Download photos",
-    "demoNote": "Guest preview · search coming soon",
+    "demoNote": "Delivery preview",
     "studioEvent": "All your events, together",
     "studioUpload": "Add photos to your event",
     "studioProgress": "Photo processing",
@@ -240,16 +252,14 @@
     "graduationLabel": "Graduations",
     "familyLabel": "Family gatherings",
     "weddingLabel": "Weddings",
-    "birthdayAlt": "Friends celebrating a rooftop birthday with cake and confetti in Baku",
-    "corporateAlt": "Professionals sharing a lively conversation at a Baku networking event",
+    "birthdayAlt": "Friends celebrating a rooftop birthday with cake and confetti",
+    "corporateAlt": "Professionals sharing a conversation at a networking event",
     "concertAlt": "Friends enjoying a live music festival under colorful stage lights",
     "graduationAlt": "University graduates celebrating together in a sunny courtyard",
     "familyAlt": "A family across generations enjoying a garden reunion picnic",
-    "weddingAlt": "Illustrative wedding couple walking through a sunlit Baku courtyard",
-    "madeIn": "Built in Azerbaijan.",
-    "guestAvailability": "Guest search is coming soon.",
-    "studioFootnote": "Your photographs. Your events. Your settings.",
-    "closingKicker": "FOR YOUR NEXT SHOOT"
+    "weddingAlt": "Wedding couple walking through a sunlit courtyard",
+    "studioFootnote": "Your events. Your workflow.",
+    "closingKicker": "FOR YOUR PHOTOGRAPHY BUSINESS"
   },
   "admin": {
     "title": "System admin",
@@ -322,8 +332,8 @@
     "groups": {
       "navigation": "Navigation",
       "hero": "Hero section",
-      "walkthrough": "How it works",
-      "studio": "Photographers",
+      "walkthrough": "Workflow",
+      "studio": "Event workspace",
       "privacy": "Privacy highlights",
       "faqs": "FAQs",
       "closing": "Final call to action",
@@ -336,7 +346,7 @@
     },
     "labels": {
       "how": "How it works",
-      "studio": "Photographers",
+      "studio": "Event workspace",
       "faq": "FAQs",
       "signIn": "Sign in label",
       "badge": "Badge",
@@ -345,7 +355,7 @@
       "description": "Description",
       "primary": "Primary button",
       "secondary": "Explore link",
-      "notice": "Availability notice",
+      "notice": "Legacy notice (not displayed)",
       "kicker": "Section label",
       "steps": "Steps",
       "body": "Body text",
@@ -414,7 +424,7 @@
     "watermark": "Watermark web photos",
     "watermarkHelp": "Adds a subtle SnapMatch watermark to web photos and thumbnails. Originals stay unchanged.",
     "watermarkLocked": "Fixed after uploads begin so all delivery images use the same setting.",
-    "expiry": "Face data expires on (Baku time)",
+    "expiry": "Face data expires on (UTC+04:00)",
     "expiryDefault": "Leave empty for event date + 30 days. Default:",
     "expiryEdit": "Changing the event date does not automatically extend face-data retention.",
     "create": "Create event",
@@ -439,7 +449,7 @@
     "qrDownload": "Download QR PNG",
     "posterDownload": "Download A5 poster",
     "qrAlt": "Guest-link QR code",
-    "guestPending": "Guest search arrives in Phase 4. The link currently shows a preparation notice.",
+    "guestPending": "Your event link and QR assets are available here.",
     "removeCover": "Remove cover",
     "uploadTitle": "Add your photographs",
     "uploadHelp": "Upload originals to private storage. The worker prepares previews and indexes faces automatically.",
@@ -472,7 +482,7 @@
     "posterKicker": "YOUR EVENT. YOUR MEMORIES.",
     "posterHeadline": "Scan to find your photos",
     "posterPrivacy": "With your consent, a selfie is used to find your photos only at this event. Face data expires on {date}. You can request removal at any time.",
-    "posterPreview": "Preparation preview - guest search is not available yet.",
+    "posterPreview": "Event preparation preview.",
     "guestPreparation": "Your event gallery is being prepared",
     "guestPreparationBody": "SnapMatch guest delivery is still in development. Please contact your photographer for photo availability.",
     "home": "About SnapMatch",
@@ -521,5 +531,21 @@
       "worker_interrupted": "Processing was interrupted and will resume automatically if attempts remain.",
       "processing_error": "Processing failed. It will retry automatically if attempts remain."
     }
+  },
+  "navigation": {
+    "primary": "Main navigation",
+    "product": "Product",
+    "resources": "Resources",
+    "contact": "Contact",
+    "workspaceDescription": "Keep shoots, files and settings together.",
+    "workflowDescription": "From event setup to photo handover.",
+    "privacy": "Privacy & access",
+    "privacyDescription": "Control permissions and retention.",
+    "help": "Help & support",
+    "helpDescription": "Talk to us about your workspace.",
+    "faqDescription": "Answers to product and workflow questions.",
+    "legal": "Policies",
+    "privacyPolicy": "Privacy policy",
+    "terms": "Terms of use"
   }
 }

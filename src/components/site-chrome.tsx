@@ -1,10 +1,9 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import { messages, type Locale } from "@/lib/i18n";
 import type { SiteContent } from "@/lib/site/schema";
-import { Icon } from "./icon";
+import { SiteHeader } from "./site-header";
 
 export function SiteChrome({
   locale,
@@ -18,7 +17,6 @@ export function SiteChrome({
   preview?: boolean;
 }) {
   const path = usePathname();
-  const [open, setOpen] = useState(false);
   const t = messages[locale];
   const m = t.modern;
   if (path.includes("/admin") && !preview) return <>{children}</>;
@@ -56,57 +54,12 @@ export function SiteChrome({
   );
   return (
     <>
-      <header className={`site-header${editorial ? " editorial-header" : ""}`}>
-        <div className="nav-inner">
-          <Link
-            href={`/${locale}`}
-            className="brand"
-            onClick={() => setOpen(false)}
-          >
-            {logo}
-          </Link>
-          <nav className="desktop-nav" aria-label={t.brand}>
-            {nav.map((n) => (
-              <Link key={n.id} href={`/${locale}#${n.id}`}>
-                {n.label}
-              </Link>
-            ))}
-          </nav>
-          <div className="header-actions">
-            <Link className="header-login" href={`/${locale}/login`}>
-              {content.navigation.signIn}
-              <Icon name="arrow" size={16} />
-            </Link>
-            <button
-              className="menu-toggle"
-              aria-label={open ? m.closeMenu : m.menu}
-              aria-expanded={open}
-              aria-controls="mobile-menu"
-              onClick={() => setOpen(!open)}
-            >
-              <Icon name={open ? "close" : "menu"} />
-            </button>
-          </div>
-        </div>
-        {open && (
-          <nav id="mobile-menu" className="mobile-nav" aria-label={m.menu}>
-            {nav.map((n) => (
-              <Link
-                onClick={() => setOpen(false)}
-                key={n.id}
-                href={`/${locale}#${n.id}`}
-              >
-                {n.label}
-                <Icon name="arrow" size={16} />
-              </Link>
-            ))}
-            <Link onClick={() => setOpen(false)} href={`/${locale}/login`}>
-              {content.navigation.signIn}
-            </Link>
-          </nav>
-        )}
-        <div className="scroll-progress" />
-      </header>
+      <SiteHeader
+        locale={locale}
+        content={content}
+        editorial={editorial}
+        logo={logo}
+      />
       <main id="top">{children}</main>
       <footer className={`site-footer${editorial ? " editorial-footer" : ""}`}>
         <div className="footer-top">

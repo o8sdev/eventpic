@@ -40,7 +40,6 @@ export function ModernLanding({
           <span className="landing-kicker">{c.walkthrough.kicker}</span>
           <h2>{c.walkthrough.title}</h2>
           <p>{c.walkthrough.description}</p>
-          <span className="landing-small-note">{m.guestAvailability}</span>
         </div>
         <ol className="landing-steps">
           {c.walkthrough.steps.map((step, i) => (
@@ -138,7 +137,6 @@ export function ModernLanding({
       <section className="landing-section landing-hero">
         <div className="landing-hero-topline">
           <span className="landing-kicker">{c.hero.badge}</span>
-          <span className="landing-edition">{m.madeIn}</span>
         </div>
         <h1>
           {c.hero.title}
@@ -147,10 +145,6 @@ export function ModernLanding({
         <div className="landing-hero-bottom">
           <div>
             <p className="landing-hero-description">{c.hero.description}</p>
-            <p className="landing-availability">
-              <span aria-hidden="true" />
-              {c.hero.notice}
-            </p>
           </div>
           <a className="landing-explore" href={learnTarget}>
             <span>{c.hero.secondary}</span>

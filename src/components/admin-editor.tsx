@@ -71,6 +71,7 @@ export function AdminEditor({
     if (
       [
         "hero.primary",
+        "hero.notice",
         "walkthrough.examplesTitle",
         "walkthrough.examplesDescription",
         "walkthrough.showExamples",
