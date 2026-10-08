@@ -69,7 +69,7 @@ export default async function Profile({
                 />
               </div>
             ))}
-            <SubmitButton label={t.save} pending={t.sending} />
+            <SubmitButton label={t.save} pending={t.saving} />
             {notice && (
               <p role="status">
                 {notice === "saved"
@@ -101,7 +101,7 @@ export default async function Profile({
               required
             />
             <p className="muted">{t.logoHint}</p>
-            <SubmitButton label={t.saveLogo} pending={t.sending} />
+            <SubmitButton label={t.saveLogo} pending={t.saving} />
           </form>
         </>
       )}

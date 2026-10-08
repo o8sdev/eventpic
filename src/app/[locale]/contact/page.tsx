@@ -14,8 +14,8 @@ export default async function Contact({
   return (
     <article className="legal-page">
       <span className="eyebrow">SnapMatch</span>
-      <h1>{c.footer.contact}</h1>
-      <p className="intro">{c.footer.description}</p>
+      <h1>{m.contactTitle}</h1>
+      <p className="intro">{m.contactIntro}</p>
       <div className="contact-details">
         {c.company.legalName && <h2>{c.company.legalName}</h2>}
         {c.company.email && (

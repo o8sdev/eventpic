@@ -316,7 +316,7 @@ export function AdminEditor({
             <div className="editor-save">
               <SubmitButton
                 label={t.save}
-                pending={messages[locale].sending}
+                pending={messages[locale].saving}
                 disabled={!valid}
               />
             </div>

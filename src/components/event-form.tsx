@@ -136,7 +136,7 @@ export function EventForm({
       <div className="form-actions">
         <SubmitButton
           label={event ? t.save : t.create}
-          pending={messages[locale].sending}
+          pending={messages[locale].saving}
         />
         <Link
           className="button button-secondary"
