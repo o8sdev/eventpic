@@ -4,7 +4,24 @@ import { z } from "zod";
 import { createClient, isConfigured } from "@/lib/supabase/server";
 import { locales } from "@/lib/i18n";
 import sharp from "sharp";
+import { authNotice } from "@/lib/auth-notice";
+import { passwordSignInSchema } from "@/lib/auth-schema";
 const localeSchema = z.enum(locales);
+export async function signInWithPassword(form: FormData) {
+  const locale = localeSchema.parse(form.get("locale"));
+  const input = passwordSignInSchema.safeParse(Object.fromEntries(form));
+  if (!input.success) redirect(`/${locale}/login?notice=credentials`);
+  if (!isConfigured()) redirect(`/${locale}/login`);
+  const client = await createClient();
+  const { error } = await client.auth.signInWithPassword(input.data);
+  // Do not distinguish a missing email from a wrong password.
+  if (error)
+    redirect(
+      `/${locale}/login?notice=${error.code === "over_request_rate_limit" ? "authRateLimit" : "credentials"}`,
+    );
+  const { data: admin } = await client.rpc("is_system_admin");
+  redirect(`/${locale}/${admin === true ? "admin" : "dashboard"}`);
+}
 export async function signIn(form: FormData) {
   const locale = localeSchema.parse(form.get("locale"));
   const email = z.email().max(254).safeParse(form.get("email"));
@@ -21,7 +38,9 @@ export async function signIn(form: FormData) {
       ).toString(),
     },
   });
-  redirect(`/${locale}/login?notice=${error ? "authError" : "sent"}`);
+  redirect(
+    `/${locale}/login?notice=${error ? authNotice(error.code) : "sent"}`,
+  );
 }
 export async function signOut(form: FormData) {
   const locale = localeSchema.parse(form.get("locale"));

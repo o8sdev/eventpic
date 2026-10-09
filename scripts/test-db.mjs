@@ -21,9 +21,11 @@ await db.exec(`
  grant insert,update,delete on storage.objects to authenticated;
 `);
 const migrationDirectory = new URL("../supabase/migrations/", import.meta.url);
-for (const name of (await readdir(migrationDirectory))
+const billingStart = "20261008150456";
+const migrations = (await readdir(migrationDirectory))
   .filter((name) => name.endsWith(".sql"))
-  .sort())
+  .sort();
+for (const name of migrations.filter((name) => name < billingStart))
   await db.exec(
     await readFile(
       new URL(`../supabase/migrations/${name}`, import.meta.url),
@@ -397,6 +399,11 @@ assert.equal(
   (await db.query("select count(*)::int n from audit_log")).rows[0].n,
   1,
 );
+// Apply billing after the legacy fixtures: verifies a populated upgrade as well
+// as the clean-install billing tests in test-billing-db.mjs.
+for (const name of migrations.filter((name) => name >= billingStart)) {
+  await db.exec(await readFile(new URL(name, migrationDirectory), "utf8"));
+}
 await db.close();
 console.log(
   "PASS: migrations, RLS, private storage, expiry, cross-event constraints, append-only logs, cascades, jobs, admin isolation, draft privacy, publishing, restore, version conflicts revocation, event ownership, immutable upload paths, resumable reservations and atomic upload completion.",

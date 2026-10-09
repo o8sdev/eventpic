@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { isLocale } from "@/lib/i18n";
 import { getSiteContent } from "@/lib/site/server";
 import { SiteChrome } from "@/components/site-chrome";
+import { getPricing } from "@/lib/billing/server";
 export async function generateMetadata({
   params,
 }: {
@@ -32,8 +33,16 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
+  const [content, pricing] = await Promise.all([
+    getSiteContent(locale),
+    getPricing(),
+  ]);
   return (
-    <SiteChrome locale={locale} content={await getSiteContent(locale)}>
+    <SiteChrome
+      locale={locale}
+      content={content}
+      pricingVisible={Boolean(pricing?.visible)}
+    >
       {children}
     </SiteChrome>
   );

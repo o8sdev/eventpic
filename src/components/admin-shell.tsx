@@ -18,6 +18,8 @@ export function AdminShell({
   const links = [
     { suffix: "", label: t.overview, icon: "spark" },
     { suffix: "/edit", label: t.editor, icon: "image" },
+    { suffix: "/plans", label: messages[locale].billing.plans, icon: "spark" },
+    { suffix: "/accounts", label: messages[locale].billing.accounts, icon: "shield" },
     { suffix: "/history", label: t.history, icon: "scan" },
     { suffix: "/activity", label: t.audit, icon: "shield" },
   ];

@@ -6,6 +6,7 @@ import sharp from "sharp";
 import { locales } from "@/lib/i18n";
 import { eventSchema, MAX_COVER_BYTES, uuidSchema } from "@/lib/events/schema";
 import { photographerSession, ownedEvent } from "@/lib/events/server";
+import { quotaError } from "@/lib/billing/schema";
 type FormState = { notice: string };
 export async function saveEvent(
   _previous: FormState,
@@ -64,7 +65,7 @@ export async function saveEvent(
     p_watermark: value.watermark_enabled,
     p_expiry: value.expiry ? `${value.expiry}T00:00:00+04:00` : null,
   });
-  if (error) return { notice: "saveError" };
+  if (error) return { notice: quotaError(error.message) || "saveError" };
   let notice = "saved";
   if (image) {
     const path = `${user.id}/${event.id}/cover/${crypto.randomUUID()}.jpg`;
@@ -102,5 +103,20 @@ export async function removeCover(form: FormData) {
   revalidatePath(`/${locale}/dashboard/events/${id}`);
   redirect(
     `/${locale}/dashboard/events/${id}?notice=${error ? "coverError" : "saved"}`,
+  );
+}
+
+export async function changeEventStatus(form: FormData) {
+  const locale = z.enum(locales).parse(form.get("locale"));
+  const id = uuidSchema.parse(form.get("id"));
+  const status = z.enum(["active", "closed"]).parse(form.get("status"));
+  const { client } = await photographerSession(locale);
+  const { error } = await client.rpc("set_photographer_event_status", {
+    p_event: id,
+    p_status: status,
+  });
+  revalidatePath(`/${locale}/dashboard`);
+  redirect(
+    `/${locale}/dashboard/events/${id}?notice=${error ? quotaError(error.message) || "saveError" : "saved"}`,
   );
 }

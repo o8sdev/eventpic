@@ -3,6 +3,7 @@ import { ProcessingError } from "./errors.js";
 
 export const MAX_ORIGINAL_BYTES = 50 * 1024 * 1024;
 export const MAX_INDEX_BYTES = 5_000_000;
+export const MAX_THUMB_BYTES = 1_000_000;
 export function laplacianVariance(
   pixels: Uint8Array,
   width: number,
@@ -84,6 +85,8 @@ export async function processImage(original: Buffer, watermarked: boolean) {
       .resize(400, 400, { fit: "inside", withoutEnlargement: true })
       .jpeg({ quality: 82 })
       .toBuffer();
+    if (thumb.length > MAX_THUMB_BYTES)
+      throw new ProcessingError("image_too_large", true);
     return { web, thumb, width, height, sharpness: score };
   } catch (error) {
     if (error instanceof ProcessingError) throw error;

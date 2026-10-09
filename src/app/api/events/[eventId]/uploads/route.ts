@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { apiError, smallJson, uploadAccess } from "@/lib/events/api";
 import { uploadSchema } from "@/lib/events/schema";
+import { quotaError } from "@/lib/billing/schema";
 export const runtime = "nodejs";
 export async function POST(
   request: NextRequest,
@@ -25,8 +26,9 @@ export async function POST(
   });
   if (error)
     return apiError(
-      error.code === "42501" ? "unavailable" : "setup",
-      error.code === "42501" ? 404 : 503,
+      quotaError(error.message) ||
+        (error.code === "42501" ? "unavailable" : "setup"),
+      quotaError(error.message) ? 409 : error.code === "42501" ? 404 : 503,
     );
   const photo = data as { id: string; path: string; status: string };
   const headers = { "Cache-Control": "private, no-store" };

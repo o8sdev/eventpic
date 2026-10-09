@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { SiteNavLink as Link } from "./site-nav-link";
 import { usePathname } from "next/navigation";
 import { messages, type Locale } from "@/lib/i18n";
 import type { SiteContent } from "@/lib/site/schema";
@@ -10,11 +10,13 @@ export function SiteChrome({
   content,
   children,
   preview = false,
+  pricingVisible = false,
 }: {
   locale: Locale;
   content: SiteContent;
   children: React.ReactNode;
   preview?: boolean;
+  pricingVisible?: boolean;
 }) {
   const path = usePathname();
   const t = messages[locale];
@@ -59,6 +61,7 @@ export function SiteChrome({
         content={content}
         editorial={editorial}
         logo={logo}
+        pricingVisible={pricingVisible}
       />
       <main id="top">{children}</main>
       <footer className={`site-footer${editorial ? " editorial-footer" : ""}`}>
@@ -97,6 +100,9 @@ export function SiteChrome({
               </Link>
             ))}
             <Link href={`/${locale}/login`}>{content.navigation.signIn}</Link>
+            {pricingVisible && (
+              <Link href={`/${locale}#pricing`}>{t.billing.pricing}</Link>
+            )}
           </div>
           <div>
             <h3>{content.footer.company}</h3>

@@ -24,6 +24,7 @@ export default async function DashboardLayout({
       <nav className="dashboard-nav">
         <Link href={`/${locale}/dashboard`}>{t.dashboard}</Link>
         <Link href={`/${locale}/dashboard/profile`}>{t.profile}</Link>
+        <Link href={`/${locale}/dashboard/plan`}>{t.billing.planUsage}</Link>
         <form action={signOut}>
           <input type="hidden" name="locale" value={locale} />
           <button type="submit" className="text-button">

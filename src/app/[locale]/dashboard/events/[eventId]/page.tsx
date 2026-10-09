@@ -6,7 +6,8 @@ import { ownedEvent, guestUrl } from "@/lib/events/server";
 import { BulkUploader } from "@/components/bulk-uploader";
 import { EventShare } from "@/components/event-share";
 import { PhotoLibrary } from "@/components/photo-library";
-import { removeCover } from "../actions";
+import { removeCover, changeEventStatus } from "../actions";
+import { quotaErrors } from "@/lib/billing/schema";
 export default async function EventPage({
   params,
   searchParams,
@@ -31,7 +32,9 @@ export default async function EventPage({
         .from("branding")
         .createSignedUrl(event.cover_path, 3600)
     : null;
-  const notice = ["saved", "coverError"].includes(query.notice || "")
+  const notice = ["saved", "coverError", "saveError", ...quotaErrors].includes(
+    query.notice || "",
+  )
     ? query.notice
     : undefined;
   return (
@@ -62,10 +65,27 @@ export default async function EventPage({
       </div>
       {notice && (
         <p className="notice" role="status">
-          {t[notice as "saved" | "coverError"]}
+          {t[notice as keyof typeof t] as string}
         </p>
       )}
       {event.status === "draft" && <p className="phase-note">{t.draftHelp}</p>}
+      {(editable || event.status === "closed") && (
+        <form action={changeEventStatus} className="event-plan-control">
+          <input name="locale" value={locale} type="hidden" />
+          <input name="id" value={event.id} type="hidden" />
+          <input
+            name="status"
+            value={event.status === "closed" ? "active" : "closed"}
+            type="hidden"
+          />
+          <button type="submit" className="small-button">
+            {event.status === "closed"
+              ? messages[locale].billing.reopenEvent
+              : messages[locale].billing.closeEvent}
+          </button>
+          <p className="muted">{messages[locale].billing.closeHelp}</p>
+        </form>
+      )}
       {cover?.data && (
         <div className="event-cover">
           <Image

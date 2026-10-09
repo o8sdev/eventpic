@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { apiError, uploadAccess } from "@/lib/events/api";
 import { uuidSchema } from "@/lib/events/schema";
+import { quotaError } from "@/lib/billing/schema";
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ eventId: string; photoId: string }> },
@@ -14,7 +15,10 @@ export async function POST(
     p_photo: photoId,
   });
   if (error)
-    return apiError("retryUnavailable", error.code === "42501" ? 404 : 409);
+    return apiError(
+      quotaError(error.message) || "retryUnavailable",
+      error.code === "42501" ? 404 : 409,
+    );
   return NextResponse.json(
     { ok: true },
     { headers: { "Cache-Control": "private, no-store" } },

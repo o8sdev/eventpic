@@ -1390,3 +1390,243 @@
     transition: none;
   }
 }
+.landing-pricing {
+  scroll-margin-top: 100px;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 48px;
+}
+.pricing-card {
+  padding: 30px;
+  border: 1px solid #d8ded7;
+  background: #fff;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  color: #172320;
+}
+.pricing-featured {
+  border-color: #3458e8;
+  box-shadow: inset 0 4px #3458e8;
+}
+.pricing-card-top {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+.pricing-card-top h3 {
+  font-size: 24px;
+  letter-spacing: -0.8px;
+  margin: 0;
+}
+.pricing-card-top > span {
+  color: #3458e8;
+  background: #edf0ff;
+  padding: 5px 9px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.pricing-description {
+  min-height: 52px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #53625c;
+}
+.pricing-amount {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0 30px;
+}
+.pricing-amount strong {
+  font-size: 64px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -4px;
+  font-variant-numeric: tabular-nums;
+}
+.pricing-amount span {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #53625c;
+}
+.pricing-limits {
+  margin: 0;
+  border-top: 1px solid #e4e8e2;
+}
+.pricing-limits > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid #e4e8e2;
+  font-size: 13px;
+}
+.pricing-limits dd {
+  margin: 0;
+  font-weight: 700;
+}
+.pricing-card ul {
+  list-style: none;
+  padding: 22px 0;
+  margin: 0 0 auto;
+  display: grid;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.pricing-card li {
+  display: flex;
+  gap: 10px;
+}
+.pricing-card li span {
+  color: #3458e8;
+}
+.pricing-cta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid #cbd4cb;
+  padding: 14px 16px;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.pricing-featured .pricing-cta {
+  background: #3458e8;
+  color: #fff;
+  border-color: #3458e8;
+}
+.pricing-card details {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #53625c;
+}
+.pricing-card summary {
+  cursor: pointer;
+}
+.pricing-card details p {
+  line-height: 1.8;
+}
+.pricing-note {
+  color: #53625c;
+  font-size: 12px;
+  line-height: 1.8;
+  max-width: 820px;
+  margin: 24px 0 0;
+}
+.billing-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.billing-actions,
+.plan-editor-title,
+.plan-usage-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.plan-editor-title h2,
+.plan-usage-heading > div {
+  margin-right: auto;
+}
+.pricing-editor .admin-card,
+.plan-usage {
+  margin-bottom: 24px;
+}
+.pricing-editor textarea {
+  min-height: 80px;
+}
+.pricing-preview [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.pricing-preview .landing-section {
+  padding: 24px 0;
+  width: 100%;
+}
+.pricing-preview .pricing-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.billing-table-wrap {
+  overflow-x: auto;
+}
+.billing-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+.billing-table td,
+.billing-table th {
+  padding: 14px 10px;
+  border-bottom: 1px solid #e4e8e2;
+  overflow-wrap: anywhere;
+}
+.usage-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+  margin: 30px 0;
+}
+.usage-grid > div > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+.usage-grid progress {
+  width: 100%;
+  height: 8px;
+  accent-color: #3458e8;
+}
+.usage-grid small {
+  display: block;
+  color: #8c4b16;
+  font-size: 12px;
+}
+.event-plan-control {
+  padding: 18px 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+@media (max-width: 1000px) {
+  .pricing-card {
+    padding: 22px;
+  }
+  .pricing-card-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+@media (max-width: 760px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .pricing-card-top {
+    flex-direction: row;
+  }
+  .pricing-description {
+    min-height: 0;
+  }
+  .billing-form-grid,
+  .usage-grid {
+    grid-template-columns: 1fr;
+  }
+  .pricing-card {
+    padding: 26px;
+  }
+}
+.audit-details { white-space:pre-wrap; overflow-wrap:anywhere; max-width:400px; font-size:12px; }

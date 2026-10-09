@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { SiteNavLink as Link } from "./site-nav-link";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { messages, type Locale } from "@/lib/i18n";
 import type { SiteContent } from "@/lib/site/schema";
@@ -11,11 +11,13 @@ export function SiteHeader({
   content,
   editorial,
   logo,
+  pricingVisible = false,
 }: {
   locale: Locale;
   content: SiteContent;
   editorial: boolean;
   logo: React.ReactNode;
+  pricingVisible?: boolean;
 }) {
   const t = messages[locale];
   const n = t.navigation;
@@ -198,6 +200,15 @@ export function SiteHeader({
               </Fragment>
             );
           })}
+          {pricingVisible && (
+            <Link
+              className="nav-contact"
+              href={`${base}#pricing`}
+              onClick={close}
+            >
+              {t.billing.pricing}
+            </Link>
+          )}
           <Link
             className="nav-contact"
             href={`${base}/contact`}
@@ -259,6 +270,11 @@ export function SiteHeader({
               {n.terms}
             </Link>
           </div>
+          {pricingVisible && (
+            <Link href={`${base}#pricing`} onClick={close}>
+              {t.billing.pricing}
+            </Link>
+          )}
           <Link
             className="mobile-signin"
             href={`${base}/login`}

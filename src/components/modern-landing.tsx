@@ -3,13 +3,17 @@ import { messages, type Locale } from "@/lib/i18n";
 import type { SiteContent } from "@/lib/site/schema";
 import { ScrollEffects } from "./scroll-effects";
 import { Icon } from "./icon";
+import { PricingSection } from "./pricing-section";
+import type { Pricing } from "@/lib/billing/schema";
 
 export function ModernLanding({
   locale,
   content: c,
+  pricing,
 }: {
   locale: Locale;
   content: SiteContent;
+  pricing?: Pricing | null;
 }) {
   const m = messages[locale].modern;
   const learnTarget = c.sections.how
@@ -170,6 +174,7 @@ export function ModernLanding({
       {c.sections.order
         .filter((key) => c.sections[key])
         .map((key) => sections[key])}
+      {pricing && <PricingSection pricing={pricing} locale={locale} />}
       <section className="landing-closing" id="contact">
         <div className="landing-section" data-reveal>
           <div>

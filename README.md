@@ -1,6 +1,6 @@
 # SnapMatch
 
-Private event management and photo delivery for professional photographers. Phase 1 provides a Next.js App Router / TypeScript / Tailwind app, an English interface, Supabase migrations and RLS, photographer email magic-link authentication, profile editing with private logos, and a protected dashboard shell.
+Private event management and photo delivery for professional photographers. The app uses Next.js App Router / TypeScript / Tailwind, an English interface, Supabase migrations and RLS, email/password authentication, profile editing with private logos, and protected photographer and system-admin dashboards. A legacy magic-link callback is retained.
 
 Phase 2 adds event creation/editing, private covers, QR PNG and A5 PDF downloads, and resumable bulk uploads. Phase 3 adds the separate processing worker, face indexing, durable retries and a live photographer gallery. Guest flows are not implemented yet. The privacy notice is a translated draft for legal review, not a production policy.
 
@@ -18,6 +18,27 @@ Open http://localhost:3000/en. The public homepage uses an image-free layout, la
 
 Run `npm run check:setup` while the web app is running to verify the configured Supabase connection, email sign-in availability, published-content RPC and anonymous table restrictions. It reads `.env.local`, makes no database changes and does not print credentials. Email delivery, authenticated uploads and AWS processing require separate integration checks.
 
+Password sign-in is the default. The initial admin uses the trusted bootstrap
+membership and `node scripts/provision-admin-password.mjs`; this creates a random
+password and saves it in ignored `tmp/admin-login.txt` without printing it.
+The script refuses to overwrite an existing handoff file. `/en/admin/accounts`
+lets verified system admins create photographers with a name, email and password.
+These accounts are auto-confirmed: no verification email is required or sent.
+The app has no public signup form or role selector. Admin account creation
+requires `SUPABASE_SERVICE_ROLE_KEY` on the server, checks the caller's Auth user
+and database admin membership first, and records activity without passwords.
+See [the dashboard testing guide](docs/testing-dashboards.md).
+
+The legacy magic-link callback remains supported. It uses PKCE: request and open
+the newest link in the **same
+browser and on the same host** (`localhost` and `127.0.0.1` are different hosts).
+A request inside Codex cannot be completed in Chrome/Edge because its verifier
+cookie stays in Codex. Any future magic-link request UI must keep requests and
+callbacks in the same browser. Links are single-use. The callback distinguishes a
+missing verifier from an expired/used link, keeps redirects on `SITE_URL` and
+never renders provider error descriptions. Run `npm run test:auth` against the
+local app to check callback failures without sending email or creating sessions.
+
 Do not overwrite an existing `.env.local` when it already contains your settings. It is ignored by git. Only the Supabase URL and publishable key may use `NEXT_PUBLIC_` variables. Never expose a service role or AWS secret with that prefix.
 
 ## Local Supabase
@@ -34,7 +55,7 @@ npx supabase status
 
 Copy the local API URL and publishable key (or legacy anon key) from `supabase status` to `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in `.env.local`. Set `SITE_URL=http://localhost:3000`, then restart Next.js. Always use the same hostname when opening the app and its email links.
 
-Local mail is captured at http://127.0.0.1:54324. Request a link from `/en/login`, open the captured email, and follow the link in the same browser. The default Supabase email template uses `{{ .ConfirmationURL }}`; the application exchanges its PKCE `code` at `/auth/confirm`.
+Local mail is captured at http://127.0.0.1:54324 if email flows are enabled later. Password sign-in and admin-created accounts do not send email. The default Supabase email template uses `{{ .ConfirmationURL }}`; the legacy callback exchanges its PKCE `code` at `/auth/confirm`.
 
 For links that must work across browsers, customize both the magic-link and signup-confirmation templates to use the token-hash route instead:
 
@@ -221,3 +242,26 @@ The hosted schema and public API checks pass. Event/upload/email integration sti
 See [worker/README.md](worker/README.md) for configuration, minimal AWS permissions, security boundaries, recovery behaviour and live acceptance steps. Install with `npm ci --prefix worker`; run `npm run worker:check`, `npm run worker:build`, then `npm run worker:start` alongside Next.js. Credentials stay in `.env.local` or the host environment.
 
 The event gallery shows private thumbnails/full previews, aggregate statuses, face counts, zero-face explanations and localized failures. It refreshes automatically without reloading cached images; dead jobs offer a guarded retry. Run `npm run test:worker` for image and processing regression tests and `npm run test:db` for queue/RLS/lease tests. The migration is deployed, but live AWS/Storage processing still needs populated service/AWS credentials and a verified photographer sign-in.
+
+## Pricing and account entitlements
+
+The AZN pricing section reads the same versioned database catalog that defines
+account allowances. System admins manage drafts, publication, history and numeric
+limits at `/en/admin/plans`; `/en/admin/accounts` manages assignments, access dates,
+scheduled changes and temporary extra capacity. Photographers see current usage at
+`/en/dashboard/plan`. Prices start at 49 / 99 / 199 AZN per month; changing the public
+catalog does not silently change existing agreements.
+
+Apply `20261008150456_pricing_entitlements.sql` after the processing migration.
+`npm run test:billing` exercises permissions, quotas, immutable pricing, upload
+reservations, storage accounting, expiry and metering idempotency. The existing
+database suite also tests upgrading populated data. See
+[the pricing backend guide](docs/pricing-and-entitlements.md) for the complete
+security model, counters and guest-flow integration contract.
+
+This phase grants access manually and does not collect payments. Search/download
+metering RPCs are ready for the guest phase; they are not yet wired to guest routes.
+Authorised download bytes do not measure actual CDN traffic from reused signed
+URLs. Billing-provider integration and controlled delivery are still required
+before offering automatic paid subscriptions. No new secrets are needed for the
+pricing/admin phase; keep existing server and worker credentials in `.env.local`.

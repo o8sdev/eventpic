@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { isLocale, messages } from "@/lib/i18n";
 import { createClient, isConfigured } from "@/lib/supabase/server";
-import { signIn } from "../actions";
+import { signInWithPassword } from "../actions";
 import { SubmitButton } from "@/components/submit-button";
 import Link from "next/link";
 import { Icon } from "@/components/icon";
@@ -34,8 +34,16 @@ export default async function Login({
         ? t.invalid
         : notice === "authError"
           ? t.authError
-          : "";
-  const error = notice === "invalid" || notice === "authError";
+          : notice === "authBrowser"
+            ? t.authBrowser
+            : notice === "authExpired"
+              ? t.authExpired
+              : notice === "authRateLimit"
+                ? t.authRateLimit
+                : notice === "credentials"
+                  ? t.passwordAuth.error
+                  : "";
+  const error = Boolean(noticeText) && notice !== "sent";
   return (
     <div className="signin-page">
       <div className="signin-shell">
@@ -78,7 +86,7 @@ export default async function Login({
                     {noticeText}
                   </p>
                 )}
-                <form action={signIn}>
+                <form action={signInWithPassword}>
                   <input name="locale" type="hidden" value={locale} />
                   <label htmlFor="email">{t.email}</label>
                   <input
@@ -97,7 +105,20 @@ export default async function Login({
                       error ? "signin-hint signin-notice" : "signin-hint"
                     }
                   />
-                  <SubmitButton label={t.send} pending={t.sending} />
+                  <label htmlFor="password">{t.passwordAuth.password}</label>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    maxLength={72}
+                    autoComplete="current-password"
+                    aria-describedby={error ? "signin-notice" : undefined}
+                  />
+                  <SubmitButton
+                    label={t.login}
+                    pending={t.passwordAuth.signingIn}
+                  />
                 </form>
                 <p className="signin-account-note">{t.signin.accountNote}</p>
               </>
